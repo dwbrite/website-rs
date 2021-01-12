@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--TODO: use custom descriptions per-page.-->
+    <meta name="description" content="Home of all things Devin Brite, more or less.">
+    <link rel="stylesheet" type="text/css" href="/resources/css/styles.css"/>
+    <link rel="shortcut icon" type="image/png" href="/resources/media/favicon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/resources/media/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/resources/fonts/Kreon/kreon.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/fonts/FiraCode/fira_code.css"/>
+    <title>{{ title }}</title>
+</head>
+
+<body>
+<header id="page-header">
+    <h1 id="title">
+        {{ title }}
+    </h1>
+    <nav>
+        <a href='/'>Home</a>
+        <a href='/portfolio'>Portfolio</a>
+        <a href='/blog'>Blog</a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock content %}
+</main>
+
+<footer id="page-footer">
+    <a href="https://keybase.io/hd" title="qui baise?">
+        <img src="/resources/media/keybase.svg" alt="keybase" style="height: 2em;">
+    </a>
+</footer>
+</body>
+<!--<script type="text/javascript" src="/resources/scripts/add_fonts.js"></script>-->
+<script type="text/javascript" src="/resources/scripts/image_loader.js" defer></script>
+
+
+</html>

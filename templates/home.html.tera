@@ -1,0 +1,48 @@
+{% extends "base" %}
+
+{% block content %}
+<article class="post">
+    <header class="post-header">
+        <h2><a href="/">about me</a></h2>
+        <time datetime="2018-10-20">c. 2018-10-20</time>
+    </header>
+
+    <p>
+        Hello! My name is Devin Brite.
+        If you're seeing this, then I'm probably working on this website <i>right now</i>.
+    </p>
+
+    <p>
+        I'm a magic man who likes to make cool things and spew funny words onto
+        screens in the pursuit of making something useful or entertaining.
+        I also fight for personal freedoms -
+        be that in the name of free software, social rights, privacy, or the open Internet.
+        You can find all my social media accounts at
+        <a href="https://keybase.io/hd">https://keybase.io/hd</a>.
+
+        (Yes, all.)
+    </p>
+
+    <p>
+        I spend most of my hobby time writing software in Rust and expanding my knowledge.
+        I like to experiment with the bleeding edge of tech, which can mean reading a 1400 page manual,
+        or dedicating way too much time to writing small games from scratch<a href="">.</a>
+        My current active projects are:
+    </p>
+
+    <ul>
+        <li>3D printing Settlers of Catan,</li>
+        <li>building this website, and</li>
+        <li>writing a game called void using rust & wgpu.</li>
+    </ul>
+
+    <hr/>
+
+    <p>
+        P.S.
+        <a href="https://docs.google.com/spreadsheets/d/1R9KzpWbyOp9GM-laW3as4nkQBD2jWWaAT8XgrpFzJN0/edit?usp=sharing">
+            I <i>quite</i> like spreadsheets.
+        </a>
+    </p>
+</article>
+{% endblock content %}

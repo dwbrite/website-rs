@@ -1,0 +1,89 @@
+$face-code: "Fira Code", monospace;
+$face-serif: "Kreon", serif;
+
+
+
+@media screen and (min-width: 320px) {
+  body {
+    font-size: calc(1.2rem);
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  body {
+    font-size: 19px;
+    line-height: 1.5em;
+  }
+}
+
+
+body {
+  font-family: $face-serif;
+  letter-spacing: 0.3px;
+  -webkit-text-size-adjust: none;
+
+  overflow-wrap: break-word;
+}
+
+article {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+
+  a {
+    overflow-wrap: anywhere;
+  }
+
+  b, strong {
+    font-weight: 500;
+  }
+}
+
+button, .post-header,  {
+  font-family: $face-code;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  white-space: nowrap;
+  text-wrap: none;
+  time {
+    font-family: $face-serif;
+    font-size: smaller;
+  }
+}
+
+code, ol>li::marker {
+  font-family: $face-code;
+  font-size: smaller;
+}
+
+button {
+  font-size: 0.8em;
+  font-weight: bold;
+  #font-btn {
+    font-style: italic;
+  }
+}
+
+// headings
+body {
+  h1, h2, h3, h4, h5, h6 {
+    font-style: oblique;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 1.4em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    margin: 0.5em 0 0.25em;
+  }
+
+  h3, h4 {
+    font-size: 1em;
+  }
+}
+
+ul > li {
+  list-style-type: "- ";
+}

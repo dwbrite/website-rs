@@ -1,0 +1,27 @@
+title = "gifbackgroundifier"
+date = 2015-08-06
+tags = ["etc"]
+content = """
+<noscript class="media-noscript">
+    <img src="/blog/media/gifbackgroundifier.gif" alt="image"/>
+</noscript>
+
+<p>Finished my “GifBackgroundifier”! Set an animated .gif as your background on a Windows computer!
+    I think it’s pretty rad, and if you’d like to try it just ask.</p>
+
+<hr>
+
+<p>
+    <a href="/blog/media/GifBackgroundifier.jar" download="GifBackgroundifier.jar">Download GifBackgroundifier.jar</a>
+</p>
+
+<p>If your GIF doesn’t work, try opening it in GIMP and exporting it to a new file with the highest quality.
+    This is just the first version so I haven’t made an error popup,
+    but you can tell if your GIF doesn’t work by if the loading bar moves or not.</p>
+
+<p>Windows only, sorry.<br/></p>
+
+<p>Feel free to send me ideas, suggestions, or complaints!<br/></p>
+
+<p>Warning: This program uses a decent amount of processing power, about 12% on my laptop.<br/></p>
+"""

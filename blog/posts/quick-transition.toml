@@ -1,0 +1,29 @@
+title = "quick transition"
+date = 2015-12-30
+tags = ["etc"]
+content = """
+<p>A few days ago I transferred my domains from GoDaddy to Google Domains,
+    and while the process isn’t quite complete yet, it should be done pretty soon.
+    With this, I’ll also be changing the format of the website a little bit.
+    The daily updates page hasn’t really been working out,
+    so I’ll be converting that into a personal blog.
+    I often find that I just want to say something that’s not really important,
+    and I simply can’t find a reason to clutter my dev log with it.</p>
+
+<p><s>I’ll be separating the site into separate sub-domains for each part.
+        The dev log will become dev.dwbrite.com, the blog will become blog.dwbrite.com,
+        and the about me will become simply dwbrite.com.
+        Then I think I’ll just add a portfolio and everything should be set.
+        Things might get ugly for a minute but just pretend nothing happened. :)</s></p>
+
+<p>For actual projects/development, I’m finally starting the headphone/audio cable!
+    All the parts should be here by the 14th at the latest so if everything goes as planned
+    I’ll get a post up shortly after.</p><p>On a similar note,
+    I haven’t made a post regarding the creation of the light board.
+    For that I’m sorry, but I do have an explanation.
+    I <b><i>really</i></b> don’t want to take it all down, and I haven’t had a reason to make another one.
+    They’re pretty darn expensive after all!</p>
+
+<p>I guess that’s all I have to say for now, so Merry Christmas and Happy New Year!
+    I’ll be back in a few weeks!</p>
+"""

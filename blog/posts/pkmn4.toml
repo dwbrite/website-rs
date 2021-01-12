@@ -1,0 +1,39 @@
+title = "pocket progress 4"
+date = 2015-07-25
+tags = ["pkmn"]
+content = """
+<p>
+    I’ve finally got grass working beautifully,
+    and I actually discovered exactly how grass works through a funky glitch in FR/LG.</p>
+
+<p>Here’s how it works: Use cut in the north-most grass in Route 1,
+    take one step into Viridian city, then go back down to the grass.
+    When you step on the empty tiles,
+    the grass particle effects show and you still have a chance of wild encounters.
+    I figured out that rather than having three separate particles
+    for each “piece” of the animation
+    (the stepped on floor, the fluttering grass/leaves, and the part that stays on above your character),
+    it’s all in one particle, that looks like this:  </p>
+
+<noscript class="media-noscript">
+    <img alt="image" src="/blog/media/pocket-progress/grass-rustle.png"/>
+</noscript>
+
+<p>and changes the depth during the animation.
+    There’s just one frame in which the second image is behind the character which led me to the discovery.</p>
+
+<p>The glitch isn’t listed anywhere I could find easily,
+    which reminds me of another visual glitch in Vermilion City, which is less interesting,
+    but showcases a glaring flaw with the layer system used in the generation 3 games.</p>
+
+<noscript class="media-noscript">
+    <img alt="image" src="/blog/media/pocket-progress/frlg-layer-glitch.png"/>
+</noscript>
+
+<p>And lastly, here’s a comparison between what my game looks like now, versus what the real game looks like.
+    Pretty close, right? Forgive the input lag on the left screen (The real game).</p>
+
+<noscript class="media-noscript">
+    <img alt="image" src="/blog/media/pocket-progress/cmp-frlg.gif"/>
+</noscript>
+"""

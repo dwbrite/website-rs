@@ -1,0 +1,13 @@
+{% extends "base" %}
+
+{% block content %}
+{% for post in posts %}
+<article class="post">
+    <header class="post-header">
+        <h2><a href="TODO: post link" id="{{ post.title }}">{{ post.title }}</a></h2>
+        <time datetime="{{ post.date }}">{{ post.date }}</time>
+    </header>
+    {{ post.content | safe }}
+</article>
+{% endfor %}
+{% endblock content %}

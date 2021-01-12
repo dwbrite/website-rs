@@ -1,0 +1,56 @@
+@import "structures";
+@import "typography";
+
+$red: #f07064;
+$white: #f5dcbc;
+$black: #000;
+$blue: #5766a6;
+$night_blue: #1d3049;
+
+body {
+  background-color: $blue;
+  background-image: url("/resources/media/starbg_indexed_alpha.png");
+  background-repeat: repeat-x;
+
+  color: $white
+}
+
+a {
+  color: $red;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: $red;
+  }
+}
+
+hr {
+  width: 80%;
+  //border: 1px solid;
+  border-image: url("/resources/media/hr.png") 1 fill;
+  border-bottom: 0;
+}
+
+blockquote {
+  border-left: 2px solid $red;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $white;
+  background: $black;
+  padding: 0.1em 0.65em;
+
+  a { color: $white; }
+}
+
+nav {
+  //a { color: $red; }
+  font-weight: bold;
+  font-style: italic;
+}
+
+p, li {
+  background-color: $blue;
+}
