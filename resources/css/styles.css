@@ -1,3 +1,5 @@
+@import url("/resources/fonts/Kreon/kreon.css");
+@import url("/resources/fonts/FiraCode/fira_code.css");
 html {
   min-height: 100%;
   display: flex;
@@ -44,7 +46,7 @@ html {
     margin: auto 1em;
     padding-bottom: 2em; }
     html main article {
-      margin: 1.5em auto 2.5em auto; }
+      margin: 3em auto 5em; }
       html main article h3, html main article h4 {
         margin-top: 1.5em; }
       html main article p {
@@ -164,7 +166,7 @@ ul > li {
   list-style-type: "- "; }
 
 body {
-  background-color: #5766a6;
+  background-color: #1d3049;
   background-image: url("/resources/media/starbg_indexed_alpha.png");
   background-repeat: repeat-x;
   color: #f5dcbc; }
@@ -197,6 +199,6 @@ nav {
   font-style: italic; }
 
 p, li {
-  background-color: #5766a6; }
+  background-color: #1d3049; }
 
 /*# sourceMappingURL=styles.css.map */

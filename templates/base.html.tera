@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/styles.css"/>
     <link rel="shortcut icon" type="image/png" href="/resources/media/favicon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/media/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="/resources/fonts/Kreon/kreon.css"/>
-    <link rel="stylesheet" type="text/css" href="/resources/fonts/FiraCode/fira_code.css"/>
     <title>{{ title }}</title>
 </head>
 
