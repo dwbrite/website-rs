@@ -1,1 +1,4 @@
 /target
+.css.map
+.css
+.sass-cache
