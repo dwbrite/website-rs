@@ -1,6 +1,5 @@
+use chrono::NaiveDate;
 use rocket::http::RawStr;
-use rocket::Route;
-use rocket_contrib::templates::Template;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
@@ -31,20 +30,38 @@ pub(crate) mod routes {
         #[derive(Debug, Serialize, Deserialize, PartialEq)]
         struct Ctx {
             title: String,
+            is_night: bool,
             posts: Vec<Arc<BlogPost>>,
         }
 
         let c = Ctx {
             title: "dwbrite.com".to_string(),
+            is_night: crate::is_night(),
             posts: blogstate.sorted_posts.clone(),
         };
 
         Template::render("blog", &c)
     }
 
-    #[get("/blog/post/<_title>")]
-    fn blog_post(_title: &RawStr) -> &'static str {
-        "o hej?"
+    #[get("/blog/post/<title>")]
+    fn blog_post(title: &RawStr, state: State<BlogState>) -> Template {
+        let key = title.url_decode().unwrap();
+        let post = state.title_map.get(key.as_str()).unwrap();
+
+        #[derive(Debug, Serialize, Deserialize, PartialEq)]
+        struct Ctx {
+            title: String,
+            is_night: bool,
+            posts: Vec<Arc<BlogPost>>,
+        }
+
+        let c = Ctx {
+            title: "dwbrite.com".to_string(),
+            is_night: crate::is_night(),
+            posts: vec![post.clone()],
+        };
+
+        Template::render("blog", &c)
     }
 
     #[get("/blog/tags")]
@@ -106,17 +123,34 @@ impl BlogState {
     }
 
     fn load_posts(&mut self) {
-        // TODO: reset
+        // TODO: reset vecs/maps before filling?
         let posts_path = Path::new(concat!(env!("CARGO_MANIFEST_DIR"), "/blog/posts"));
 
         for entry in fs::read_dir(posts_path).unwrap() {
             let entry_path = entry.unwrap().path();
-            let mut file = File::open(entry_path).unwrap();
-            self.sorted_posts.push(Arc::new(Self::read_post(file)));
+            let file = File::open(entry_path).unwrap();
+            let post = Arc::new(Self::read_post(file));
+            self.sorted_posts.push(post.clone());
+            self.title_map.insert(post.title.clone(), post.clone());
+
+            for tag in &post.tags {
+                if let Some(vec) = self.tags.get_mut(tag.as_str()) {
+                    vec.push(post.clone());
+                } else {
+                    self.tags.insert(tag.clone(), vec![post.clone()]);
+                }
+            }
         }
     }
 
-    fn sort_posts(&mut self) {}
+    fn sort_posts(&mut self) {
+        self.sorted_posts.sort_by(|pa, pb| {
+            let a = NaiveDate::parse_from_str(pa.date.as_str(), "%Y-%m-%d").unwrap();
+            let b = NaiveDate::parse_from_str(pb.date.as_str(), "%Y-%m-%d").unwrap();
+
+            b.cmp(&a)
+        });
+    }
 
     fn read_post(mut file: File) -> BlogPost {
         let mut s = String::new();
