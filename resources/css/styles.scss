@@ -4,14 +4,9 @@
 $red: #f07064;
 $white: #f5dcbc;
 $black: #000;
-//$blue: #5766a6;
-$blue: #1d3049;
+//$blue: #1d3049;
 
 body {
-  background-color: $blue;
-  background-image: url("/resources/media/starbg_indexed_alpha.png");
-  background-repeat: repeat-x;
-
   color: $white
 }
 
@@ -28,7 +23,6 @@ a {
 
 hr {
   width: 80%;
-  //border: 1px solid;
   border-image: url("/resources/media/hr.png") 1 fill;
   border-bottom: 0;
 }
@@ -46,11 +40,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 nav {
-  //a { color: $red; }
   font-weight: bold;
   font-style: italic;
-}
-
-p, li {
-  background-color: $blue;
 }

@@ -1,0 +1,11 @@
+$blue: #1d3049;
+
+body {
+  background-color: $blue;
+  background-image: url("/resources/media/starbg_indexed_alpha.png");
+  background-repeat: repeat-x;
+}
+
+p, li, time {
+  background-color: $blue;
+}

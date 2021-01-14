@@ -8,33 +8,28 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/styles.css"/>
     <link rel="shortcut icon" type="image/png" href="/resources/media/favicon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/media/favicon.ico" />
+    {% if is_night %}
+        <link rel="stylesheet" type="text/css" href="/resources/css/bg_dark.css"/>
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="/resources/css/bg_light.css"/>
+    {% endif %}
+    <script src="/resources/scripts/parallax.js"></script>
     <title>{{ title }}</title>
 </head>
 
 <body>
-<header id="page-header">
-    <h1 id="title">
-        {{ title }}
-    </h1>
-    <nav>
-        <a href='/'>Home</a>
-        <a href='/portfolio'>Portfolio</a>
-        <a href='/blog'>Blog</a>
-    </nav>
-</header>
+    <header id="page-header">
+        <h1 id="title"> {{ title }} </h1>
+        <nav>
+            <a href='/'>Home</a>
+            <a href='/portfolio'>Portfolio</a>
+            <a href='/blog'>Blog</a>
+        </nav>
+    </header>
 
-<main>
-    {% block content %}{% endblock content %}
-</main>
-
-<footer id="page-footer">
-    <a href="https://keybase.io/hd" title="qui baise?">
-        <img src="/resources/media/keybase.svg" alt="keybase" style="height: 2em;">
-    </a>
-</footer>
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
 </body>
-<!--<script type="text/javascript" src="/resources/scripts/add_fonts.js"></script>-->
 <script type="text/javascript" src="/resources/scripts/image_loader.js" defer></script>
-
-
 </html>
