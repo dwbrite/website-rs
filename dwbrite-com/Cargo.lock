@@ -273,17 +273,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "dwbrite-com"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "rocket",
- "rocket_contrib",
- "serde",
- "toml 0.5.8",
-]
-
-[[package]]
 name = "error-chain"
 version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -468,15 +457,6 @@ dependencies = [
  "matches",
  "unicode-bidi",
  "unicode-normalization",
-]
-
-[[package]]
-name = "img-dwbrite-com"
-version = "0.1.0"
-dependencies = [
- "rocket",
- "rocket_contrib",
- "serde",
 ]
 
 [[package]]
@@ -1373,6 +1353,17 @@ name = "wasi"
 version = "0.10.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1a143597ca7c7793eff794def352d41792a93c481eb1042423ff7ff72ba2c31f"
+
+[[package]]
+name = "website-rs"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "rocket",
+ "rocket_contrib",
+ "serde",
+ "toml 0.5.8",
+]
 
 [[package]]
 name = "winapi"
