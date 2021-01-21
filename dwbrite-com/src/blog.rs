@@ -20,8 +20,11 @@ pub(crate) mod routes {
 
     impl MountBlog for Rocket {
         fn mount_blog(self) -> Self {
-            self.mount("/", routes![blog, blog_post, blog_tags, blog_tag])
-                .manage(BlogState::new())
+            self.mount(
+                "/",
+                routes![blog, blog_post, blog_tags, blog_tag, blog_live],
+            )
+            .manage(BlogState::new())
         }
     }
 
@@ -34,10 +37,21 @@ pub(crate) mod routes {
             posts: Vec<Arc<BlogPost>>,
         }
 
+        let posts = blogstate
+            .sorted_posts
+            .iter()
+            .filter_map(|p| {
+                if p.hidden {
+                    return None;
+                }
+                Some(p.clone())
+            })
+            .collect();
+
         let c = Ctx {
             title: "dwbrite.com".to_string(),
             is_night: crate::is_night(),
-            posts: blogstate.sorted_posts.clone(),
+            posts,
         };
 
         Template::render("blog", &c)
@@ -64,6 +78,26 @@ pub(crate) mod routes {
         Template::render("blog", &c)
     }
 
+    #[get("/blog/live")]
+    fn blog_live() -> Template {
+        #[derive(Debug, Serialize, Deserialize, PartialEq)]
+        struct Ctx {
+            title: String,
+            is_night: bool,
+            posts: Vec<Arc<BlogPost>>,
+        }
+
+        let blogstate = BlogState::new();
+
+        let c = Ctx {
+            title: "dwbrite.com".to_string(),
+            is_night: crate::is_night(),
+            posts: blogstate.sorted_posts.clone(),
+        };
+
+        Template::render("blog", &c)
+    }
+
     #[get("/blog/tags")]
     fn blog_tags() -> &'static str {
         "tags"
@@ -81,15 +115,22 @@ struct RawBlogPost {
     date: Datetime,
     tags: Vec<String>,
     content: String,
+    hidden: Option<bool>,
 }
 
 impl RawBlogPost {
     fn into_blog_post(self) -> BlogPost {
+        let hidden = match self.hidden {
+            None => false,
+            Some(b) => b,
+        };
+
         BlogPost {
             title: self.title,
             date: self.date.to_string(),
             tags: self.tags,
             content: self.content,
+            hidden,
         }
     }
 }
@@ -100,6 +141,7 @@ pub struct BlogPost {
     date: String,
     tags: Vec<String>,
     content: String,
+    hidden: bool,
 }
 
 /// TODO: real docs
@@ -124,11 +166,12 @@ impl BlogState {
 
     fn load_posts(&mut self) {
         // TODO: reset vecs/maps before filling?
-        let posts_path = Path::new(concat!(env!("CARGO_MANIFEST_DIR"), "/blog/posts"));
+        let posts_path = concat!(env!("CARGO_MANIFEST_DIR"), "/blog/posts");
 
         for entry in fs::read_dir(posts_path).unwrap() {
             let entry_path = entry.unwrap().path();
             let file = File::open(entry_path).unwrap();
+
             let post = Arc::new(Self::read_post(file));
             self.sorted_posts.push(post.clone());
             self.title_map.insert(post.title.clone(), post.clone());
@@ -159,6 +202,7 @@ impl BlogState {
         // TODO: toml won't read from ^--this buffer, so I'm converting to str first.
 
         let post: RawBlogPost = toml::from_str(s.as_str()).unwrap();
+
         post.into_blog_post()
     }
 }

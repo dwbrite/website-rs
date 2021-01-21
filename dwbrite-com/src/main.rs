@@ -4,6 +4,7 @@
 extern crate rocket;
 
 use chrono::{Local, Timelike};
+use rocket::config::Value;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use serde::{Deserialize, Serialize};
@@ -34,6 +35,11 @@ fn main() {
 
     let mut dev = rocket::config::Config::development();
     dev.address = "0.0.0.0".to_string();
+    dev.port = 41234;
+    dev.extras.insert(
+        "template_dir".to_string(),
+        Value::String(concat!(env!("CARGO_MANIFEST_DIR"), "/templates").to_string()),
+    );
 
     let rocket = rocket::custom(dev);
 
