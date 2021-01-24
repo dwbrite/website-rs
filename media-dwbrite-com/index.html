@@ -1,13 +1,128 @@
 <html lang="en">
 <head>
+    <style>
 
+        body {
+            margin: 2em auto 0;
+
+            width: 48em;
+            max-width: 98vw;
+            text-align: center;
+
+            font-family: "Kreon";
+        }
+
+        h1 {
+            margin-bottom: 1em;
+        }
+
+        #upload-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #upload-form > * {
+            margin: 0 0 4em;
+        }
+
+        #media-div {
+            max-width: 100%;
+            height: 30em;
+
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+
+            background-color: #fafafa;
+            color: #666;
+            cursor: pointer;
+
+            border-style: solid;
+            border-radius: 6px;
+            border-color: #eee;
+            border-width: 1px;
+        }
+
+        #img-drop {
+            object-fit: scale-down;
+            max-height: 100%;
+        }
+
+        #desc {
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            // do something
+            let droparea = document.getElementById("media-div");
+            let input = document.getElementById("file-input");
+            let output = document.getElementById("img-drop");
+
+            droparea.addEventListener('drop', handleDrop, false);
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                droparea.addEventListener(eventName, preventDefaults, false);
+                document.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false)
+            })
+
+            function preventDefaults (e) {
+                e.preventDefault()
+                e.stopPropagation()
+            }
+
+            function handleDrop(e) {
+                let dt = e.dataTransfer;
+
+                input.files = dt.files;
+                displayFile();
+            }
+
+            function displayFile() {
+                // TODO: check if it's not an img; then display as the correct media type
+
+                let fr = new FileReader();
+                fr.onload = function () {
+                    output.src = fr.result;
+                }
+                fr.readAsDataURL(input.files[0]);
+            }
+
+            input.addEventListener("change", displayFile, false);
+        });
+    </script>
 </head>
 
 <body>
-<form action="/upload" method="post" enctype="multipart/form-data">>
-    <input type="file" name="f" required>
-    <input type="text" name="desc" required>
-    <input type="submit">
+<h1>upload media</h1>
+<form id="upload-form" action="/upload" enctype="multipart/form-data" method="post">
+
+    <div id="media-div" onclick="document.getElementById('file-input').click();" title="upload an image">
+        <input id="file-input" type="file" name="media" style="display: none;" />
+        <img id="img-drop" alt="drop me an image"/>
+        <video hidden></video>
+    </div>
+
+    <textarea id="desc" name="description" form="upload-form" placeholder="description / alt text"></textarea>
+
+    <div>
+        <label class="c">
+            Pixelated:
+            <span class="right">
+                <input id="true" name="pixelated" type="radio" value="true">
+                <label for="true">true</label>
+                <input checked id="false" name="pixelated" type="radio" value="false">
+                <label for="false">false</label>
+            </span>
+        </label>
+
+        <div class="submit"><input type="submit"></div>
+    </div>
+
 </form>
 </body>
 </html>
