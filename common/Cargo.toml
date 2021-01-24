@@ -1,0 +1,18 @@
+[package]
+name = "common"
+version = "0.1.0"
+authors = ["Devin Brite <devin@dwbrite.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = { version = "0.4.6" }
+rocket_contrib = { version = "0.4.6", default-features = false, features = ["serve", "tera_templates"] }
+
+serde = { version = "1.0", features = ["derive", "rc"] }
+serde_json = "1.0"
+toml = "0.5.8"
+
+chrono = "0.4.19"
+url = "2.2.0"

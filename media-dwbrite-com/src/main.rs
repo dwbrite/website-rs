@@ -1,8 +1,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use]
-extern crate rocket;
-extern crate rocket_multipart_form_data;
+use common::*;
+
 use rocket_multipart_form_data::{
     MultipartFormData, MultipartFormDataField, MultipartFormDataOptions,
 };
@@ -14,7 +13,6 @@ use rocket::http::ContentType;
 use rocket::response::NamedFile;
 use rocket::Data;
 use rocket_multipart_form_data::mime::Mime;
-use std::error::Error;
 use std::fs::File;
 use std::io::{Cursor, Write};
 use std::path::{Path, PathBuf};
@@ -88,7 +86,7 @@ fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Result<Path
 
     let path = Path::new(
         format!(
-            "{}/thumbnail/{}-thumb.png",
+            "{}/media/thumbnail/{}-thumb.png",
             env!("CARGO_MANIFEST_DIR"),
             name
         )

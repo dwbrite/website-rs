@@ -1,7 +1,6 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use]
-extern crate rocket;
+use common::*;
 
 use chrono::{Local, Timelike};
 use rocket::config::Value;
@@ -52,6 +51,10 @@ fn main() {
         .mount(
             "/blog/media",
             StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/blog/media")),
+        )
+        .mount(
+            "/portfolio",
+            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/portfolio")),
         )
         .mount_blog()
         .attach(Template::fairing())
