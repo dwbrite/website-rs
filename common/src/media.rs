@@ -10,14 +10,15 @@ pub enum MediaType {
 
 #[derive(Serialize, Deserialize)]
 pub struct MediaData {
-    url: String,
-    thumbnail: Option<String>,
-    mediatype: MediaType,
-    pixelated: bool,
+    pub file: String,
+    pub thumbnail: Option<String>,
+    pub mediatype: MediaType,
+    pub pixelated: bool,
+    pub alt: String,
 }
 
-pub fn mime_to_mediatype(s: &str) -> MediaType {
-    match s {
+pub fn mime_to_mediatype(s: String) -> MediaType {
+    match s.as_str() {
         "image/png" => MediaType::PNG,
         "image/jpeg" => MediaType::JPEG,
         "image/gif" => MediaType::GIF,

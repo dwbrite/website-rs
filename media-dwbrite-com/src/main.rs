@@ -1,4 +1,5 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+mod tests;
 
 use common::*;
 
@@ -6,6 +7,7 @@ use rocket_multipart_form_data::{
     MultipartFormData, MultipartFormDataField, MultipartFormDataOptions,
 };
 
+use common::media::MediaData;
 use image::imageops::FilterType;
 use image::io::Reader as ImageReader;
 use image::ImageFormat;
@@ -13,9 +15,12 @@ use rocket::http::ContentType;
 use rocket::response::NamedFile;
 use rocket::Data;
 use rocket_multipart_form_data::mime::Mime;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::fs::File;
-use std::io::{Cursor, Write};
-use std::path::{Path, PathBuf};
+use std::io::{Cursor, Read, Write};
+use std::path::Path;
+use std::sync::Mutex;
 
 #[get("/")]
 fn homepage() -> NamedFile {
@@ -24,7 +29,11 @@ fn homepage() -> NamedFile {
 }
 
 #[post("/upload", data = "<data>")]
-fn multipart_upload(content_type: &ContentType, data: Data) -> String {
+fn multipart_upload(
+    registry: State<Mutex<MediaRegistry>>,
+    content_type: &ContentType,
+    data: Data,
+) -> String {
     let options = MultipartFormDataOptions::with_multipart_form_data_fields(vec![
         MultipartFormDataField::raw("media").size_limit(10 * 1024 * 1024),
         MultipartFormDataField::text("description"),
@@ -34,20 +43,20 @@ fn multipart_upload(content_type: &ContentType, data: Data) -> String {
     let mut multipart_form_data = MultipartFormData::parse(content_type, data, options).unwrap();
 
     let mut f = multipart_form_data.raw.remove("media").unwrap();
-    let desc = multipart_form_data.texts.remove("description").unwrap();
-    let pixelated = multipart_form_data
+    let desc = multipart_form_data
         .texts
-        .remove("pixelated")
+        .remove("description")
         .unwrap()
-        .remove(0)
-        .text;
-    println!("THIS IS PIXELATED: {}", pixelated);
+        .first()
+        .unwrap()
+        .text
+        .clone();
     let raw = f.remove(0);
     let mime = raw.content_type.unwrap();
     let filename = raw.file_name.unwrap();
     let data = raw.raw;
 
-    let thumbnail_result = save_thumbnail(&mime, &filename, &data);
+    let thumbnail = save_thumbnail(&mime, &filename, &data);
     // TODO: handle thumbnail result
 
     let mut file = File::create(format!(
@@ -64,12 +73,22 @@ fn multipart_upload(content_type: &ContentType, data: Data) -> String {
         _ => {}
     }
 
-    // TODO: save image metadata in a registry.json
+    let mediadata = MediaData {
+        file: format!("/media/{}", filename.clone()),
+        thumbnail,
+        mediatype: media::mime_to_mediatype(mime.to_string()),
+        pixelated: is_pixelated(&mut multipart_form_data),
+        alt: desc.clone(),
+    };
+
+    let mut r = registry.lock().unwrap();
+    r.content.insert(filename.clone(), mediadata);
+    r.save();
 
     format!("{:?}, {:?}", mime, desc)
 }
 
-fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Result<PathBuf, &'static str> {
+fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Option<String> {
     let format = match mime.to_string().as_str() {
         "image/gif" => Some(ImageFormat::Gif),
         "image/png" => Some(ImageFormat::Png),
@@ -78,21 +97,15 @@ fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Result<Path
     };
 
     if format.is_none() {
-        // TODO: support non-image formats
-        return Err("image format not supported");
+        // TODO: log error
+        return None;
     }
 
     let name = filename.split(".").next().unwrap();
+    let thumbnail_location = format!("/media/thumbnail/{}-thumb.png", name);
 
-    let path = Path::new(
-        format!(
-            "{}/media/thumbnail/{}-thumb.png",
-            env!("CARGO_MANIFEST_DIR"),
-            name
-        )
-        .as_str(),
-    )
-    .to_path_buf();
+    let path = Path::new(format!("{}{}", env!("CARGO_MANIFEST_DIR"), thumbnail_location).as_str())
+        .to_path_buf();
 
     // read the image with the proper format, then save it.
     ImageReader::with_format(Cursor::new(data), format.unwrap())
@@ -102,10 +115,62 @@ fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Result<Path
         .save_with_format(&path, ImageFormat::Png)
         .unwrap();
 
-    Ok(path)
+    Some(thumbnail_location)
+}
+
+fn is_pixelated(multipart_form_data: &mut MultipartFormData) -> bool {
+    let pixelated = multipart_form_data
+        .texts
+        .remove("pixelated")
+        .unwrap()
+        .remove(0)
+        .text;
+
+    match pixelated.as_str() {
+        "true" => true,
+        _ => false,
+    }
+}
+
+#[derive(Serialize, Deserialize)]
+struct MediaRegistry {
+    content: HashMap<String, MediaData>,
+}
+
+impl MediaRegistry {
+    fn read_registry() -> MediaRegistry {
+        let file = File::open(format!("{}/registry.toml", env!("CARGO_MANIFEST_DIR")).as_str());
+
+        let mut registry = MediaRegistry {
+            content: HashMap::new(),
+        };
+
+        if let Ok(mut f) = file {
+            let mut s = String::new();
+            f.read_to_string(&mut s).unwrap();
+            registry = toml::from_str(s.as_str()).unwrap();
+        }
+
+        registry
+    }
+
+    fn file() -> File {
+        let file_path = format!("{}/registry.toml", env!("CARGO_MANIFEST_DIR"));
+        File::create(file_path.as_str()).unwrap()
+    }
+
+    fn save(&self) {
+        let mut file = Self::file();
+        let toml_data = toml::to_vec(self).expect("toml_string");
+
+        file.write_all(toml_data.as_slice())
+            .expect("failed to write toml");
+    }
 }
 
 fn main() {
+    let registry = MediaRegistry::read_registry();
+
     let mut dev = rocket::config::Config::development();
     dev.address = "0.0.0.0".to_string();
     dev.port = 41233;
@@ -114,5 +179,6 @@ fn main() {
 
     rocket::custom(dev)
         .mount("/", routes![homepage, multipart_upload])
+        .manage(Mutex::new(registry))
         .launch();
 }
