@@ -5,15 +5,44 @@
 - `openssl +/ libssl-dev (on linux)`
 - `rust & cargo`
 
+recommended: 
 
-## dwbrite.com core site
+- `nginx`
+- `certbot`
+- `python3-certbox-nginx`
+- `apache-utils`
 
-runs on port 41234
+### nginx + https
+```
+server {
+    server_name dwbrite.com;
+    listen 80;
+    location / {
+        proxy_pass http://127.0.0.1:41234;
+    }
+}
 
-`cargo run --bin dwbrite-com`
+server {
+    server_name media.dwbrite.com;
+    listen 80;
 
-## dwbrite.com media server
+    location / {
+        proxy_pass http://127.0.0.1:41233;
+    }
+    
+    location /upload {
+        auth_basic "o hej me";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        
+        proxy_pass http://127.0.0.1:41233;
+    }
+}
+```
 
-runs on port 41233
+start with simple nginx routes, then run `certbot --nginx`
 
-`cargo run --bin media-dwbrite-com`
+## running dwbrite.com
+(todo: explore docker for these)
+
+`cargo run --bin dwbrite-com` (port 41234)
+`cargo run --bin media-dwbrite-com` (port 41233)

@@ -8,6 +8,7 @@ use rocket_multipart_form_data::{
 };
 
 use common::media::MediaData;
+use common::rocket_contrib::serve::StaticFiles;
 use image::imageops::FilterType;
 use image::io::Reader as ImageReader;
 use image::ImageFormat;
@@ -148,6 +149,7 @@ impl MediaRegistry {
         if let Ok(mut f) = file {
             let mut s = String::new();
             f.read_to_string(&mut s).unwrap();
+            // TODO: handle result
             registry = toml::from_str(s.as_str()).unwrap();
         }
 
@@ -175,10 +177,14 @@ fn main() {
     dev.address = "0.0.0.0".to_string();
     dev.port = 41233;
 
-    // TODO: add rest api routes
-
     rocket::custom(dev)
         .mount("/", routes![homepage, multipart_upload])
+        // TODO: serve static media files with cache headers and last-modified
+        .mount(
+            "/",
+            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/media")),
+        )
+        // TODO: serve rest api
         .manage(Mutex::new(registry))
         .launch();
 }
