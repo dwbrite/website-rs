@@ -11,3 +11,6 @@ rocket-multipart-form-data = "0.9.6"
 image = "0.23.12"
 common = { path = "../common" }
 serde = { version = "1.0", features = ["derive", "rc"] }
+
+[dev-dependencies]
+rstest = "0.6.4"

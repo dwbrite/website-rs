@@ -1,5 +1,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
-mod tests;
+#![feature(in_band_lifetimes)]
+
+mod api;
 
 use common::*;
 
@@ -7,6 +9,7 @@ use rocket_multipart_form_data::{
     MultipartFormData, MultipartFormDataField, MultipartFormDataOptions,
 };
 
+use crate::api::MountApi;
 use common::media::MediaData;
 use common::rocket_contrib::serve::StaticFiles;
 use image::imageops::FilterType;
@@ -35,6 +38,9 @@ fn multipart_upload(
     content_type: &ContentType,
     data: Data,
 ) -> String {
+
+    // TODO: add support for subdirs
+
     let options = MultipartFormDataOptions::with_multipart_form_data_fields(vec![
         MultipartFormDataField::raw("media").size_limit(10 * 1024 * 1024),
         MultipartFormDataField::text("description"),
@@ -58,7 +64,7 @@ fn multipart_upload(
     let data = raw.raw;
 
     let thumbnail = save_thumbnail(&mime, &filename, &data);
-    // TODO: handle thumbnail result
+    // TODO: handle thumb result
 
     let mut file = File::create(format!(
         "{}/media/{}",
@@ -102,8 +108,7 @@ fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Option<Stri
         return None;
     }
 
-    let name = filename.split(".").next().unwrap();
-    let thumbnail_location = format!("/media/thumbnail/{}-thumb.png", name);
+    let thumbnail_location = format!("/media/thumb/{}-thumb.png", filename);
 
     let path = Path::new(format!("{}{}", env!("CARGO_MANIFEST_DIR"), thumbnail_location).as_str())
         .to_path_buf();
@@ -181,9 +186,10 @@ fn main() {
         .mount("/", routes![homepage, multipart_upload])
         // TODO: serve static media files with cache headers and last-modified
         .mount(
-            "/",
+            "/media",
             StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/media")),
         )
+        .mount_api()
         // TODO: serve rest api
         .manage(Mutex::new(registry))
         .launch();

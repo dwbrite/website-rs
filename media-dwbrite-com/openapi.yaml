@@ -1,0 +1,85 @@
+openapi: "3.0.1"
+info:
+  title: media.dwbrite.com media server / file registry
+  version: 0.1.0
+  description: |-
+    ## TODO
+      - add non-"happy path" responses
+      - add endpoint for uploading media
+
+paths:
+  /registry:
+    get:
+      summary: "returns a list of registered media"
+      responses:
+        200:
+          description: "success"
+          content:
+            application/json:
+              examples:
+                simple:
+                  value: ["dwbrite.png", "sunset-video.webm"]
+
+  /registry/{media}:
+    parameters:
+      - name: media
+        in: path
+        description: "name of a file listed in the registry"
+        required: true
+        schema:
+          type: string
+    get:
+      summary: "returns extra metadata about the media"
+      responses:
+        200:
+          description: "success"
+          content:
+            application/json:
+              examples:
+                dwbrite.jpg:
+                  value: {
+                    "file": "/media/dwbrite.jpg",
+                    "thumbnail":"/media/thumb/dwbrite.jpg-thumb.png",
+                    "mediatype":"JPEG",
+                    "pixelated": false,
+                    "alt": "a picture of dwbrite standing in a hallway!"
+                  }
+
+
+  /media/{filename}:
+    parameters:
+      - name: filename
+        in: path
+        description: "name of a file listed in the registry"
+        required: true
+        schema:
+          type: string
+    get:
+      summary: "returns a media file"
+      responses:
+        200:
+          description: "success"
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+
+  /media/thumb/{filename}-thumb.png:
+    parameters:
+      - name: filename
+        in: path
+        description: "name of a file listed in the registry"
+        required: true
+        schema:
+          type: string
+    get:
+      summary: "returns a thumbnail if supported"
+      responses:
+        200:
+          description: "success"
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary

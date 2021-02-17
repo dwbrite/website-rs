@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum MediaType {
     PNG,
     JPEG,
@@ -8,7 +8,7 @@ pub enum MediaType {
     BLOB,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct MediaData {
     pub file: String,
     pub thumbnail: Option<String>,
