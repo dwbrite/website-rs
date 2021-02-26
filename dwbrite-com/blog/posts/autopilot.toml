@@ -1,0 +1,102 @@
+title = "autopilot"
+date = 2021-02-23
+tags = ["etc"]
+hidden = false
+content = """
+<p>
+i've fallen into a pattern of metaphorically losing my mind,
+regaining it again, and then forgetting -
+returning to a state of mere existence for months at a time.
+</p>
+
+<p>
+you go from thought - and i mean real, genuine thought - ... <br/>
+you go from genuine thought, and you become just a process. <br/>
+you may still problem solve, interact with others, et cetera, et al, <br/>
+but you live on autopilot.<br/>
+<br/>
+ask yourself: how often do you think about <i>what you're actually doing?</i>
+</p>
+
+<p>
+<em>
+where do you want to go? <br/>
+how are you going to get there? <br/>
+what are you actually doing? <br/>
+</em>
+</p>
+
+<hr/>
+
+<style>
+#autopilot-us {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 800px) {
+    #autopilot-us {
+        float: right;
+        margin: 24px;
+    }
+}
+</style>
+
+<img id="autopilot-us" src="https://dwbrite.com/blog/media/autopilot-us2.png"/>
+<p title="i'm not trying to be vulgar or edgy here. it's just funny when you stop and think about it from an 'existential' perspective. like, hello! look at the bigger picture!">
+<span>we live on some dumb rock flying through space.</span> <br/>
+we're humans.<br/>
+<strong>we live <em>because</em> we fuck.</strong> <br/>
+--- stop and acknowledge that. --- <br/>
+yet at least half of our waking lives (at work, university),<br/>
+<i><q>procreation</q></i> is unspeakable.
+</p>
+
+<p>...</p>
+
+<p>
+and that's funny. maybe a little sad. <br/>
+but that's not the point. <br/>
+the <em>point</em> is that you have to put on a facade, day in and day out. <br/>
+whether your facade is in regards to sex <br/>
+or you're embarrassed about your immense plant collection. <br/>
+you exist almost independent from your true self. <br/>
+you think differently,
+you behave differently, <br/>
+you <em>live</em> on <em>autopilot.</em>
+</p>
+
+<p>
+but sometimes, for a little while, you break out.
+</p>
+
+<hr/>
+
+<figure>
+    <blockquote>
+    i had a friend once <br/>
+    who told me that the worst mistake that you can make<br/>
+    is to think that you are alive...<br/>
+    <br/>
+    when really, you're asleep in life's waiting room.
+    </blockquote>
+    <figcaption>ukelele guy in <cite>waking life</cite></figcaption>
+</figure>
+
+<hr/>
+
+<p>
+this is a reminder to wake up. <br/>
+smell the flowers. <br/>
+get back to doing what you <em>want</em> to do. <br/>
+take that trip. <br/>
+get that project done. <br/>
+tell her how you really feel. <br/>
+<em>take off that facade.</em>
+</p>
+
+<p>
+don't let the world pass you by.
+</p>
+"""

@@ -1,5 +1,4 @@
 #![feature(proc_macro_hygiene, decl_macro)]
-#![feature(in_band_lifetimes)]
 
 mod api;
 
@@ -64,7 +63,7 @@ fn multipart_upload(
     let data = raw.raw;
 
     let thumbnail = save_thumbnail(&mime, &filename, &data);
-    // TODO: handle thumb result
+    // TODO: handle thumbnail result
 
     let mut file = File::create(format!(
         "{}/media/{}",
@@ -190,7 +189,6 @@ fn main() {
             StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/media")),
         )
         .mount_api()
-        // TODO: serve rest api
         .manage(Mutex::new(registry))
         .launch();
 }

@@ -75,7 +75,10 @@ html {
 
       h3, h4 { margin-top: 1.5em; }
       p { margin: 1em; }
-      hr { margin-bottom: 2em; }
+      hr {
+        left: 0;
+        margin: 1.5em auto;
+      }
       ol { margin-left: 2em; }
 
       blockquote {

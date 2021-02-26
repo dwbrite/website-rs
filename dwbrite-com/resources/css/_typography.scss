@@ -4,16 +4,9 @@
 $face-code: "Fira Code", monospace;
 $face-serif: "Kreon", serif;
 
-
-@media screen and (min-width: 320px) {
-  body {
-    font-size: calc(1.2rem);
-  }
-}
-
 @media screen and (min-width: 1080px) {
   body {
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.5em;
   }
 }
@@ -33,10 +26,6 @@ article {
 
   a {
     overflow-wrap: anywhere;
-  }
-
-  b, strong {
-    font-weight: 500;
   }
 }
 
@@ -88,4 +77,9 @@ body {
 
 ul > li {
   list-style-type: "- ";
+}
+
+figcaption {
+  font-size: smaller;
+  margin-top: -1  em;
 }
