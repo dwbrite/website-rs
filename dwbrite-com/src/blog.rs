@@ -9,6 +9,8 @@ use std::fs::File;
 use std::io::Read;
 use std::sync::Arc;
 use toml::value::Datetime;
+use common::regex::{Regex, Captures};
+use common::media::{MediaData, MediaType};
 
 pub(crate) mod routes {
     use crate::blog::*;
@@ -120,11 +122,13 @@ struct RawBlogPost {
 }
 
 impl RawBlogPost {
-    fn into_blog_post(self) -> BlogPost {
+    fn into_blog_post(mut self) -> BlogPost {
         let hidden = match self.hidden {
             None => false,
             Some(b) => b,
         };
+
+        self.codify_media();
 
         BlogPost {
             title: self.title,
@@ -133,6 +137,62 @@ impl RawBlogPost {
             content: self.content,
             hidden,
         }
+    }
+
+    fn codify_media(&mut self) {
+        let re = Regex::new(r#"<m src="(.*?)".*?>"#).unwrap();
+        let result = re.replace_all(&self.content, |caps: &Captures| -> String {
+            let mediadata_url = format!("https://media.dwbrite.com/registry/{}", &caps[1]);
+            // let mediadata_url = format!("https://media.dwbrite.com/registry/{}", &caps[1]);
+
+            // TODO: handle unsuccessful responses
+            let response = reqwest::blocking::get(&mediadata_url).unwrap();
+            println!("url: {}", mediadata_url);
+            println!("response? {:?}", response);
+            let bytes = response.bytes().unwrap();
+
+            let data: MediaData = serde_json::from_slice(bytes.to_vec().as_slice()).unwrap();
+
+            use MediaType::*;
+            match data.mediatype {
+                PNG | JPEG | GIF => {
+                    let mut class_list = vec!["media-content"];
+
+                    if data.pixelated {
+                        class_list.push("pxl");
+                    }
+
+                    let mut classes = String::new();
+                    for s in class_list {
+                        classes.push_str(s);
+                        classes.push(' ');
+                    }
+
+                    let base = "https://media.dwbrite.com";
+                    let src = format!("{}{}", base, data.file);
+                    let thumb = format!("{}{}", base, data.thumbnail.unwrap());
+
+                    format!(r#"
+                        <noscript class="media-noscript" data-src="{src}">
+                            <img class='{classes}' alt='{alt}' src='{src}' width='{width}' height='{height}'/>
+                        </noscript>
+
+                        <script>
+                            store_img_data("{src}", {{
+                                file: "{src}",
+                                thumbnail: "{thumb}",
+                                pixelated: {pixelated},
+                                alt: "{alt}",
+                                width: {width},
+                                height: {height}
+                            }});
+                        </script>
+                    "#, classes=classes, alt=data.alt, src=src, width=data.width, height=data.height, thumb=thumb, pixelated=data.pixelated)
+                }
+                BLOB => { String::from("{ media type not yet supported. contact dwbrite@gmail.com if you see this text. }") }
+            }
+        });
+        self.content = result.to_string();
     }
 }
 

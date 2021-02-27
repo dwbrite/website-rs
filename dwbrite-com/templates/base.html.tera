@@ -10,6 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/resources/media/favicon.ico" />
 
     <script src="/resources/scripts/parallax.js"></script>
+    <script src="/resources/scripts/store_img_data.js"></script>
     <title>{{ title }}</title>
 </head>
 

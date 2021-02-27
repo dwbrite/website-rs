@@ -15,6 +15,8 @@ pub struct MediaData {
     pub mediatype: MediaType,
     pub pixelated: bool,
     pub alt: String,
+    pub width: u32,
+    pub height: u32,
 }
 
 pub fn mime_to_mediatype(s: String) -> MediaType {

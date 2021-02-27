@@ -2,9 +2,7 @@ title = "gifbackgroundifier"
 date = 2015-08-06
 tags = ["etc"]
 content = """
-<noscript class="media-noscript">
-    <img src="/blog/media/gifbackgroundifier.gif" alt="image"/>
-</noscript>
+<m src="gifbackgroundifier.gif">
 
 <p>Finished my “GifBackgroundifier”! Set an animated .gif as your background on a Windows computer!
     I think it’s pretty rad, and if you’d like to try it just ask.</p>

@@ -13,7 +13,7 @@ use common::media::MediaData;
 use common::rocket_contrib::serve::StaticFiles;
 use image::imageops::FilterType;
 use image::io::Reader as ImageReader;
-use image::ImageFormat;
+use image::{ImageFormat, GenericImageView};
 use rocket::http::ContentType;
 use rocket::response::NamedFile;
 use rocket::Data;
@@ -73,11 +73,7 @@ fn multipart_upload(
     .unwrap();
     file.write_all(data.as_slice()).unwrap();
 
-    match mime.to_string().as_str() {
-        "video/ogg" => {}
-        "video/webm" => {}
-        _ => {}
-    }
+    let (width, height) = get_dimensions(&mime, &data);
 
     let mediadata = MediaData {
         file: format!("/media/{}", filename.clone()),
@@ -85,6 +81,8 @@ fn multipart_upload(
         mediatype: media::mime_to_mediatype(mime.to_string()),
         pixelated: is_pixelated(&mut multipart_form_data),
         alt: desc.clone(),
+        width,
+        height,
     };
 
     let mut r = registry.lock().unwrap();
@@ -92,6 +90,21 @@ fn multipart_upload(
     r.save();
 
     format!("{:?}, {:?}", mime, desc)
+}
+
+fn get_dimensions(mime: &Mime, data: &Vec<u8>) -> (u32, u32) {
+    let format = match mime.to_string().as_str() {
+        "image/gif" => Some(ImageFormat::Gif),
+        "image/png" => Some(ImageFormat::Png),
+        "image/jpeg" => Some(ImageFormat::Jpeg),
+        _ => None,
+    };
+
+    let image = ImageReader::with_format(Cursor::new(data), format.unwrap())
+        .decode()
+        .unwrap();
+
+    (image.width(), image.height())
 }
 
 fn save_thumbnail(mime: &Mime, filename: &String, data: &Vec<u8>) -> Option<String> {

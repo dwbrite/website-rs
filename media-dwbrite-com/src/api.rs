@@ -68,6 +68,8 @@ mod tests {
             mediatype: MediaType::GIF,
             pixelated: false,
             alt: "it's a gif!".to_string(),
+            width: 256,
+            height: 256
         };
 
         let mut content = HashMap::new();

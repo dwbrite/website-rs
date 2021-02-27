@@ -2,9 +2,7 @@ title = "pocket progress 3"
 date = 2015-07-06
 tags = ["pkmn"]
 content = """
-<noscript class="media-noscript">
-    <img src="/blog/media/pocket-progress/collision-and-animation2.gif" alt="image"/>
-</noscript>
+<m src="collision-and-animation2.gif">
 
 <p>Look at how far we’ve come! It’s not really that much but it’s exciting to me.
     Here you can see animations for running, biking, and cliff jumping in action!

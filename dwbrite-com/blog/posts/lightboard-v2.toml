@@ -28,9 +28,7 @@ content = """
     which can fit perfectly in a 1/8" aluminum J channel.
 </p>
 
-<noscript class="media-noscript">
-    <img src="/blog/media/lightboard/j-channel.jpg" alt="shelf with j-channel"/>
-</noscript>
+<m src="j-channel.jpg"/>
 
 <p>
     With the mounting hardware set up, it was time to work on the electronics.
@@ -61,13 +59,8 @@ content = """
     For now, I've mounted the prototype to some cardboard!~
 </p>
 
-<noscript class="media-noscript">
-    <img src="/blog/media/lightboard/cardboard-prototype.jpg" alt="front of cardboard prototype"/>
-</noscript>
-
-<noscript class="media-noscript">
-    <img src="/blog/media/lightboard/cardboard-back.jpg" alt="back of cardboard prototype"/>
-</noscript>
+<m src="cardboard-prototype.jpg">
+<m src="cardboard-back.jpg">
 
 <p>
     The three rotary encoders will control things like the

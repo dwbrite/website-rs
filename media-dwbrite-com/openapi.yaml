@@ -43,6 +43,8 @@ paths:
                     "mediatype":"JPEG",
                     "pixelated": false,
                     "alt": "a picture of dwbrite standing in a hallway!"
+                    "width": 1280,
+                    "height": 960,
                   }
 
 

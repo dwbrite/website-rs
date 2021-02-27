@@ -16,13 +16,8 @@ content = """
 <p>The very first thing I made since I’ve been gone is a glowey-whiteboard.
     Here’s the final result:</p>
 
-<noscript class="media-noscript">
-    <img alt="image" src="/blog/media/glowboard-0.jpg"/>
-</noscript>
-
-<noscript class="media-noscript">
-    <img alt="image" src="/blog/media/glowboard-1.jpg"/>
-</noscript>
+<m src="glowboard-0.jpg">
+<m src="glowboard-1.jpg">
 
 <p> The whole build needs a post of its own so I’ll try to do that within the next week.</p>
 
@@ -51,9 +46,7 @@ content = """
     I just need to figure out how I’m going to implement it.
     Here’s a beautifully looped gif of the game in its current form.</p>
 
-<noscript class="media-noscript">
-    <img alt="image" src="/blog/media/pocket-progress/ledge-hopping.gif"/>
-</noscript>
+<m src="ledge-hopping.gif">
 
 <p>I also painted and reorganized my room, and added some neat lights,
     which I’ll show sometime in the future whenever I get a chance.</p>

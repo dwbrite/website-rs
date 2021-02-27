@@ -2,9 +2,7 @@ title = "pocket progress 2"
 date = 2015-06-27
 tags = ["pkmn"]
 content = """
-<noscript class="media-noscript">
-    <img src="/blog/media/pocket-progress/collision-and-animation.gif" alt="image"/>
-</noscript>
+<m src="collision-and-animation.gif" >
 
 <p>Collision and animations are looking good right now.
     Here’s a gif of where I’m at.

@@ -1,8 +1,15 @@
 var body;
-window.addEventListener('load', function () {
+
+function defineBody() {
     body = document.getElementsByTagName("body")[0];
-})
+}
+
+window.addEventListener('load', defineBody())
 
 window.addEventListener("scroll", (event) => {
+    if (body === undefined) {
+        defineBody()
+    }
+
     body.style = `background-position: 0 ${this.scrollY * 0.75}px`;
 });

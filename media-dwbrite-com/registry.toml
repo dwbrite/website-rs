@@ -1,0 +1,143 @@
+[content."glowboard-0.jpg"]
+file = "/media/glowboard-0.jpg"
+thumbnail = "/media/thumb/glowboard-0.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "A clear sheet of acrylic sits on top of an LED strip. The room is dark. Light passes through the  acrylic, then escapes wherever marker dye is present. The lyrics of Tove Lo&apos;s &ldquo;Habits&rdquo; are written on the board, glowing in an array of different colors."
+width = 960
+height = 720
+
+[content."dwbrite.jpg"]
+file = "/media/dwbrite.jpg"
+thumbnail = "/media/thumb/dwbrite.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "dwbrite standing in front of a trash bag in an office. He has a cardboard box on his head. The box says &ldquo;get shit done&rdquo;."
+width = 1280
+height = 960
+
+[content."j-channel.jpg"]
+file = "/media/j-channel.jpg"
+thumbnail = "/media/thumb/j-channel.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "An aluminum J-channel mounted on the inside of a plywood shelf. An LED strip is fitted inside."
+width = 960
+height = 1280
+
+[content."collision-and-animation2.gif"]
+file = "/media/collision-and-animation2.gif"
+thumbnail = "/media/thumb/collision-and-animation2.gif-thumb.png"
+mediatype = "GIF"
+pixelated = true
+alt = "Collision detection shown in a Pokemon recreation. This time, the player is animated jumping down the cliff properly."
+width = 256
+height = 199
+
+[content."graph-comparison.jpg"]
+file = "/media/graph-comparison.jpg"
+thumbnail = "/media/thumb/graph-comparison.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "A comparison of different methods of rendering graphs. The first draws lines between each sampled point, taking 37ms per frame. The second draws one pixel per sampled point, taking 24ms per frame."
+width = 1280
+height = 720
+
+[content."cardboard-prototype.jpg"]
+file = "/media/cardboard-prototype.jpg"
+thumbnail = "/media/thumb/cardboard-prototype.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "And electronic interface consisting of an small OLED screen and three knobs, mounted on cardboard. "
+width = 1280
+height = 720
+
+[content."gifbackgroundifier.gif"]
+file = "/media/gifbackgroundifier.gif"
+thumbnail = "/media/thumb/gifbackgroundifier.gif-thumb.png"
+mediatype = "GIF"
+pixelated = false
+alt = "A recording of the full use of the gifbackgroundifier. It&apos;s probably only useful if you can see it anyway."
+width = 480
+height = 270
+
+[content."cardboard-back.jpg"]
+file = "/media/cardboard-back.jpg"
+thumbnail = "/media/thumb/cardboard-back.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "Electronics mounted to cardboard. One set of wires goes to a microcontroller board. Two more go off-screen."
+width = 1280
+height = 720
+
+[content."glowboard-1.jpg"]
+file = "/media/glowboard-1.jpg"
+thumbnail = "/media/thumb/glowboard-1.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "A clear sheet of acrylic sits on top of an LED strip. The room is well lit. Dwbrite has drawn up a list of projects to follow up on."
+width = 960
+height = 720
+
+[content."collision-and-animation.gif"]
+file = "/media/collision-and-animation.gif"
+thumbnail = "/media/thumb/collision-and-animation.gif-thumb.png"
+mediatype = "GIF"
+pixelated = false
+alt = "Collision detection shown in a Pokemon recreation. The player character bumps into trees and walls, but seems to walk right through a cliff!"
+width = 256
+height = 199
+
+[content."frlg-layer-glitch.png"]
+file = "/media/frlg-layer-glitch.png"
+thumbnail = "/media/thumb/frlg-layer-glitch.png-thumb.png"
+mediatype = "PNG"
+pixelated = true
+alt = "Screenshot of a Pokemon game showing a visual glitch where the player&apos;s hat is obscured by something that should be behind and below the player. "
+width = 240
+height = 160
+
+[content."function-comparison.jpg"]
+file = "/media/function-comparison.jpg"
+thumbnail = "/media/thumb/function-comparison.jpg-thumb.png"
+mediatype = "JPEG"
+pixelated = false
+alt = "A comparison of three different rainbow functions over time. "
+width = 2160
+height = 2076
+
+[content."cmp-frlg.gif"]
+file = "/media/cmp-frlg.gif"
+thumbnail = "/media/thumb/cmp-frlg.gif-thumb.png"
+mediatype = "GIF"
+pixelated = false
+alt = "A video comparison of the Java FR/LG versus the original. One shows a slight input delay."
+width = 495
+height = 159
+
+[content."grass-rustle.png"]
+file = "/media/grass-rustle.png"
+thumbnail = "/media/thumb/grass-rustle.png-thumb.png"
+mediatype = "PNG"
+pixelated = true
+alt = "A grass rustling animation displayed as five frames in a spritesheet."
+width = 240
+height = 48
+
+[content."first-screenshot.png"]
+file = "/media/first-screenshot.png"
+thumbnail = "/media/thumb/first-screenshot.png-thumb.png"
+mediatype = "PNG"
+pixelated = true
+alt = "Screenshot of a Pokemon game."
+width = 254
+height = 197
+
+[content."ledge-hopping.gif"]
+file = "/media/ledge-hopping.gif"
+thumbnail = "/media/thumb/ledge-hopping.gif-thumb.png"
+mediatype = "GIF"
+pixelated = true
+alt = "A perfectly looping video of the player jumping off a cliff and walking back to jump off again."
+width = 240
+height = 185

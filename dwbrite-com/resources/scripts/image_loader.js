@@ -1,60 +1,60 @@
 var mediaElements = document.getElementsByClassName("media-noscript");
 let length = mediaElements.length;
 
-for (i = 0; i < length; i++) {
-    let btn = document.createElement("button");
-    btn.innerHTML = "load media";
-    btn.setAttribute("onclick", "loadMedia("+i+");");
-    btn.setAttribute("id", "media-btn-"+i);
-    btn.setAttribute("class", "media-btn");
-    btn.setAttribute("type", "button");
+// for each media element
+for (let i = 0; i < length; i++) {
+    let data = getMediaData(i);
 
-    let div = document.createElement("div");
-    div.setAttribute("class", "media-div");
 
-    div.appendChild(btn);
-    mediaElements[i].insertAdjacentElement("afterend", div);
+    // create the thumbnail element
+    let thumb = document.createElement("img");
+
+    thumb.setAttribute("src", data.thumbnail);
+    thumb.setAttribute("id", "media-img-"+i);
+
+    thumb.setAttribute("width", data.width);
+    thumb.setAttribute("height", data.height);
+
+    thumb.classList.add("media-thumbnail");
+    thumb.classList.add("media-content");
+    if (data.pixelated) { thumb.classList.add("pxl"); }
+
+    thumb.onclick = function() { loadMedia(i) };
+
+
+    // create the anchor
+    let anchor = document.createElement("a");
+    anchor.classList.add("media-anchor");
+    anchor.appendChild(thumb);
+
+    // and place
+    mediaElements[i].insertAdjacentElement("afterend", anchor);
 }
 
 function loadMedia(i) {
-    let btn = document.getElementById("media-btn-"+i);
-    btn.setAttribute("onclick", "hideMedia("+i+");");
-    btn.innerHTML = "hide media";
+    let data = getMediaData(i);
+    let src = data.file;
 
-    let div = btn.parentElement;
+    let image = new Image();
+    image.src = src;
 
-    // The following is a hack to get around
-    // JS not seeing children of <noscript> elements.
-    let temp = document.createElement("div");
-    temp.innerHTML = mediaElements[i].innerHTML;
-    let child = temp.firstElementChild;
-    child.classList.add("media-content");
+    let thumb = document.getElementById("media-img-"+i);
+    thumb.classList.add("media-loading");
 
-    let src = child.getAttribute("src");
-
-    let a = document.createElement("a");
-    a.setAttribute("id", "media-anchor-"+i);
-    a.setAttribute("class", "media-anchor");
-    a.setAttribute("href", src);
-    a.appendChild(child);
-
-    div.appendChild(a);
+    image.onload = function() {
+        thumb.src = src;
+        // thumb.parentElement.href = src;
+        thumb.classList.remove("media-thumbnail");
+        thumb.classList.remove("media-loading");
+    }
 }
 
-function showMedia(i) {
-    let btn = document.getElementById("media-btn-"+i);
-    btn.setAttribute("onclick", "hideMedia("+i+");");
-    btn.innerHTML = "hide media";
+function getMediaData(i) {
+    // get media 'source'
+    let mediaElement = mediaElements[i];
+    let src = mediaElement.getAttribute("data-src");
 
-    let a = document.getElementById("media-anchor-"+i);
-    a.setAttribute("style", "display:block");
-}
-
-function hideMedia(i) {
-    let btn = document.getElementById("media-btn-"+i);
-    btn.setAttribute("onclick", "showMedia("+i+");");
-    btn.innerHTML = "view media";
-
-    let a = document.getElementById("media-anchor-"+i);
-    a.setAttribute("style", "display:none");
+    // nab data from local storage
+    let dict = JSON.parse(localStorage.getItem("mediaDict"));
+    return dict[src];
 }

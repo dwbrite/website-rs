@@ -2,9 +2,7 @@ title = "pocket progress 1"
 date = 2015-06-22
 tags = ["pkmn"]
 content = """
-<noscript class="media-noscript">
-    <img src="/blog/media/pocket-progress/first-screenshot.png" alt="image"/>
-</noscript>
+<m src="first-screenshot.png" alt="image"/>
 
 <p>It may not look like much but this is really exciting progress for me and this project.
     This is a Pokemon recreation I’m making with Slick2D/Java that I’ve been working on for the past two weeks.
