@@ -1,9 +1,10 @@
 # dwbrite.com, but this time in rust
 
 ### requirements:
-- `sass`
+- `build-essential`
+- `pkg-config`
 - `openssl +/ libssl-dev (on linux)`
-- `rust & cargo`
+- `rustup / rust nightly`
 
 recommended: 
 
@@ -42,7 +43,7 @@ server {
 start with simple nginx routes, then run `certbot --nginx`
 
 ## running dwbrite.com
-(todo: explore docker for these)
 
 `cargo run --bin dwbrite-com` (port 41234)
+
 `cargo run --bin media-dwbrite-com` (port 41233)
