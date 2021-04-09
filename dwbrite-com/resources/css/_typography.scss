@@ -6,7 +6,7 @@ $face-serif: "Kreon", serif;
 
 @media screen and (min-width: 1080px) {
   body {
-    font-size: 18px;
+    font-size: 14pt;
     line-height: 1.5em;
   }
 }
@@ -77,6 +77,16 @@ body {
 
 ul > li {
   list-style-type: "- ";
+}
+
+li {
+  font-size: smaller;
+  line-height: 1.4em;
+  margin: 0.5em;
+}
+
+sup, sub {
+  font-size: small
 }
 
 figcaption {

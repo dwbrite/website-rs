@@ -14,6 +14,8 @@ for (let i = 0; i < length; i++) {
 
     thumb.setAttribute("width", data.width);
     thumb.setAttribute("height", data.height);
+    thumb.setAttribute("alt", data.alt);
+    thumb.setAttribute("title", "click me!");
 
     thumb.classList.add("media-thumbnail");
     thumb.classList.add("media-content");
@@ -43,9 +45,9 @@ function loadMedia(i) {
 
     image.onload = function() {
         thumb.src = src;
-        // thumb.parentElement.href = src;
         thumb.classList.remove("media-thumbnail");
         thumb.classList.remove("media-loading");
+        thumb.setAttribute("title", data.alt);
     }
 }
 
