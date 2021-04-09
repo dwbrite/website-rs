@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.page {
+  width: 8.5in;
+  height: 11in;
+  padding: 0.75in 0.75in 0;
+  overflow: hidden;
+}
+
+@page {
+  size: Letter;
+  margin: 0;
+}
+
+@media print {
+  .page {
+    margin: 0;
+
+    background: initial;
+    page-break-after: always;
+  }
+}

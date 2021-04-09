@@ -100,6 +100,10 @@ fn main() {
             "/portfolio",
             StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/portfolio")),
         )
+        .mount(
+            "/resume",
+            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/resume")),
+        )
         .mount_blog()
         .attach(Template::fairing())
         .launch();

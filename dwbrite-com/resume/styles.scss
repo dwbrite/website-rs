@@ -1,0 +1,137 @@
+@import "paper";
+
+$red: #f07064;
+$blue: #293d78;
+
+@media screen {
+  html {
+    body {
+      background-color: $blue;
+      background-image: url("/resources/media/starbg_indexed_alpha.png");
+      background-repeat: repeat-x;
+
+      .page {
+        margin: 0.5in auto;
+
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+body {
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+  font-family: "Roboto Slab", serif;
+}
+
+h1#name {
+  margin-top: 0;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  border-bottom: black 1px solid;
+  padding-bottom: 1em;
+}
+
+body {
+  font-size: 14px;
+}
+
+#contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sub-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+h2, h3, h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.subsection h2 {
+  padding-bottom: 0.05em;
+  margin-bottom: 0.5em;
+  border-bottom: #666666 1px solid;
+}
+
+ul {
+  padding: 0;
+  margin: 0.25em 0.25em 1em;
+
+  li {
+    list-style-type: none;
+    line-height: 1.5em;
+  }
+
+  li:before {
+    content: "—";
+    padding-right: 0.3em;
+  }
+}
+
+.edu {
+  margin-bottom: 1.5em;
+}
+
+span.xp {
+  float: right;
+  padding-right: 3em;
+  font-family: 'Fira Code', monospace;
+}
+
+
+div.page-content {
+
+}
+
+div.footer {
+  height: 1in;
+  font-size: 11px;
+  color: #666666;
+  font-style: italic;
+}
+
+
+div.pdf-ribbon {
+  width: 0px;
+  height: 110px;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 15%;
+  border: solid 30px #B13A22;
+  border-bottom: solid 30px transparent;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+div.pdf-ribbon span {
+  color: white;
+  position: relative;
+  width: 60px;
+  left: -30px;
+  top: 0px;
+  text-align: center;
+  display: block;
+  font-weight: bolder;
+}
+
+@media print {
+  div.pdf-ribbon {
+    visibility: hidden;
+  }
+}

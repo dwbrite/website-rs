@@ -13,20 +13,20 @@
     </p>
 
     <p>
-        I'm a magic man who likes to make cool things and spew funny words onto
-        screens in the pursuit of making something useful or entertaining.
-        I also fight for personal freedoms -
+        I'm a magic man and I like to make cool things.
+        Sometimes I fight for personal freedoms -
         be that in the name of free software, social rights, privacy, or the open Internet.
         You can find all my social media accounts at
         <a href="https://keybase.io/hd">https://keybase.io/hd</a>.
-
-        (Yes, all.)
     </p>
+
+    <p>(Yes, all.)</p>
 
     <p>
         I spend most of my hobby time writing software in Rust and expanding my knowledge.
-        I like to experiment with the bleeding edge of tech, which can mean reading a 1400 page manual,
-        or dedicating way too much time to writing small games from scratch<a href="">.</a>
+        I like to experiment with the bleeding edge of tech, which can mean reading
+        <a href="https://github.com/irevoire/teensy/blob/master/doc/mx20dx256vlh7.pdf">ginormous reference manuals</a>,
+        or dedicating way too much time to writing small games from scratch<a href="https://ohej.us">.</a>
         My current active projects are:
     </p>
 
