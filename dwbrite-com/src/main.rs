@@ -22,7 +22,7 @@ fn home() -> Template {
         is_night: bool,
     }
     let c = Ctx {
-        title: "dwbrite.com".to_string(),
+        title: "Devin W. Brite".to_string(),
         is_night: is_night(),
     };
     Template::render("home", c)
@@ -64,7 +64,6 @@ fn compile_sass() -> std::io::Result<()> {
             out.set_extension("css");
             std::fs::write(out, css);
         }
-
         Ok(())
     }
 

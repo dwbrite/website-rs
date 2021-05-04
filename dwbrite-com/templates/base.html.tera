@@ -19,6 +19,7 @@
         <h1 id="title"> {{ title }} </h1>
         <nav>
             <a href='/'>Home</a>
+            <a href="/resume">[ Hire me! ]</a>
             <a href='https://github.com/dwbrite'>Portfolio</a>
             <a href='/blog'>Blog</a>
         </nav>

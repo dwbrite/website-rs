@@ -52,7 +52,7 @@ pub(crate) mod routes {
             .collect();
 
         let c = Ctx {
-            title: "dwbrite.com".to_string(),
+            title: "Devin's Blog".to_string(),
             is_night: crate::is_night(),
             posts,
         };
@@ -73,7 +73,7 @@ pub(crate) mod routes {
         }
 
         let c = Ctx {
-            title: "dwbrite.com".to_string(),
+            title: "Devin's Blog".to_string(),
             is_night: crate::is_night(),
             posts: vec![post.clone()],
         };
@@ -93,7 +93,7 @@ pub(crate) mod routes {
         let blogstate = BlogState::new();
 
         let c = Ctx {
-            title: "dwbrite.com".to_string(),
+            title: "What?! You Shouldn't Be Here!".to_string(),
             is_night: crate::is_night(),
             posts: blogstate.sorted_posts.clone(),
         };

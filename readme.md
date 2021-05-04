@@ -44,6 +44,13 @@ start with simple nginx routes, then run `certbot --nginx`
 
 ## running dwbrite.com
 
+`cargo run --bin media-dwbrite-com` (port 41233)  
 `cargo run --bin dwbrite-com` (port 41234)
 
-`cargo run --bin media-dwbrite-com` (port 41233)
+### with nohup
+
+`killall dwbrite-com`  
+`killall media-dwbrite-com`  
+`nohup cargo run --bin media-dwbrite-com &`  
+wait... then  
+`nohup cargo run --bin dwbrite-com &`  

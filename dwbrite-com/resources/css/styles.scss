@@ -1,15 +1,13 @@
 @import "structures";
-@import "typography";
 @import "media";
-
-$red: #f07064;
-$white: #f5dcbc;
-$black: #000;
-$blue: #293d78;
+@import "typography";
+@import "prism";
+@import "base_colors";
 
 body {
   color: $white;
   overflow-y: scroll;
+
 }
 
 a {
@@ -29,7 +27,7 @@ hr {
   border-bottom: 0;
 }
 
-code {
+:not(pre) > code {
   background-color: rgba(0, 0, 0, 0.2);
   border-width: 2px;
   border-style: solid;
@@ -41,29 +39,13 @@ blockquote {
   border-left: 2px solid $red;
 }
 
-h1, h2{
+h1, h2, h3, h4, h5, h6 {
   color: $white;
   background: $black;
-  padding: 0.1em 0.65em;
 
   a { color: $white; }
 }
 
-h3, h4, h5, h6 {
-  color: $white;
-  margin: 1em;
-
-  a { color: $white; }
-}
-
-// temp style
-button {
-  color: $white;
-  background-color: rgba($white, 0.2);
-  border-radius: 4px;
-  border-style: hidden;
-  cursor: pointer;
-}
 
 nav {
   font-weight: bold;

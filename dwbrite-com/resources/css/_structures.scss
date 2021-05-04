@@ -18,9 +18,24 @@ html {
     margin: 50px auto 0 auto;
     padding: 0;
 
-    h1, h2, h3, h4, h5, h6 {
-      display: inline;
+    & {
+      h1, h2, h3, h4, h5, h6 {
+        width: fit-content;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        padding: 0.1em 0.65em;
+      }
+
+      h3, h4, h5, h6 {
+        margin: 2em auto;
+        margin-bottom: 1em;
+      }
+
+      h1, h2 {
+        display: inline;
+      }
     }
+
 
     header#page-header {
       display: flex;
@@ -38,13 +53,7 @@ html {
         min-width: 16em;
         max-width: 24em;
         display: flex;
-
-
-        a {
-          flex: 1 1 0;
-          text-align: center;
-          margin: 0; padding: 0;
-        }
+        justify-content: space-around;
       }
     }
 
@@ -73,7 +82,6 @@ html {
     article {
       margin: 3em auto 5em;
 
-      h3, h4 { margin-top: 1.5em; }
       p { margin: 1em; }
       hr {
         left: 0;

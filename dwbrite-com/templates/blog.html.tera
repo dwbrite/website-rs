@@ -1,6 +1,7 @@
 {% extends "base" %}
 
 {% block content %}
+<script src="/resources/prism/prism_unobfuscated.js"></script>
 {% for post in posts %}
 <article class="post">
     <header class="post-header">
