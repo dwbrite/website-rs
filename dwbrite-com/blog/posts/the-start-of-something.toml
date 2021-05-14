@@ -23,7 +23,7 @@ Omastar and Mew were the only Pokemon I hadn’t seen.</p>
 
 <p>What really sucks though is that trading on VBA-M is and has been broken forever on FR/LG. 
 I thought: “Hey, I program, I should help out with this and figure out the glitch!” so I did just that. 
-Kind of… I opened up the source code in Visual Studio and got it to compile right - Success! 
+Kind of... I opened up the source code in Visual Studio and got it to compile right - Success!
 After a little while scouring the source I realized that I really didn’t know C++ well at all.</p>
 
 <p>I gave up on that and decided I would make my own Pokemon game. 
