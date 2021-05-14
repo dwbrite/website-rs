@@ -21,6 +21,10 @@ a {
   }
 }
 
+summary {
+  color: $red;
+}
+
 hr {
   width: 80%;
   border-image: url("/resources/media/hr.png") 1 fill;
