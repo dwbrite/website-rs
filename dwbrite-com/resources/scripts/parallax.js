@@ -8,7 +8,7 @@ function defineBody() {
 
 window.addEventListener('load', defineBody())
 
-if (!window.chrome || !isMobile) {
+if (!window.chrome && !isMobile) {
     window.addEventListener("scroll", (event) => {
         if (body === undefined) {
             defineBody()
