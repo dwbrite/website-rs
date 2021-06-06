@@ -21,8 +21,18 @@ a {
   }
 }
 
-summary {
-  color: $red;
+details {
+  background-color: rgba($white, 0.1);
+  border-radius: 0.3em;
+  padding: 0.5em;
+
+  summary {
+    color: $red;
+  }
+
+  p, li, time {
+    background-color: rgba($red, 0.0);
+  }
 }
 
 hr {
@@ -35,7 +45,7 @@ hr {
   background-color: rgba(0, 0, 0, 0.2);
   border-width: 2px;
   border-style: solid;
-  border-radius: 4px;
+  border-radius: 0.3em;
   border-color: transparent;
 }
 

@@ -1,5 +1,5 @@
 title = "rust enums by example"
-date = 2021-05-14
+date = 2021-06-06
 tags = ["programming", "rust"]
 hidden = false
 content = """
@@ -57,6 +57,7 @@ You can play around with their internal representations in
 or read more in <a href="https://doc.rust-lang.org/nomicon/repr-rust.html">the nomicon</a>.
 </p>
 </details>
+
 
 <h3>error handling with variants</h3>
 
@@ -144,6 +145,7 @@ Very cool. 😎
 Let's go deeper.
 </p>
 
+
 <h3>heap allocation and dynamic dispatch</h3>
 
 <p>
@@ -213,32 +215,83 @@ impl AudioNode for NodeVariant {
 </p>
 
 <p>
-Full disclosure: I haven't benchmarked this specific case.
-<em>However</em>, the <code>enum_dispatch</code> crate has done some of their own
-<a href="https://docs.rs/enum_dispatch/0.3.6/enum_dispatch/#the-benchmarks">benchmarks</a>,
-and <em>the results are impressive</em>.
-</p>
-
-<p>
-In addition, <code>enum_dispatch</code> provides macros to implement this pattern without so much boilerplate.
+In my project I'm getting <em>up to 10%</em> better performance.
+Not at all laughable in audio programming.
+You can remove a lot of boilerplate here with the <code>impl-enum</code> or <code>enum_dispatch</code> crates
+(<a href="https://docs.rs/enum_dispatch/0.3.6/enum_dispatch/#the-benchmarks">see enum_dispatch benchmarks</a>).
 </p>
 
 <p>
 Very, very cool. 😎
 </p>
 
+
+<h3>message passing</h3>
+
+<p>
+Imagine you're writing a music player.
+Your UI has controls for play/pause, seek, skip, etc.
+These inputs can come from different places - like
+<a href="https://specifications.freedesktop.org/mpris-spec/latest/#Interfaces">dbus</a>,
+hotkeys, or simple UI interactions.
+</p>
+
+<p>
+We've just run into an ideal use-case for <i>MPSC (multi-producer/single-consumer) channels</i>!
+An <i>MPSC channel</i> is simply an <abbr title="meaning memory is shared across threads">atomic</abbr> queue
+that can only be accessed through its <i>producers</i> and <i>consumers</i>.
+</p>
+
+<p>
+Whenever one of the aforementioned controls are triggered,
+we can send a message through an MPSC channel to <i>control</i> playback.
+With that out of the way, we need to determine what data to send.
+</p>
+
+<p>
+Let's look at some potential <i>Java-esque</i> solutions.
+Normal enums won't work because <em>some</em> of our controls like <code>Seek(timestamp)</code> have associated data.
+Maybe a class with an enum field, plus fields for each type of associated data would work?
+Or a string?
+</p>
+
+<p>
+It's an oddly gnarly problem to solve.
+</p>
+
+<p>
+Fortunately for us, Rust's enums make this easy.
+This is part of what makes multithreading so nice in Rust.
+</p>
+
+
 <h3>closing thoughts</h3>
 
 <p>
-The last pattern using enums that I'd like to shine some light on is (as the title suggests) the <i>finite state machine</i>.
-But plenty of others have written about <a href="https://hoverbear.org/blog/rust-state-machine-pattern/">state machines in Rust</a> before,
+The last pattern using enums that I'd like to shine some light on is the <i>finite state machine</i>.
+Plenty of others have written about <a href="https://hoverbear.org/blog/rust-state-machine-pattern/">state machines in Rust</a> before,
 so I won't <a href="https://blog.yoshuawuyts.com/state-machines/">reiterate</a> on that.
 </p>
 
 <p>
 Hopefully you've learned something new about rust's enums - whether you've never seen Rust before, or you're a Rust veteran.
 If you have any questions, feedback, or flattery,
-you can find my contact info on <a href="https://dwbrite.com/resume">my resume</a>.
+you can find my contact info on <a href="https://dwbrite.com/resume">my résumé</a>.
 </p>
 
+<hr/>
+
+<p>
+Speaking of résumés, I'm looking for work right now!
+</p>
+
+<p>
+I'm a generalist software developer with a specialization in backend / web architecture.
+I've spent the last nine years honing the craft in my free time, and I'd really like to get my foot in the door professionally.
+Send me an email if you know of any internships, contract positions, or full-time employment that I might be a good fit for!
+</p>
+
+<p>
+- Devin
+</p>
 """
