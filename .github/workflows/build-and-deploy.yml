@@ -31,7 +31,7 @@ jobs:
       - uses: garygrossgarten/github-action-scp@release
         with:
           local: ./
-          remote: ~/
+          remote: website-rs
           host: "dwbrite.com"
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.KEY }}
