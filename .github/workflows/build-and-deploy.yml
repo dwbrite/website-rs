@@ -23,5 +23,5 @@ jobs:
       - uses: actions-rs/cargo@v1.0.1
         with:
           command: build
-      - name: Run a multi-line script
-        run: cargo build --bin dwbrite-com
+          toolchain: nightly
+          args: --bin dwbrite-com
