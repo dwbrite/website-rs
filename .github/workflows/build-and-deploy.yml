@@ -30,7 +30,7 @@ jobs:
           args: --bin dwbrite-com
       - uses: appleboy/scp-action@v0.0.1
         with:
-          host: dwbrite.com
+          host: "dwbrite.com"
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           source: "./"
