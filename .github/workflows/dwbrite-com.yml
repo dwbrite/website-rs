@@ -27,11 +27,18 @@ jobs:
       - uses: actions-rs/cargo@v1.0.1
         with:
           command: build
-          args: --bin dwbrite-com
+          args: --release --bin dwbrite-com
       - uses: garygrossgarten/github-action-scp@release
         with:
-          local: ./
-          remote: website-rs
+          local: ./dwbrite-com
+          remote: /var/tmp/dwbrite.com
+          host: "dwbrite.com"
+          username: ${{ secrets.USERNAME }}
+          privateKey: ${{ secrets.KEY }}
+      - uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./target/release/dwbrite-com
+          remote: /var/tmp/dwbrite.com/target/dwbrite.com
           host: "dwbrite.com"
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.KEY }}
