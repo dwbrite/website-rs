@@ -35,4 +35,4 @@ jobs:
 #           key: ${{ secrets.KEY }}
 #           source: "./"
 #           target: "~/"
-      - run: scp -r -c ${{ secrets.KEY }} ./ ${{ secrets.USERNAME }}@dwbrite.com:~/
+      - run: scp -r -c "${{ secrets.KEY }}" ./ ${{ secrets.USERNAME }}@dwbrite.com:~/
