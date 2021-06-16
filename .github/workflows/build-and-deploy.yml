@@ -12,7 +12,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-and-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -28,3 +28,10 @@ jobs:
         with:
           command: build
           args: --bin dwbrite-com
+      - uses: appleboy/scp-action@v0.0.1
+        with:
+          host: dwbrite.com
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "./"
+          target: "~/"
