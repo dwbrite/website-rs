@@ -11,26 +11,27 @@ use grass::Error;
 use std::fs;
 use std::path::Path;
 use std::ffi::OsStr;
+use structopt::StructOpt;
 
 mod blog;
+
+#[derive(StructOpt, Debug)]
+struct Opt {
+    #[structopt(short, long, default_value = "41234")]
+    port: u16,
+}
+
 
 #[get("/")]
 fn home() -> Template {
     #[derive(Debug, Serialize, Deserialize, PartialEq)]
     struct Ctx {
         title: String,
-        is_night: bool,
     }
     let c = Ctx {
         title: "Devin W. Brite".to_string(),
-        is_night: is_night(),
     };
     Template::render("home", c)
-}
-
-fn is_night() -> bool {
-    let hour = Local::now().time().hour();
-    hour > 19 || hour < 7
 }
 
 fn compile_sass() -> std::io::Result<()> {
@@ -75,9 +76,11 @@ fn main() {
 
     compile_sass().unwrap();
 
+    let opt = Opt::from_args();
+
     let mut dev = rocket::config::Config::development();
     dev.address = "0.0.0.0".to_string();
-    dev.port = 41234;
+    dev.port = opt.port;
     dev.extras.insert(
         "template_dir".to_string(),
         Value::String(concat!(env!("CARGO_MANIFEST_DIR"), "/templates").to_string()),

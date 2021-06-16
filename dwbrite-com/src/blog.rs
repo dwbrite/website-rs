@@ -36,7 +36,6 @@ pub(crate) mod routes {
         #[derive(Debug, Serialize, Deserialize, PartialEq)]
         struct Ctx {
             title: String,
-            is_night: bool,
             posts: Vec<Arc<BlogPost>>,
         }
 
@@ -53,7 +52,6 @@ pub(crate) mod routes {
 
         let c = Ctx {
             title: "Devin's Blog".to_string(),
-            is_night: crate::is_night(),
             posts,
         };
 
@@ -68,13 +66,11 @@ pub(crate) mod routes {
         #[derive(Debug, Serialize, Deserialize, PartialEq)]
         struct Ctx {
             title: String,
-            is_night: bool,
             posts: Vec<Arc<BlogPost>>,
         }
 
         let c = Ctx {
             title: "Devin's Blog".to_string(),
-            is_night: crate::is_night(),
             posts: vec![post.clone()],
         };
 
@@ -86,7 +82,6 @@ pub(crate) mod routes {
         #[derive(Debug, Serialize, Deserialize, PartialEq)]
         struct Ctx {
             title: String,
-            is_night: bool,
             posts: Vec<Arc<BlogPost>>,
         }
 
@@ -94,7 +89,6 @@ pub(crate) mod routes {
 
         let c = Ctx {
             title: "What?! You Shouldn't Be Here!".to_string(),
-            is_night: crate::is_night(),
             posts: blogstate.sorted_posts.clone(),
         };
 
