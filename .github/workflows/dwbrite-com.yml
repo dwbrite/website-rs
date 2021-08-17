@@ -23,7 +23,7 @@ jobs:
       with:
         host: dwbrite.com
         username: ${{ secrets.USERNAME }}
-#        command_timeout: # optional, default is 10m
+        command_timeout: 15m
         # content of ssh private key. ex raw content of ~/.ssh/id_rsa
         key: ${{ secrets.KEY }}
         # I guess let's just forgo the clone for now :s
