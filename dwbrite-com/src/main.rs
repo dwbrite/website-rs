@@ -83,7 +83,7 @@ fn main() {
     dev.port = opt.port;
     dev.extras.insert(
         "template_dir".to_string(),
-        Value::String(concat!(env!("CARGO_MANIFEST_DIR"), "/templates").to_string()),
+        Value::String("./templates".to_string()),
     );
 
     let rocket = rocket::custom(dev);
@@ -92,19 +92,19 @@ fn main() {
         .mount("/", routes![home])
         .mount(
             "/resources",
-            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/resources")),
+            StaticFiles::from("./resources"),
         )
         .mount(
             "/blog/media",
-            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/blog/media")),
+            StaticFiles::from("./blog/media"),
         )
         .mount(
             "/portfolio",
-            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/portfolio")),
+            StaticFiles::from("./portfolio"),
         )
         .mount(
             "/resume",
-            StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/resume")),
+            StaticFiles::from("./resume"),
         )
         .mount_blog()
         .attach(Template::fairing())
