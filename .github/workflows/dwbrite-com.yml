@@ -28,7 +28,7 @@ jobs:
         key: ${{ secrets.KEY }}
         # I guess let's just forgo the clone for now :s
         script: |
-          cd /var/tmp/website-rs & git pull
+          cd /var/tmp & git clone git@github.com:dwbrite/website-rs; cd website-rs ; git pull
           cargo +nightly build --bin dwbrite-com --release
           cp -r /var/tmp/website-rs/dwbrite-com /var/tmp/dwbrite.com 
           cp -r /var/tmp/website-rs/target/release/dwbrite-com /var/tmp/dwbrite.com/target/dwbrite.com
