@@ -26,9 +26,10 @@ jobs:
 #        command_timeout: # optional, default is 10m
         # content of ssh private key. ex raw content of ~/.ssh/id_rsa
         key: ${{ secrets.KEY }}
+        # I guess let's just forgo the clone for now :s
         script: |
-          cd /var/tmp & git clone https://github.com/dwbrite/website-rs.git || (cd website-rs ; git pull)
-          cargo +nightly build --bin --release dwbrite-com
-          cp -r ./dwbrite-com /var/tmp/dwbrite.com 
-          cp -r ./target/release/dwbrite-com /var/tmp/dwbrite.com/target/dwbrite.com
+          cd /var/tmp/website-rs & git pull
+          cargo +nightly build --bin dwbrite-com --release
+          cp -r /var/tmp/website-rs/dwbrite-com /var/tmp/dwbrite.com 
+          cp -r /var/tmp/website-rs/target/release/dwbrite-com /var/tmp/dwbrite.com/target/dwbrite.com
           
