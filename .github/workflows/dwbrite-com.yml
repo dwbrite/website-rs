@@ -22,10 +22,6 @@ jobs:
         uses: JimCronqvist/action-ssh@0.1.1
         with:
           command: |
-            cd /var/tmp/website-rs
-            git clone https://github.com/dwbrite/website-rs.git
-            cargo +nightly build --bin --release dwbrite-com
-            cp -r ./dwbrite-com /var/tmp/dwbrite.com
-            cp -r ./target/release/dwbrite-com /var/tmp/dwbrite.com/target/dwbrite.com
+            cd /var/tmp/website-rs & git clone https://github.com/dwbrite/website-rs.git & cargo +nightly build --bin --release dwbrite-com & cp -r ./dwbrite-com /var/tmp/dwbrite.com & cp -r ./target/release/dwbrite-com /var/tmp/dwbrite.com/target/dwbrite.com
           hosts: "${{ secrets.USERNAME }}@dwbrite.com"
           privateKey: ${{ secrets.KEY }}
