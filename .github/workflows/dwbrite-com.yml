@@ -24,7 +24,7 @@ jobs:
           command: |
             echo ${{ secrets.USERNAME }} > /var/tmp/username
             cd /var/tmp/website-rs
-            git clone git@github.com:dwbrite/website-rs
+            git clone https://github.com/dwbrite/website-rs.git
             cargo +nightly build --bin dwbrite-com
             cp -r ./dwbrite-com /var/tmp/dwbrite.com
             cp -r ./target/release/dwbrite-com /var/tmp/dwbrite.com/target/dwbrite.com
