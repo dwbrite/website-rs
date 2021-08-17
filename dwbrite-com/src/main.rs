@@ -68,7 +68,7 @@ fn compile_sass() -> std::io::Result<()> {
         Ok(())
     }
 
-    recurse_dirs(env!("CARGO_MANIFEST_DIR"))
+    recurse_dirs("./")
 }
 
 fn main() {
