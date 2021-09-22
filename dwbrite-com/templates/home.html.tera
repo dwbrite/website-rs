@@ -9,11 +9,12 @@
 
     <p>
         Hello! My name is Devin Brite.
-        If you're seeing this, then I'm probably working on this website <i>right now</i>.
     </p>
 
+    <img class="media-content" src="/resources/media/portrait.jpg" alt="photo of me"/>
+
     <p>
-        I'm a magic man and I like to make cool things.
+        I like to write software and create cool things.
         Sometimes I fight for personal freedoms -
         be that in the name of free software, social rights, privacy, or the open Internet.
         You can find all my social media accounts at
