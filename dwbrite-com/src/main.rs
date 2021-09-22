@@ -106,6 +106,10 @@ fn main() {
             "/resume",
             StaticFiles::from("./resume"),
         )
+	.mount(
+	    "/.well-known",
+	    StaticFiles::from("./.well-known"),
+	)
         .mount_blog()
         .attach(Template::fairing())
         .launch();

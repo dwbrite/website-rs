@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/hd
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://dwbrite.com
+  * I am hd (https://keybase.io/hd) on keybase.
+  * I have a public key ASC98cAcfCMwiWYp4OPHxOizvzUjAh0HzbDVZ_4WRskUpQo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "010166dcb82c5cd979c165d4ebf8f9a8c5d3104444daf028a35f19c2e4e92da3ef2b0a",
+      "host": "keybase.io",
+      "kid": "0120bdf1c01c7c2330896629e0e3c7c4e8b3bf3523021d07cdb0d567fe1646c914a50a",
+      "uid": "a8380b6f93d61250272f6cf9a709b400",
+      "username": "hd"
+    },
+    "merkle_root": {
+      "ctime": 1632327791,
+      "hash": "7d99dee2c8b0c0bfc0bff1e13deca0cf96c38b27292b17917e991df20a7d8ad8b4b12751ddc1354c92f92810baaec4ddef34ce987e6ef41bce9c2620b443d237",
+      "hash_meta": "3bac0d3ba75266048ce9a27f1b2f242ec3a1daf445d22db73fc5582af0d72de5",
+      "seqno": 20818969
+    },
+    "service": {
+      "entropy": "g0xfH/jhmKN7t867n8Y8n5kO",
+      "hostname": "dwbrite.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.7.1"
+  },
+  "ctime": 1632327805,
+  "expire_in": 504576000,
+  "prev": "ad12002740bb367a29ce2ca8bd81e37b8fdeb82c94850b823a4a4c388e1c5e0d",
+  "seqno": 184,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgvfHAHHwjMIlmKeDjx8Tos781IwIdB82w1Wf+FkbJFKUKp3BheWxvYWTES5cCzLjEIK0SACdAuzZ6Kc4sqL2B43uP3rgslIULgjpKTDiOHF4NxCD60D0pIFYRpH6l4MGRzEaVDnOWXzpAOMFGpjNlqKXNxQIBwqNzaWfEQLF+aZs7OvYWv82Uhizf+dYiNqAUvQyFYS4LFwg7gIO4gVwe+uqU3d2E6O1DUE8hrKV3XzbAcwaR89uCKkA7dwqoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCCKywhXcgyIUUkksfjQxq6IHLL4EVwgS05KwkNij4e/HqN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/hd
+
+==================================================================
