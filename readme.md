@@ -51,6 +51,6 @@ start with simple nginx routes, then run `certbot --nginx`
 
 `killall dwbrite-com`  
 `killall media-dwbrite-com`  
-`nohup cargo run --bin media-dwbrite-com &`  
+`cd media-dwbrite-com & nohup cargo run --bin media-dwbrite-com &`  
 wait... then  
-`nohup cargo run --bin dwbrite-com &`  
+`cd dwbrite-com & nohup cargo run --bin dwbrite-com &`  
