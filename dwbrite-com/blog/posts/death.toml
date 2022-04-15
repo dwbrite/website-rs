@@ -1,0 +1,127 @@
+title = "the career death of a self-taught programmer."
+date = 2022-04-14
+tags = ["etc"]
+hidden = false
+content = """
+<p>
+<i>The year is 2012/2013.</i><br/>
+I'm a freshman in high school learning computer science.
+It's difficult at first, but I get the hang of it soon enough.
+Over the summer I make a "2D game engine" using Java's AWT.
+Unknowingly, I write a CPU fragment shader. It doesn't perform well.
+</p>
+
+<p>
+<i>The year is 2013/2014.</i><br/>
+I'm in Computer Science II and I'm ahead of the class.
+I finish assignments quickly and help the other students when appropriate.
+I think this is what I want to do for a living.
+</p>
+
+<hr/>
+
+<p>
+<i>The year is 2019.</i><br/>
+I've been writing software for the past ~7 years of my life in school and as a hobby.
+I live in Munich.
+I work at a company where I write backend services to prevent unauthorized feature usage on our scanners.
+The android team fails to validate whether a device can be hardware identified over bluetooth.
+The project fails there, and I am left in limbo.
+We get a new VP of software.
+I suggest we should <em>enable</em> our users instead of inhibiting them.
+We start working on that. I excel here. I am happy.
+</p>
+
+<p>
+At the end of my internship, I return to the U.S. to finish my Associate's degree.
+</p>
+
+<hr/>
+
+<p>
+<i>The year is 2020.</i><br/>
+I've been writing software for the past ~8 years of my life in school, as a hobby,
+and I have 6 months of work experience under my belt.
+I start looking for work. There is nothing.
+</p>
+
+<p>
+Three months pass. Quarantine. <br/>
+The happiness is fading.
+</p>
+
+<p>
+I decide to go back to school to pursue a Bachelor's in math. <br/>
+I do well online in accelerated differential calculus and a 200-level computer science class.
+I go for another semester. Depression hits hard.
+I'm digging myself deeper into debt.
+I don't actually care about the degree, I just want to start my career.
+</p>
+
+<p>
+I fail all my classes.
+</p>
+
+<hr/>
+
+<p>
+<i>The year is 2021.</i><br/>
+I've been writing software for the past ~9 years of my life in school, as a hobby,
+and I have 6 months of work experience under my belt.
+I apply for hundreds of jobs.
+I interview with twenty.
+Nothing works out.
+</p>
+
+<p>
+A friend suggests I apply at his company for a software-adjacent position. I do.
+The company thinks I might not be content in a software-adjacent role.
+They video call me for the rejection. I cry after we hang up.
+</p>
+
+<p>
+I write an in-depth blog post about some feature in a niche programming language.
+In a few days it hits about 15k gross page views.
+From this, I interview with two more companies. Neither work out.
+Everyone wants more experience.
+</p>
+
+<p>
+I push carts and scrub toilets to pay my bills. <br/>
+I want to kill myself... But I don't tell anyone.
+</p>
+
+<p>
+I save up enough to survive a few months, then quit.
+I take a short break, then apply at my old company.
+There's so much pressure to succeed.
+I bungle the programming challenge due to nerves and an unfamiliarity with the current ecosystem.
+They reject me.
+</p>
+
+<hr/>
+
+<p>
+<i>The year is 2022.</i><br/>
+I've been writing software for the past ~10 years of my life in school, as a hobby,
+and I have 6 months of work experience under my belt.
+My debts are catching up to me.
+I apply to more jobs. Most want more experience.
+Internships are only for current/returning students.
+Is this the death of the self-taught programmer?
+</p>
+
+<p>
+Through all this I specialize in subjects whose careers require more education or experience.
+Oops.
+</p>
+
+<p>
+I feel lost. Hopeless... <br/>
+I write this blog post.
+</p>
+
+<p>
+The year is 2022... Maybe I'll find a job soon.
+</p>
+"""
