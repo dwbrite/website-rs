@@ -3,3 +3,6 @@
 *.css
 .sass-cache
 .idea
+.terraform/
+.kubeconfig
+*.tfstate*
