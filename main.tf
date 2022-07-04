@@ -15,7 +15,7 @@ provider "helm" {
 }
 
 provider "acme" {
-  server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
+  server_url = "https://acme-v02.api.letsencrypt.org/directory"
 }
 
 
@@ -92,6 +92,22 @@ resource "acme_certificate" "certificate" {
   }
 }
 
+resource "kubernetes_secret" "domains_private_key" {
+  depends_on = [linode_lke_cluster.dewbrite_cluster]
+
+  metadata {
+    name = "domains-private-key"
+  }
+
+  data = {
+    "tls.crt" = "${acme_certificate.certificate.certificate_pem}${acme_certificate.certificate.issuer_pem}}"
+    "tls.key" = tls_private_key.cert_private_key.private_key_pem
+  }
+
+  type = "kubernetes.io/tls"
+}
+
+
 # Container Registry ###################################################################################################
 
 data "linode_object_storage_cluster" "primary" {
@@ -127,6 +143,8 @@ resource "helm_release" "docker_registry" {
 # TODO: add namespace for load balancing?
 
 resource "helm_release" "nginx-ingress-controller" {
+  depends_on = [linode_lke_cluster.dewbrite_cluster]
+
   repository = "https://charts.bitnami.com/bitnami"
   name  = "nginx-ingress-controller"
   chart = "nginx-ingress-controller"
@@ -135,15 +153,21 @@ resource "helm_release" "nginx-ingress-controller" {
     name = "service.type"
     value = "LoadBalancer"
   }
+
+  set {
+    name = "extraArgs.default-ssl-certificate"
+    value = "${kubernetes_secret.domains_private_key.metadata.0.namespace}/${kubernetes_secret.domains_private_key.metadata.0.name}"
+  }
 }
 
 resource "kubernetes_ingress_v1" "ingress-rules" {
   metadata {
-    name = helm_release.nginx-ingress-controller.name
+    name = "ingress-rules"
   }
 
   spec {
     ingress_class_name = "nginx"
+
     rule {
       host = "registry.${var.root_domain}"
       http {
@@ -152,9 +176,7 @@ resource "kubernetes_ingress_v1" "ingress-rules" {
           backend {
             service {
               name = helm_release.docker_registry.name
-              port {
-                number = 8080
-              }
+              port { number = 8080 }
             }
           }
         }
@@ -164,6 +186,7 @@ resource "kubernetes_ingress_v1" "ingress-rules" {
 }
 
 data "kubernetes_service" "nginx-ingress-data" {
+  depends_on = [helm_release.nginx-ingress-controller]
   metadata {
     name = "nginx-ingress-controller"
   }

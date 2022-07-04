@@ -7,7 +7,7 @@ dwbrite.com is a multi-part server with several moving parts.
 Terraform sets a kubernetes cluster and the domain, 
 then some "bootstrap" pods: `nginx-ingress` and `docker-registry`
 
-In theory deploying is a simple `terraform apply` away after `export TF_VARS_linode_token=...`
+In theory deploying is a simple `terraform apply` away after `export TF_VARS_linode_token=...` (and `export LINODE_TOKEN=...`)
 
 DNS propagation can take a long time though so setting up ACME certs can be a "luck" based process...
 
