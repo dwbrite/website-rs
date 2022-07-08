@@ -1,3 +1,7 @@
+terraform {
+  backend "s3" {}
+}
+
 # Provider Configs #####################################################################################################
 
 provider "linode" {
@@ -115,7 +119,7 @@ data "linode_object_storage_cluster" "primary" {
 }
 
 resource "linode_object_storage_key" "registry_key" {
-  label = "tf-registry-key"
+  label = "container-registry-key"
 }
 
 resource "linode_object_storage_bucket" "dewbrite_registry" {
