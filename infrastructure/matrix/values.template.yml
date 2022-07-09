@@ -3,3 +3,5 @@ config:
 
 serverName:  "${ root_domain }"
 publicServerName: "${ full_domain }"
+
+#wellknown.enabled: true
