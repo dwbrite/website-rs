@@ -112,41 +112,10 @@ resource "kubernetes_secret" "domains_private_key" {
 }
 
 
-# Container Registry ###################################################################################################
-
-data "linode_object_storage_cluster" "primary" {
-  id = var.linode_bucket_region
-}
-
-resource "linode_object_storage_key" "registry_key" {
-  label = "container-registry-key"
-}
-
-resource "linode_object_storage_bucket" "dewbrite_registry" {
-  access_key = linode_object_storage_key.registry_key.access_key
-  secret_key = linode_object_storage_key.registry_key.secret_key
-
-  cluster = data.linode_object_storage_cluster.primary.id
-  label   = "dewbrite-registry"
-}
-
-resource "helm_release" "docker_registry" {
-  depends_on = [linode_lke_cluster.dewbrite_cluster]
-
-  chart      = "docker-registry"
-  repository = "https://charts.helm.sh/stable"
-  name       = "docker-registry"
-
-  set {
-    name  = "service.type"
-    value = "ClusterIP"
-  }
-}
-
 # Load Balancing  ######################################################################################################
 # TODO: add namespace for load balancing?
 
-resource "helm_release" "nginx-ingress-controller" {
+resource "helm_release" "nginx_ingress_controller" {
   depends_on = [linode_lke_cluster.dewbrite_cluster]
 
   repository = "https://charts.bitnami.com/bitnami"
@@ -164,40 +133,39 @@ resource "helm_release" "nginx-ingress-controller" {
   }
 }
 
-resource "kubernetes_ingress_v1" "ingress-rules" {
-  metadata {
-    name = "ingress-rules"
-  }
-
-  spec {
-    ingress_class_name = "nginx"
-
-    rule {
-      host = "registry.${var.root_domain}"
-      http {
-        path {
-          path = "/"
-          backend {
-            service {
-              name = helm_release.docker_registry.name
-              port { number = 8080 }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-data "kubernetes_service" "nginx-ingress-data" {
-  depends_on = [helm_release.nginx-ingress-controller]
+data "kubernetes_service" "nginx_ingress_data" {
+  depends_on = [helm_release.nginx_ingress_controller]
   metadata {
     name = "nginx-ingress-controller"
   }
 }
 
-resource "linode_domain_record" "balancer-ingress-a-record" {
+resource "linode_domain_record" "balancer_ingress_a_record" {
   domain_id   = linode_domain.dewbrite_com.id
   record_type = "A"
-  target      = data.kubernetes_service.nginx-ingress-data.status.0.load_balancer.0.ingress.0.ip
+  target      = data.kubernetes_service.nginx_ingress_data.status.0.load_balancer.0.ingress.0.ip
+}
+
+########################################################################################################################
+#                                               _       _                                                              #
+#                                              | |     | |                                                             #
+#                               ____   ___   __| |_   _| | _____  ___                                                  #
+#                              |    \ / _ \ / _  | | | | || ___ |/___)                                                 #
+#                              | | | | |_| ( (_| | |_| | || ____|___ |                                                 #
+#                              |_|_|_|\___/ \____|____/ \_)_____|___/                                                  #
+########################################################################################################################
+
+module "container_registry" {
+  source = "./container-registry"
+  providers = {
+    linode = linode
+  }
+
+  linode_bucket_region = var.linode_bucket_region
+  root_domain          = var.root_domain
+}
+
+module "matrix" {
+  source = "./matrix"
+  root_domain = var.root_domain
 }

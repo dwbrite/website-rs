@@ -1,0 +1,5 @@
+config:
+  publicBaseUrl: "https://${ full_domain }"
+
+serverName:  "${ root_domain }"
+publicServerName: "${ full_domain }"
