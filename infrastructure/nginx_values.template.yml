@@ -1,0 +1,3 @@
+service:
+  type: "LoadBalancer"
+  extraPorts: [ { port: 8008, name: "matrix" }, { port: 8448, name: "matrix-ssl" } ]

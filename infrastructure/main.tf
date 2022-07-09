@@ -119,16 +119,13 @@ resource "helm_release" "nginx_ingress_controller" {
   depends_on = [linode_lke_cluster.dewbrite_cluster]
 
   repository = "https://charts.bitnami.com/bitnami"
-  name  = "nginx-ingress-controller"
-  chart = "nginx-ingress-controller"
+  name       = "nginx-ingress-controller"
+  chart      = "nginx-ingress-controller"
+
+  values = [templatefile("${path.module}/nginx_values.template.yml", {})]
 
   set {
-    name = "service.type"
-    value = "LoadBalancer"
-  }
-
-  set {
-    name = "extraArgs.default-ssl-certificate"
+    name  = "extraArgs.default-ssl-certificate"
     value = "${kubernetes_secret.domains_private_key.metadata.0.namespace}/${kubernetes_secret.domains_private_key.metadata.0.name}"
   }
 }
@@ -166,6 +163,6 @@ module "container_registry" {
 }
 
 module "matrix" {
-  source = "./matrix"
+  source      = "./matrix"
   root_domain = var.root_domain
 }
