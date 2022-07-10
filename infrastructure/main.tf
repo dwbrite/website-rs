@@ -146,21 +146,14 @@ resource "linode_domain_record" "balancer_ingress_a_record" {
 resource "linode_domain_record" "matrix_srv_record" {
   domain_id = linode_domain.dewbrite_com.id
   record_type = "SRV"
-  target = "matrix.dwbrite.com"
+  target = "dwbrite.com"
   service = "matrix"
   protocol = "tcp"
-  name = "matrix.dwbrite.com"
+  name = "dwbrite.com"
   ttl_sec = 300
   priority = 0
   weight = 100
   port = 443
-}
-
-resource "linode_domain_record" "matrix_a_record" {
-  domain_id   = linode_domain.dewbrite_com.id
-  record_type = "A"
-  name        = "matrix.${var.root_domain}"
-  target      = data.kubernetes_service.nginx_ingress_data.status.0.load_balancer.0.ingress.0.ip
 }
 
 

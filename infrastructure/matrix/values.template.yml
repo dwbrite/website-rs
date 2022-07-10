@@ -1,6 +1,12 @@
 config:
-  publicBaseUrl: "https://${ full_domain }"
-  registrationSharedSecret: "${ shared_secret }"
+  trustedKeyServers:
+    - server_name: "matrix.org"
+
+extraConfig:
+  suppress_key_server_warning: true
+
+ingress:
+  className: "nginx"
 
 serverName:  "${ root_domain }"
-publicServerName: "${ full_domain }"
+publicServerName: "${ root_domain }"
