@@ -60,7 +60,7 @@ module "ingress" {
   source       = "../modules/nginx-ingress"
   port         = 5000
   root_domain  = var.root_domain
-  service_name = helm_release.container_registry.name
+  service_name = "${helm_release.container_registry.name}-${helm_release.container_registry.chart}"
   subdomain    = "registry"
   ingress_name = "container-registry-ingress"
 }

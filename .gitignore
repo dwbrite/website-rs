@@ -4,6 +4,7 @@
 .sass-cache
 .idea
 .terraform/
+.terraform.lock.hcl
 infrastructure/.kubeconfig
 *.tfstate*
 backend.conf

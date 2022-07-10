@@ -1,7 +1,6 @@
 config:
   publicBaseUrl: "https://${ full_domain }"
+  registrationSharedSecret: "${ shared_secret }"
 
 serverName:  "${ root_domain }"
 publicServerName: "${ full_domain }"
-
-#wellknown.enabled: true
