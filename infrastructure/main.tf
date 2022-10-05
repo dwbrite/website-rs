@@ -186,3 +186,7 @@ module "firefly" {
   root_domain = var.root_domain
 }
 
+#module "plex" {
+#  source = "./plex"
+#  root_domain = var.root_domain
+#}
