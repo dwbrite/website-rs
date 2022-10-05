@@ -180,3 +180,9 @@ module "matrix" {
   source      = "./matrix"
   root_domain = var.root_domain
 }
+
+module "firefly" {
+  source = "./firefly_iii"
+  root_domain = var.root_domain
+}
+
