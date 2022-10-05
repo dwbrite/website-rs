@@ -2,15 +2,12 @@
 
 use common::*;
 
-use chrono::{Local, Timelike};
 use rocket::config::Value;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use serde::{Deserialize, Serialize};
-use grass::Error;
 use std::fs;
 use std::path::Path;
-use std::ffi::OsStr;
 use structopt::StructOpt;
 
 mod blog;
@@ -45,7 +42,7 @@ fn compile_sass() -> std::io::Result<()> {
                 continue;
             }
 
-            let metadata = fs::metadata(&path)?;
+            // let metadata = fs::metadata(&path)?;
 
             // ignore files with the wrong type
             match path.extension() {
@@ -63,7 +60,7 @@ fn compile_sass() -> std::io::Result<()> {
             let css = grass::from_path(path.to_str().unwrap(), &grass::Options::default()).unwrap();
             let mut out = path.clone();
             out.set_extension("css");
-            std::fs::write(out, css);
+            std::fs::write(out, css).expect("Failed to write SCSS outputs");
         }
         Ok(())
     }

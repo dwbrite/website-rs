@@ -136,16 +136,24 @@ impl RawBlogPost {
     fn codify_media(&mut self) {
         let re = Regex::new(r#"<m src="(.*?)".*?>"#).unwrap();
         let result = re.replace_all(&self.content, |caps: &Captures| -> String {
-            let mediadata_url = format!("https://media.dwbrite.com/registry/{}", &caps[1]);
-            // let mediadata_url = format!("https://media.dwbrite.com/registry/{}", &caps[1]);
+            let mediadata_url = format!("http://media.dwbrite.com:41233/registry/{}", &caps[1]);
 
-            // TODO: handle unsuccessful responses
-            let response = reqwest::blocking::get(&mediadata_url).unwrap();
-            println!("url: {}", mediadata_url);
-            println!("response? {:?}", response);
-            let bytes = response.bytes().unwrap();
+            let mut option_data = None;
+            match reqwest::blocking::get(&mediadata_url) {
+                Ok(response) => {
+                    println!("url: {}", mediadata_url);
+                    println!("response? {:?}", response);
+                    let bytes = response.bytes().unwrap();
 
-            let data: MediaData = serde_json::from_slice(bytes.to_vec().as_slice()).unwrap();
+                    let data: MediaData = serde_json::from_slice(bytes.to_vec().as_slice()).unwrap();
+                    option_data = Some(data);
+                }
+                Err(_) => {
+                    return String::from("[Could not load media at startup. The media server may be down.]")
+                }
+            }
+
+            let data = option_data.unwrap();
 
             use MediaType::*;
             match data.mediatype {
