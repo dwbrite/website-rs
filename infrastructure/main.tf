@@ -174,6 +174,8 @@ module "container_registry" {
 
   linode_bucket_region = var.linode_bucket_region
   root_domain          = var.root_domain
+  registry_pass        = var.container_registry_password
+  registry_user        = var.container_registry_username
 }
 
 module "matrix" {
@@ -183,6 +185,13 @@ module "matrix" {
 
 module "firefly" {
   source = "./firefly_iii"
+  root_domain = var.root_domain
+}
+
+module "dwbrite-com" {
+  depends_on = [module.container_registry]
+  source = "./website_rs"
+
   root_domain = var.root_domain
 }
 

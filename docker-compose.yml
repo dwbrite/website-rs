@@ -3,10 +3,14 @@ services:
     build:
       context: ./
       dockerfile: ./media-dwbrite-com/Dockerfile
+    ports:
+      - "41233:41233"
     image: registry.dwbrite.com/dwbrite/media-dwbrite-com
 
   dwbrite-com:
     build:
       context: ./
       dockerfile: ./dwbrite-com/Dockerfile
+    ports:
+      - "41234:41234"
     image: registry.dwbrite.com/dwbrite/dwbrite-com

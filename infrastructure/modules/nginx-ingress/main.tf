@@ -16,7 +16,7 @@ resource "kubernetes_ingress_v1" "ingress_rules" {
     ingress_class_name = "nginx"
 
     rule {
-      host = "${var.subdomain}.${var.root_domain}"
+      host = var.subdomain != "" ? "${var.subdomain}.${var.root_domain}" : var.root_domain
       http {
         path {
           path = "/"

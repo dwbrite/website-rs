@@ -1,11 +1,7 @@
-#ingress:
-#  enabled: true
-#  hosts:
-#    - ${ host }
 storage: s3
 secrets:
   htpasswd: |-
-    infra:$2y$05$XDmjZzd7YFjkP4BL5SpYm.MIhyeg4tYrvnWPgvRAr4nrX9jcdjcBi
+    ${ registry_user }:${ bcrypt_pass }
   s3:
     accessKey: ${ access_key }
     secretKey: ${ secret_key }
