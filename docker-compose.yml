@@ -1,0 +1,12 @@
+services:
+  media-dwbrite-com:
+    build:
+      context: ./
+      dockerfile: ./media-dwbrite-com/Dockerfile
+    image: registry.dwbrite.com/dwbrite/media-dwbrite-com
+
+  dwbrite-com:
+    build:
+      context: ./
+      dockerfile: ./dwbrite-com/Dockerfile
+    image: registry.dwbrite.com/dwbrite/dwbrite-com
