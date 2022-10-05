@@ -1,0 +1,16 @@
+#ingress:
+#  enabled: true
+#  hosts:
+#    - ${ host }
+storage: s3
+secrets:
+  htpasswd: |-
+    infra:$2y$05$XDmjZzd7YFjkP4BL5SpYm.MIhyeg4tYrvnWPgvRAr4nrX9jcdjcBi
+  s3:
+    accessKey: ${ access_key }
+    secretKey: ${ secret_key }
+s3:
+  region: ${ region }
+  regionEndpoint: ${ region_endpoint }
+  secure: true
+  bucket: ${ bucket }

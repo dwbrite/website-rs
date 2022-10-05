@@ -7,6 +7,9 @@ variable "ingress_name" { type = string }
 resource "kubernetes_ingress_v1" "ingress_rules" {
   metadata {
     name = var.ingress_name
+    annotations = {
+      "nginx.ingress.kubernetes.io/proxy-body-size": 0
+    }
   }
 
   spec {

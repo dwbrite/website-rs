@@ -46,6 +46,7 @@ resource "helm_release" "container_registry" {
         region_endpoint = data.linode_object_storage_cluster.primary.domain # does this need subdomain?
         secret_key      = linode_object_storage_bucket.dewbrite_registry.secret_key
         access_key      = linode_object_storage_bucket.dewbrite_registry.access_key
+        host            = "registry.${ var.root_domain }"
       }
     )
   ]

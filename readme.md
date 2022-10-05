@@ -1,5 +1,13 @@
 # dwbrite.com, but this time in rust
 
+## containerizing
+
+`podman-compose build` to build the images
+
+`podman run dwbrite-com`
+
+``
+
 ## architecture
 
 dwbrite.com is a multi-part server with several moving parts.

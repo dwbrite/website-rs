@@ -1,6 +1,0 @@
-secrets.s3.accessKey: ${ access_key }
-secrets.s3.secretKey: ${ secret_key }
-
-s3.region: ${ region }
-s3.regionEndpoint: ${ region_endpoint }
-s3.bucket: ${ bucket }

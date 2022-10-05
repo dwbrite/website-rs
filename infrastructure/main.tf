@@ -167,7 +167,7 @@ resource "linode_domain_record" "matrix_srv_record" {
 ########################################################################################################################
 
 module "container_registry" {
-  source = "./container-registry"
+  source = "./container_registry"
   providers = {
     linode = linode
   }
