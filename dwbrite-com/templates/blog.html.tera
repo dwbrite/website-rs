@@ -5,7 +5,7 @@
 {% for post in posts %}
 <article class="post">
     <header class="post-header">
-        <h2><a href="/blog/post/{{ post.title | urlencode }}" id="{{ post.title | slugify }}">{{ post.title }}</a></h2>
+        <h2><a href="/blog/post/{{ post.link_title | urlencode }}" id="{{ post.title | slugify }}">{{ post.title }}</a></h2>
         <time datetime="{{ post.date }}">{{ post.date }}</time>
     </header>
     {{ post.content | safe }}

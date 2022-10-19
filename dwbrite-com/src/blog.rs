@@ -106,6 +106,16 @@ pub(crate) mod routes {
     }
 }
 
+pub fn transform_title(s: String) -> String {
+    s.chars().filter_map(|c| -> Option<char> {
+        return match c {
+            '!' | '#' | '$' | '&' | '\'' | '(' | ')' | '*' | '/' | ':' | ';' | '=' | '?' | '@' | '[' | ']' => { None },
+            '+' | ',' | ' ' => { Some('-') }
+            _ => Some(c)
+        }
+    }).collect()
+}
+
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct RawBlogPost {
     title: String,
@@ -125,6 +135,7 @@ impl RawBlogPost {
         self.codify_media();
 
         BlogPost {
+            link_title: transform_title(self.title.clone()),
             title: self.title,
             date: self.date.to_string(),
             tags: self.tags,
@@ -205,6 +216,7 @@ pub struct BlogPost {
     tags: Vec<String>,
     content: String,
     hidden: bool,
+    link_title: String,
 }
 
 /// TODO: real docs
@@ -237,6 +249,7 @@ impl BlogState {
 
             let post = Arc::new(Self::read_post(file));
             self.sorted_posts.push(post.clone());
+            self.title_map.insert(transform_title(post.title.clone()), post.clone());
             self.title_map.insert(post.title.clone(), post.clone());
 
             for tag in &post.tags {
