@@ -1,14 +1,14 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/resume/styles.css">
     <title>Devin Brite's Resume</title>
 </head>
 <body>
-<div style="position: absolute; visibility: hidden;">sš<b>sš</b><i>sš</i></div>
+
 <a href="/resume/resume.pdf"><div class="pdf-ribbon"><span>VIEW PDF</span></div></a>
 
-<div class="page">
-    <div class="page-content">
+<div class="page"> <div class="page-content">
     <header>
         <h1 id="name">Devin Brite</h1>
         <div id="contact">
@@ -25,11 +25,9 @@
 
     <div id="intro">
         <p>
-            I'm a generalist software developer with a specialization in backend / web architecture.
+            I'm a generalist software developer with a specialization in backend / web development.
             Most of my personal projects are explorations into other domains like
-            embedded firmware (<a href="https://github.com/irevoire/teensy/pull/5">rust</a>, <a href="https://github.com/dwbrite/lightboard-controls">c++</a>),
-            rendering (<a href="https://github.com/dwbrite/wgpu-rendering-project/wiki">in theory</a> and <a href="https://github.com/dwbrite/void-rs/blob/master/game/src/graphics/mod.rs">in practice</a>),
-            or other physical <a href="https://dwbrite.com/blog/post/research%20and%20whiteboards">crafts.</a>
+            embedded firmware, rendering, or other physical crafts.
         </p>
     </div>
 
@@ -47,98 +45,191 @@
             <div class="job-description">
                 <p>
                     At ProGlove I was a core developer of <a href="https://www.youtube.com/watch?v=wRUhZHi1rVI">ProGlove Insight</a> -
-                    a cloud-based platform for <abbr title="Internet of Things">IoT</abbr> device management built on AWS.
+                    a cloud-based platform for IoT device management built on AWS.
                     Insight enables analysis of scans from ProGlove devices,
                     leading to further efficiency improvements in customers' manufacturing and logistics processes.
                 </p>
                 <p>
                     As one of only two programmers who worked on Insight from the start,
-                    I played a key role in the <a href="https://developers.proglove.com/insight/api/api.html">design and implementation</a> of the product,
+                    I played a key role in the <a href="https://developers.proglove.com/insight/api/swagger/index.html">design and implementation</a> of the product,
                     as well as in the interviewing and subsequent hiring of four additional team members.
                 </p>
             </div>
         </div>
-
-        <div id="education" class="subsection">
-            <h2>Education</h2>
-
-            <div class="edu">
-                <div class="sub-header">
-                    <div class="degree">
-                        <h3>B.S., Mathematics (Incomplete)</h3>
-                        <h4>University of Massachusetts Amherst - Amherst, MA</h4>
-                    </div>
-                    <div class="timespan"><time datetime="2020-05">Apr 2020</time> - <time datetime="2020-12">Dec 2020</time></div>
-                </div>
-
-                <div class="edu-description">
-                    <p>
-                        When COVID-19 hit, I applied for the mathematics program at UMass Amherst.
-                        After two semesters online, I decided that entering the workforce would be more time and cost effective for me.
-                    </p>
+    </div>
+    <div id="projects" class="subsection">
+        <h2>Notable Projects</h2>
+        <div class="showcase">
+            <div class="sub-header">
+                <div class="project">
+                    <h3>Teensy 3.x</h3>
                 </div>
             </div>
+            <div class="project-description">
+                <p>
+                    After years of using <a href="https://www.pjrc.com/store/teensy40.html">Teensy development boards</a>, I wanted to dig into their inner workings.
+                    In 2019 I started writing firmware from scratch for the Teensy 3's K20DX256 microcontroller,
+                    and later teamed up with a programmer from France who had started working on some firmware of their own.
+                </p>
 
-            <div class="edu">
-                <div class="sub-header">
-                    <div class="degree">
-                        <h3>A.S., Computer Information Systems</h3>
-                        <h4>Quinsigamond Community College - Worcester, MA</h4>
-                    </div>
-                    <div class="timespan"><time datetime="2016-09">Sept 2016</time> - <time datetime="2019-12">Dec 2019</time></div>
-                </div>
-
-                <div class="edu-description">
-                    <p>
-                        At QCC I graduated with an associate's in web development & programming.
-                        The coursework largely focused on databases and VB .NET, as well as systems analysis and design.
-                    </p>
-                </div>
+                <p>
+                    <a href="https://github.com/dwbrite/teensy-k20dx256/branches">Our efforts</a>
+                    involved reading much of the K20DX256's 1400 page reference manual,
+                    writing linker files, implementing registers and abstract device functionality,
+                    and creating examples and documentation.
+                    In the future we'd like to revisit the project with SVD-based code generation.
+                </p>
             </div>
         </div>
 
-        <div>
-            <h2>Skills</h2>
-            <div style="display: flex; width: 100%;">
-                <div style="flex: 1 1 0;">
-                    <h3>Programming Languages</h3>
-                    <ul>
-
-                        <li>Rust <span class="xp">[12,500xp]</span></li>
-                        <li>Java <span class="xp">[8,000xp]</span></li>
-                        <li>Go <span class="xp">[5,500xp]</span></li>
-                        <li>Kotlin <span class="xp">[3,000xp]</span></li>
-                        <li>JavaScript <span class="xp">[2,500xp]</span></li>
-                        <li>C++ <span class="xp">[1,800xp]</span></li>
-                        <li>Python <span class="xp">[1,500xp]</span></li>
-                    </ul>
+        <div class="showcase">
+            <div class="sub-header">
+                <div class="project">
+                    <h3>dorc - &ldquo;<u>D</u>evin's <u>Orc</u>hestrator&rdquo;</h3>
                 </div>
+            </div>
+            <div class="project-description">
+                <p>
+                    <code>dorc</code> is a
+                    <a href="https://github.com/dwbrite/dorc">utility I made for simple green-blue deployments</a>
+                    without the hassle of kubernetes or docker swarm.
+                    I use it for deploying my website with nearly zero downtime on my multi-purpose Linode VPS.
+                </p>
 
-                <div style="flex: 1 1 0px;">
-                    <h3>Tools and Processes</h3>
-                    <ul>
-                        <li>Git <span class="xp">[10,000xp]</span></li>
-                        <li>Linux <span class="xp">[7,500xp]</span></li>
-                        <li>AWS <span class="xp">[5,500xp]</span></li>
-                        <li>Apache+/Nginx <span class="xp">[4,000xp]</span></li>
-                        <li>Agile <span class="xp">[3,000xp]</span></li>
-                        <li>CI/CD<span class="xp">[2,200xp]</span></li>
-                        <li>Docker <span class="xp">[1,500xp]</span></li>
-                    </ul>
+                <p>
+                    This project is split into two parts: the CLI, and the daemon.
+                    The daemon is a long-running service that watches a release directory,
+                    listens for commands via named pipes, and controls routing to a green or blue service.
+                    The CLI merely sets up SystemD Unit files when you register an application,
+                    and writes commands to the relevant named pipe.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div></div>
+
+<div class="page"><div class="page-content">
+    <div class="showcase">
+        <div class="sub-header">
+            <div class="project">
+                <h3>Graphics Programming with <a href="https://github.com/gfx-rs/wgpu#wgpu">WGPU</a></h3>
+            </div>
+        </div>
+        <div class="project-description">
+            <p>
+                While I was experimenting with my custom game engine for a 2D game called <a href="https://github.com/dwbrite/void-rs">void</a>,
+                I wanted to figure out
+                a.) how to build my render graph, and
+                b.) how to effectively render thousands of <i>unique</i> sprites.
+            </p>
+
+            <p>
+                In an attempt to resolve those questions, I made a
+                <a href="https://github.com/dwbrite/wgpu-particle-demo/">particle rendering demo</a>
+                which draws and updates hundreds of thousands of individual particles every frame.
+                Learning to make a renderer like this involved understanding low-level graphics APIs,
+                writing compute, vertex, and fragment shaders in WGSL (and previously GLSL),
+                and asking for <i>plenty</i> of help from niche online communities.
+            </p>
+        </div>
+    </div>
+
+
+    <div id="skill" class="subsection">
+        <h2>Skills and Technology</h2>
+
+        <div class="showcase">
+            <div class="sub-header">
+                <div class="technology">
+                    <h3>Languages</h3>
                 </div>
+            </div>
+            <div class="project-description">
+                <p>
+                    The projects listed above were all done in <b>Rust</b>,
+                    mostly because I feel it allows me to write code quickly and with proper abstractions.
+                    I started learning Rust in 2017 and haven't looked back since.
+                    I've even contributed to the Rust by Example book and written blog posts about my favorite features.
+                    But fear not - I'm not a zealot, nor a one-trick pony!
+                </p>
+
+                <p>
+                    I have a few years of <b>Java</b> under my belt (from the Java 8-9 era),
+                    I've created a Pokemon clone(*) in <b>Kotlin</b>,
+                    I've written APIs professionally in <b>Go</b>,
+                    and I have a handful of smaller projects in various languages
+                    like Python, C++, CoffeeScript, and JavaScript.
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="showcase">
+            <div class="sub-header">
+                <div class="technology">
+                    <h3>Databases, Caches, and Storage</h3>
+                </div>
+            </div>
+            <div class="project-description">
+                <p>
+                    I learned <b>MySQL</b> in high school to create an anarchistic
+                    &ldquo;for students, by students&rdquo; newspaper website.
+                </p>
+
+                <p>
+                    The nth iteration of my <i>personal</i> website used <b>PostgreSQL</b> to store blog posts.
+                    My current website stores blog posts with the source code in git,
+                    but uses Linode's <b>S3</b>-compatible object storage for storing media like gifs, videos, images, and binaries.
+                </p>
+
+                <p>
+                    I've also used <b>DynamoDB</b> as a cache for timely access of recent time-series data.
+                </p>
+            </div>
+        </div>
+
+        <div class="showcase">
+            <div class="sub-header">
+                <div class="technology">
+                    <h3>And More!</h3>
+                </div>
+            </div>
+            <div class="project-description">
+                <p>
+                    I've been using <b>git</b> consistently since 2017.
+                    Since <a href="https://twitter.com/HenryHoffman/status/694184106440200192">turning git into guitar hero</a>
+                    by attempting to rebase within the Jetbrains GUI,
+                    I've become <i>well</i>-acquainted with the CLI.
+                </p>
+
+                <p>
+                    My operating system of choice since 2016 has been debian-based distros of <b>Linux</b>.
+                    I dual-boot <b>Windows</b> on my desktop
+                    and make an effort to ensure my projects compile on both platforms.
+                </p>
+
+                <p>
+                    As for CI/CD, these days I use <b>Github Actions</b> - though I've used both <b>Jenkins</b> and <b>Travis CI</b> in the past.
+                </p>
+
+                <p>
+                    I worked with <b>AWS</b> at ProGlove and
+                    I'm familiar with a large portion of its services, namely Lambda, IoT Core, API Gateway, and SQS.
+                    More often, I tend to use <b>Linode</b>'s virtual private servers for my personal projects.
+                </p>
+
+                <p>
+                    I'm pretty quick to learn, so don't be afraid to ask for technologies that aren't listed here.
+                    I'm particularly interested in learning Scala, Kubernetes, or Ansible should the opportunity ever arise.
+                </p>
             </div>
         </div>
     </div>
-    </div>
 
-    <div class="footer">
-        Experience Points (xp) is a heuristic for quantifying relative experience.
-        I've used 20,000xp as a baseline equivalent to
-        <a href="https://en.wikipedia.org/wiki/Outliers_(book)">Malcolm Gladwell's</a> <a href="https://www.bbc.com/future/article/20121114-gladwells-10000-hour-rule-myth">10,000 hours</a>.
-        Note that 2xp ≠ 1 hr in much that same way that 1 agile story point ≠ 1 man-day. XP is also relative to the <em>size</em> of the subject.
-        For example, I've used Linux longer than I've used Rust, but I've mastered more of Rust than I have of Linux.
-    </div>
-</div>
+
+</div></div>
 
 <!--<div class="page">-->
 <!--

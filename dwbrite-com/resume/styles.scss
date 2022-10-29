@@ -28,6 +28,12 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
+blockquote {
+  margin-left: 10px;
+  border-left: 1px gray solid;
+  padding: 2px 0 2px 8px;
+}
+
 h1#name {
   margin-top: 0;
 }
@@ -42,7 +48,7 @@ header {
 }
 
 body {
-  font-size: 14px;
+  font-size: 13.5px;
 }
 
 #contact {
@@ -62,10 +68,15 @@ h2, h3, h4 {
   padding: 0;
 }
 
+.showcase {
+  margin-bottom: 2.5em;
+}
+
 .subsection h2 {
   padding-bottom: 0.05em;
   margin-bottom: 0.5em;
   border-bottom: #666666 1px solid;
+  margin-top: 1em;
 }
 
 ul {
@@ -83,19 +94,10 @@ ul {
   }
 }
 
-.edu {
-  margin-bottom: 1.5em;
-}
-
 span.xp {
   float: right;
   padding-right: 3em;
   font-family: 'Fira Code', monospace;
-}
-
-
-div.page-content {
-
 }
 
 div.footer {
