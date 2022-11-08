@@ -1,0 +1,19 @@
+name: Container CI / Latest
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-push-images:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install podman and podman-compose
+      run: sudo apt-get -y install podman python3-pip && pip3 install podman-compose
+    - name: Podman login
+      run: podman login registry.dwbrite.com -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+    - name: Build container images
+      run: podman-compose build
+    - name: Push images to registry
+      run: podman-compose push
