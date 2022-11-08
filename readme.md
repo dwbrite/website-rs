@@ -1,12 +1,16 @@
 # dwbrite.com, but this time in rust
 
+## Running locally
+
+`cd dwbrite-com && cargo run`
+
+`cd media-dwbrite-com && cargo run`
+
 ## containerizing
 
 `podman-compose build` to build the images
 
-`podman run dwbrite-com`
-
-``
+`podman-compose push` to push the images. By default this will use the `latest` tag.
 
 ## architecture
 

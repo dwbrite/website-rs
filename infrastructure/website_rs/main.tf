@@ -5,6 +5,7 @@ resource "kubernetes_deployment" "dwbrite-com" {
     name = "dwbrite-com"
     labels = {
       app = "dwbrite.com"
+      revision = "0x01"
     }
   }
 
@@ -29,9 +30,11 @@ resource "kubernetes_deployment" "dwbrite-com" {
           name = "container-registry-creds"
         }
 
+
         container {
           name  = "dwbrite-com"
           image = "registry.dwbrite.com/dwbrite/dwbrite-com:latest"
+          image_pull_policy = "Always"
 
           resources {
             limits = {
