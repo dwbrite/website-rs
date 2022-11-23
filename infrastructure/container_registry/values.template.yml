@@ -10,3 +10,5 @@ s3:
   regionEndpoint: ${ region_endpoint }
   secure: true
   bucket: ${ bucket }
+persistence:
+  deleteEnabled: true
