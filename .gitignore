@@ -8,3 +8,5 @@
 infrastructure/.kubeconfig
 *.tfstate*
 backend.conf
+secret*.tfvars
+*.tfbackend
