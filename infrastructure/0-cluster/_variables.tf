@@ -1,7 +1,3 @@
-variable "email" {
-  type    = string
-}
-
 variable "linode_region" {
   type    = string
 }

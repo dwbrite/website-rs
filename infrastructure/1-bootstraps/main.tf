@@ -13,6 +13,14 @@ resource "linode_domain_record" "dewbrite_cname" {
   target      = var.root_domain
 }
 
+output "domain" {
+  value = {
+    id          = linode_domain.dewbrite_com.id
+    root_domain = var.root_domain
+    soa_email   = var.email
+  }
+}
+
 # ACME #################################################################################################################
 
 module "cert_manager" {

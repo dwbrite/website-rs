@@ -21,3 +21,22 @@ resource "helm_release" "matrix_server" {
   ]
 }
 
+variable "bootstraps_backend" {}
+
+data "terraform_remote_state" "bootstraps" {
+  backend = "s3"
+  config = var.bootstraps_backend
+}
+
+resource "linode_domain_record" "matrix_srv_record" {
+  domain_id = data.terraform_remote_state.bootstraps.outputs.domain.id
+  record_type = "SRV"
+  target = "dwbrite.com"
+  service = "matrix"
+  protocol = "tcp"
+  name = "dwbrite.com"
+  ttl_sec = 300
+  priority = 0
+  weight = 100
+  port = 443
+}
