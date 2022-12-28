@@ -1,5 +1,7 @@
 # Infrastructure-as-code
 
+
+
 infrastructure is an onion, with layers from 0 to ?
 
 TL;DR: cluster -> bootstraps (certs, load-balancer/ingress, container_registry) -> applications

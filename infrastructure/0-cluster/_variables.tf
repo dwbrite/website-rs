@@ -10,7 +10,7 @@ variable "cluster_name" {
 variable "cluster_pool" {
   default = {
     type  = "g6-standard-1"
-    count = 1
+    count = 2
   }
 
   description = "todo: make this support autoscaling and multiple pools"

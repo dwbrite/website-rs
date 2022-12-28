@@ -5,7 +5,7 @@ resource "kubernetes_deployment" "dwbrite-com" {
     name = "dwbrite-com"
     labels = {
       app = "dwbrite.com"
-      revision = "0x02"
+      revision = "0x03"
     }
   }
 
@@ -34,20 +34,7 @@ resource "kubernetes_deployment" "dwbrite-com" {
         container {
           name  = "dwbrite-com"
           image = "registry.dwbrite.com/dwbrite/dwbrite-com:latest"
-          image_pull_policy = "Always"
-
-          resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "512Mi"
-            }
-            requests = {
-              cpu    = "250m"
-              memory = "50Mi"
-            }
-          }
-
-          liveness_probe {
+          image_pull_policy = "Always"          liveness_probe {
             http_get {
               path = "/"
               port = 41234
@@ -61,6 +48,32 @@ resource "kubernetes_deployment" "dwbrite-com" {
             initial_delay_seconds = 3
             period_seconds        = 3
           }
+
+          resources {
+            limits = {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
+          }
+
+#          liveness_probe {
+#            http_get {
+#              path = "/"
+#              port = 41234
+#
+#              http_header {
+#                name  = "X-Custom-Header"
+#                value = "Awesome"
+#              }
+#            }
+#
+#            initial_delay_seconds = 3
+#            period_seconds        = 3
+#          }
         }
       }
     }
