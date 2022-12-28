@@ -34,7 +34,9 @@ resource "kubernetes_deployment" "dwbrite-com" {
         container {
           name  = "dwbrite-com"
           image = "registry.dwbrite.com/dwbrite/dwbrite-com:latest"
-          image_pull_policy = "Always"          liveness_probe {
+          image_pull_policy = "Always"
+
+          liveness_probe {
             http_get {
               path = "/"
               port = 41234
