@@ -40,11 +40,6 @@ resource "kubernetes_deployment" "dwbrite-com" {
             http_get {
               path = "/"
               port = 41234
-
-              http_header {
-                name  = "X-Custom-Header"
-                value = "Awesome"
-              }
             }
 
             initial_delay_seconds = 3
@@ -61,21 +56,6 @@ resource "kubernetes_deployment" "dwbrite-com" {
               memory = "50Mi"
             }
           }
-
-#          liveness_probe {
-#            http_get {
-#              path = "/"
-#              port = 41234
-#
-#              http_header {
-#                name  = "X-Custom-Header"
-#                value = "Awesome"
-#              }
-#            }
-#
-#            initial_delay_seconds = 3
-#            period_seconds        = 3
-#          }
         }
       }
     }
