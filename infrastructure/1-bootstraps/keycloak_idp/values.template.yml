@@ -1,0 +1,6 @@
+auth:
+  adminUser: "${adminUser}"
+  existingSecret: "${adminSecret}"
+  passwordSecretKey: "${adminPasswordKey}"
+
+# TODO: production=true, proxy=edge

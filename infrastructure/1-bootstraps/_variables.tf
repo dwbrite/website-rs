@@ -29,3 +29,8 @@ variable "container_registry_password" {
 variable "kubernetes_backend" {
   type = map
 }
+
+variable "linode_token_dns" {
+  type = string
+  description = "linode API token strictly for accessing DNS records, used for the ACME solver"
+}
