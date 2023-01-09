@@ -4,7 +4,7 @@
 <article class="post">
     <header class="post-header">
         <h2><a href="/">about me</a></h2>
-        <time datetime="2018-10-20">c. 2021-01-12</time>
+        <time datetime="2023-01-09">c. 2023-01-09</time>
     </header>
 
     <p>
@@ -32,18 +32,16 @@
     </p>
 
     <ul>
-        <li>3D printing Settlers of Catan,</li>
-        <li>building this website, and</li>
-        <li>writing a game called void using rust & wgpu.</li>
+        <li>building a community of hackers at <a href="https://basement.woodbine.nyc/Main_Page#">the basement</a>
+            of <a href="https://www.woodbine.nyc/">woodbine</a>,</li>
+        <li>building <a href="https://github.com/dwbrite/website-rs">this website</a>, and</li>
+        <li>looking for work!</li>
     </ul>
 
     <hr/>
 
     <p>
-        P.S.
-        <a href="https://docs.google.com/spreadsheets/d/1R9KzpWbyOp9GM-laW3as4nkQBD2jWWaAT8XgrpFzJN0/edit?usp=sharing">
-            I <i>quite</i> like spreadsheets.
-        </a>
+        <a href="/.well-known/4E364CAA147E0A620603417331DC69A38FBDD143.asc">PGP public key</a>
     </p>
 </article>
 {% endblock content %}
