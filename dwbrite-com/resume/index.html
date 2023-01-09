@@ -12,9 +12,9 @@
     <header>
         <h1 id="name">Devin Brite</h1>
         <div id="contact">
-            <div>North Grafton, MA, USA </div>
+            <div>New York, NY, USA </div>
             <div>dwbrite@gmail.com</div>
-            <div>+1 (774) 214 8041</div>
+            <div>+1 (774) 293 8465</div>
         </div>
         <div id="identity">
             <div><a href="https://dwbrite.com">dwbrite.com</a></div>
@@ -25,14 +25,47 @@
 
     <div id="intro">
         <p>
-            I'm a generalist software developer with a specialization in backend / web development.
-            Most of my personal projects are explorations into other domains like
-            embedded firmware, rendering, or other physical crafts.
+            I'm a software developer specializing in backend development and devops.
+            I'm always seeking new opportunities to expand my knowledge and skills,
+            especially in areas that are outside of my comfort zone.
+        </p>
+        <p>
+            Some other domains I've explored recently are embedded firmware, rendering, and electrical engineering.
+            I'm particularly interested in pursuing projects that
+            involve using physical objects with interactive elements,
+            especially as they relate to the ambiance and <em>feel</em> of a space.
         </p>
     </div>
 
     <div id="experience" class="subsection">
         <h2>Experience</h2>
+
+        <div class="job">
+            <div class="sub-header">
+                <div class="position">
+                    <h3>DevOps Engineer</h3>
+                    <h4>Remediant, Inc. - San Francisco, California (Remote / NY)</h4>
+                </div>
+                <div class="timespan"><time datetime="2022-06-06">June 2022</time> - <time datetime="2022-12-28">Dec 2022</time></div>
+            </div>
+
+            <div class="job-description">
+                <p>
+                    At Remediant I managed our SaaS infrastructure in the form of Kubernetes clusters and AWS services.
+                    I used Terraform to administer VLANs, deploy and configure our application and logging stacks,
+                    and implement monitoring and alerting systems to maintain SOC2 compliance.
+                </p>
+
+                <p>
+                    Following a major outage, the company realized that it was almost impossible to
+                    redeploy our infrastructure from the existing codebase.
+                    To address this, I led the project to refactor our codebase,
+                    allowing it to be deployed from scratch for the first time.
+                    I focused primarily on breaking the codebase down into isolated modules with a clear dependency chain.
+                </p>
+            </div>
+        </div>
+
         <div class="job">
             <div class="sub-header">
                 <div class="position">
@@ -58,83 +91,104 @@
         </div>
     </div>
     <div id="projects" class="subsection">
-        <h2>Notable Projects</h2>
+        <h2>Neat Projects and Explorations</h2>
+<!--        <div class="showcase">-->
+<!--            <div class="sub-header">-->
+<!--                <div class="project">-->
+<!--                    <h3>Teensy 3.x</h3>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="project-description">-->
+<!--                <p>-->
+<!--                    After years of using <a href="https://www.pjrc.com/store/teensy40.html">Teensy development boards</a>,-->
+<!--                    I wanted to dig into their inner workings.-->
+<!--                    In 2019 I started writing firmware from scratch for the Teensy 3's K20DX256 microcontroller,-->
+<!--                    and later teamed up with a programmer from France who had started working on some firmware of their own.-->
+<!--                </p>-->
+
+<!--                <p>-->
+<!--                    Our efforts involved reading much of the K20DX256's 1400 page reference manual,-->
+<!--                    writing linker files, implementing registers and abstract device functionality,-->
+<!--                    and creating examples and documentation.-->
+<!--                    In the future we'd like to revisit the project with SVD-based code generation.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="showcase">-->
+<!--            <div class="sub-header">-->
+<!--                <div class="project">-->
+<!--                    <h3>dorc - &ldquo;<u>D</u>evin's <u>Orc</u>hestrator&rdquo;</h3>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="project-description">-->
+<!--                <p>-->
+<!--                    <code>dorc</code> is a-->
+<!--                    <a href="https://github.com/dwbrite/dorc">utility I made for simple green-blue deployments</a>-->
+<!--                    without the hassle of kubernetes or docker swarm.-->
+<!--                    I use it for deploying my website with nearly zero downtime on my multi-purpose Linode VPS.-->
+<!--                </p>-->
+
+<!--                <p>-->
+<!--                    This project is split into two parts: the CLI, and the daemon.-->
+<!--                    The daemon is a long-running service that watches a release directory,-->
+<!--                    listens for commands via named pipes, and controls routing to a green or blue service.-->
+<!--                    The CLI merely sets up SystemD Unit files when you register an application,-->
+<!--                    and writes commands to the relevant named pipe.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="showcase">
             <div class="sub-header">
                 <div class="project">
-                    <h3>Teensy 3.x</h3>
+                    <h3>Graphics Programming with <a href="https://github.com/gfx-rs/wgpu#wgpu">WGPU</a></h3>
                 </div>
             </div>
             <div class="project-description">
                 <p>
-                    After years of using <a href="https://www.pjrc.com/store/teensy40.html">Teensy development boards</a>, I wanted to dig into their inner workings.
-                    In 2019 I started writing firmware from scratch for the Teensy 3's K20DX256 microcontroller,
-                    and later teamed up with a programmer from France who had started working on some firmware of their own.
+                    While I was experimenting with my custom game engine for a 2D game called <a href="https://github.com/dwbrite/void-rs">void</a>,
+                    I wanted to figure out
+                    a.) how to build my render graph, and
+                    b.) how to effectively render thousands of <i>unique</i> sprites.
                 </p>
 
                 <p>
-                    <a href="https://github.com/dwbrite/teensy-k20dx256/branches">Our efforts</a>
-                    involved reading much of the K20DX256's 1400 page reference manual,
-                    writing linker files, implementing registers and abstract device functionality,
-                    and creating examples and documentation.
-                    In the future we'd like to revisit the project with SVD-based code generation.
+                    In an attempt to resolve those questions, I made a
+                    <a href="https://github.com/dwbrite/wgpu-particle-demo/">particle rendering demo</a>
+                    which draws and updates hundreds of thousands of individual particles every frame.
+                    Learning to make a renderer like this involved understanding low-level graphics APIs,
+                    writing compute, vertex, and fragment shaders in WGSL (and previously GLSL),
+                    and asking for <i>plenty</i> of help from niche online communities.
                 </p>
             </div>
         </div>
-
-        <div class="showcase">
-            <div class="sub-header">
-                <div class="project">
-                    <h3>dorc - &ldquo;<u>D</u>evin's <u>Orc</u>hestrator&rdquo;</h3>
-                </div>
-            </div>
-            <div class="project-description">
-                <p>
-                    <code>dorc</code> is a
-                    <a href="https://github.com/dwbrite/dorc">utility I made for simple green-blue deployments</a>
-                    without the hassle of kubernetes or docker swarm.
-                    I use it for deploying my website with nearly zero downtime on my multi-purpose Linode VPS.
-                </p>
-
-                <p>
-                    This project is split into two parts: the CLI, and the daemon.
-                    The daemon is a long-running service that watches a release directory,
-                    listens for commands via named pipes, and controls routing to a green or blue service.
-                    The CLI merely sets up SystemD Unit files when you register an application,
-                    and writes commands to the relevant named pipe.
-                </p>
-            </div>
-        </div>
-
     </div>
 </div></div>
 
 <div class="page"><div class="page-content">
+
     <div class="showcase">
         <div class="sub-header">
             <div class="project">
-                <h3>Graphics Programming with <a href="https://github.com/gfx-rs/wgpu#wgpu">WGPU</a></h3>
+                <h3>Infrastructure and Services on dwbrite.com</h3>
             </div>
         </div>
         <div class="project-description">
             <p>
-                While I was experimenting with my custom game engine for a 2D game called <a href="https://github.com/dwbrite/void-rs">void</a>,
-                I wanted to figure out
-                a.) how to build my render graph, and
-                b.) how to effectively render thousands of <i>unique</i> sprites.
+                My website acts as a showcase of my skills and a platform for further
+                exploration in backend development and infrastructure.
             </p>
-
             <p>
-                In an attempt to resolve those questions, I made a
-                <a href="https://github.com/dwbrite/wgpu-particle-demo/">particle rendering demo</a>
-                which draws and updates hundreds of thousands of individual particles every frame.
-                Learning to make a renderer like this involved understanding low-level graphics APIs,
-                writing compute, vertex, and fragment shaders in WGSL (and previously GLSL),
-                and asking for <i>plenty</i> of help from niche online communities.
+                In the past, I've hosted it on a simple VPS using my own orchestration tool,
+                <a href="https://github.com/dwbrite/dorc">dorc</a>,
+                which integrates with SystemD to create and multiplex green-blue deployments.
+                Today I use Kubernetes on Linode to host
+                <a href="https://github.com/dwbrite/website-rs/tree/master/dwbrite-com">dwbrite.com</a>
+                and <a href="https://github.com/dwbrite/website-rs/tree/master/infrastructure">other services</a>
+                that allow me to divorce myself from proprietary software and cloud-specific solutions.
             </p>
         </div>
     </div>
-
 
     <div id="skill" class="subsection">
         <h2>Skills and Technology</h2>
@@ -147,8 +201,8 @@
             </div>
             <div class="project-description">
                 <p>
-                    The projects listed above were all done in <b>Rust</b>,
-                    mostly because I feel it allows me to write code quickly and with proper abstractions.
+                    All of my recent personal projects have been written primarily in <b>Rust</b>,
+                    because I feel it allows me to write code quickly using abstractions that tend not to bite.
                     I started learning Rust in 2017 and haven't looked back since.
                     I've even contributed to the Rust by Example book and written blog posts about my favorite features.
                     But fear not - I'm not a zealot, nor a one-trick pony!
@@ -157,14 +211,12 @@
                 <p>
                     I have a few years of <b>Java</b> under my belt (from the Java 8-9 era),
                     I've created a Pokemon clone(*) in <b>Kotlin</b>,
-                    I've written APIs professionally in <b>Go</b>,
+                    I've written APIs professionally in <b>Go</b> (which I'd like to work more with),
                     and I have a handful of smaller projects in various languages
-                    like Python, C++, CoffeeScript, and JavaScript.
+                    including Python, C++, CoffeeScript, and JavaScript.
                 </p>
             </div>
         </div>
-
-
 
         <div class="showcase">
             <div class="sub-header">
@@ -201,28 +253,24 @@
                     I've been using <b>git</b> consistently since 2017.
                     Since <a href="https://twitter.com/HenryHoffman/status/694184106440200192">turning git into guitar hero</a>
                     by attempting to rebase within the Jetbrains GUI,
-                    I've become <i>well</i>-acquainted with the CLI.
+                    I've become <i>well</i>-acquainted with the CLI. I have a strong preference towards linear commit histories.
                 </p>
 
                 <p>
-                    My operating system of choice since 2016 has been debian-based distros of <b>Linux</b>.
+                    My operating system of choice since is generally Fedora or a Debian derivative.
                     I dual-boot <b>Windows</b> on my desktop
                     and make an effort to ensure my projects compile on both platforms.
                 </p>
 
                 <p>
-                    As for CI/CD, these days I use <b>Github Actions</b> - though I've used both <b>Jenkins</b> and <b>Travis CI</b> in the past.
-                </p>
-
-                <p>
-                    I worked with <b>AWS</b> at ProGlove and
-                    I'm familiar with a large portion of its services, namely Lambda, IoT Core, API Gateway, and SQS.
-                    More often, I tend to use <b>Linode</b>'s virtual private servers for my personal projects.
+                    I worked with <b>AWS</b> at ProGlove and Remediant, and
+                    I'm familiar with a large portion of its services - notable ones being EKS, VPC, EC2/ALB, Lambda, and Cloudformation.
+                    More often, I tend to use <b>Linode</b> for my personal projects.
                 </p>
 
                 <p>
                     I'm pretty quick to learn, so don't be afraid to ask for technologies that aren't listed here.
-                    I'm particularly interested in learning Scala, Kubernetes, or Ansible should the opportunity ever arise.
+                    I'm particularly interested in learning GitOps, as well as Scala, Ansible, and Istio.
                 </p>
             </div>
         </div>
