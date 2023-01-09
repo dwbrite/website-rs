@@ -1,7 +1,5 @@
 # Infrastructure-as-code
 
-
-
 infrastructure is an onion, with layers from 0 to ?
 
 TL;DR: cluster -> bootstraps (certs, load-balancer/ingress, container_registry) -> applications
@@ -12,3 +10,8 @@ gitignored `xyz.tfbackend` is used to store sensitive backend, since Linode isn'
 
 you'll need to run `terraform init -backend-config=xyz.tfbackend` before applying a root module
 
+# Dependencies
+
+- terraform
+- helm
+- kubectl

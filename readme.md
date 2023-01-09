@@ -1,5 +1,10 @@
 # dwbrite.com, but this time in rust
 
+# dependencies
+
+- cargo + rust nightly (via rustup, ideally)
+- openssl-devel (or equivalent)
+
 ## Running locally
 
 `cd dwbrite-com && cargo run`
