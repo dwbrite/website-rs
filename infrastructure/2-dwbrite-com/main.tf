@@ -5,7 +5,7 @@ resource "kubernetes_deployment" "dwbrite-com" {
     name = "dwbrite-com"
     labels = {
       app = "dwbrite.com"
-      revision = "0x03"
+      revision = "0x04"
     }
   }
 

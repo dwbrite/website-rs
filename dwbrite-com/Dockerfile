@@ -6,7 +6,7 @@ RUN cargo build --release --manifest-path=./dwbrite-com/Cargo.toml #insert $MEDI
 
 FROM debian:bullseye-slim
 
-COPY --from=builder ./dwbrite-com/.well-known                 /dwbrite-com/well-known
+COPY --from=builder ./dwbrite-com/.well-known                 /dwbrite-com/.well-known
 COPY --from=builder ./dwbrite-com/blog                        /dwbrite-com/blog
 COPY --from=builder ./dwbrite-com/resources                   /dwbrite-com/resources
 COPY --from=builder ./dwbrite-com/resume                      /dwbrite-com/resume
