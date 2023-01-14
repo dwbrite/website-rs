@@ -1,0 +1,34 @@
+[package]
+name = "api-dwbrite-com"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+anyhow = "1.0"
+regex = "1.7"
+notify = "5.0.0"
+
+serde = { version = "1.0", features = ["derive", "rc"] }
+toml = "0.5"
+
+chrono = "0.4"
+url = "2.3"
+
+axum = { version = "0.6.2", features = ["default", "headers"] }
+tokio = { version = "1.24", features = ["full"] }
+
+tracing = "0.1"
+tracing-subscriber = { version="0.3", features = ["env-filter"] }
+
+#tower-http = { version = "0.3.5", features = ["fs", "trace", "auth"] }
+#tower = "0.4.11"
+
+rust-s3 = "0.32.3"
+
+#async-trait = "0.1.52"
+
+image = "0.24.5"
+mime = "0.3.16"

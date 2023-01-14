@@ -1,0 +1,21 @@
+config:
+  trustedKeyServers:
+    - server_name: "matrix.org"
+
+extraConfig:
+  suppress_key_server_warning: true
+
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: "nginx"
+  tls:
+    - secretName: "tls-${ root_domain }"
+      hosts: ["${ root_domain }"]
+
+serverName:  "${ root_domain }"
+publicServerName: "${ root_domain }"
+
+# Hey, if you're looking here, you're probably trying to figure out how to enable registration
+# Instead, try the `register_new_matrix_user` command in the matrix synapse container.
+# Maybe we should support adding users after adding SAML w/ KeyCloak?

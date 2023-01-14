@@ -1,0 +1,78 @@
+[[posts]]
+title = "the career death of a self-taught programmer."
+date = 2022-04-14
+tags = ["etc"]
+hidden = true
+filename = "death.html"
+
+[[posts]]
+title = "staring into the void"
+date = 2021-03-18
+tags = ["void", "gamedev"]
+filename = "void1.html"
+
+[[posts]]
+title = "autopilot"
+date = 2021-02-23
+tags = ["etc"]
+filename = "autopilot.html"
+
+[[posts]]
+title = "rust enums by example"
+date = 2021-06-06
+tags = ["programming", "rust"]
+filename = "enumerations.html"
+
+[[posts]]
+title = "lightboard follow-up (aka lightboard v2)"
+date = 2020-06-10
+tags = ["lightboard", "etc"]
+filename = "lightboard-v2.html"
+
+[[posts]]
+title = "november has come"
+date = 2017-11-19
+tags = ["etc"]
+filename = "november-has-come.html"
+
+[[posts]]
+title = "research and whiteboards"
+date = 2015-11-07
+tags = ["lightboard", "pkmn"]
+filename = "research-and-whiteboards.html"
+
+[[posts]]
+title = "gifbackgroundifier"
+date = 2015-08-06
+tags = ["etc"]
+filename = "gifbackgroundifier.html"
+
+[[posts]]
+title = "pocket progress 4"
+date = 2015-07-25
+tags = ["pkmn"]
+filename = "pkmn4.html"
+
+[[posts]]
+title = "pocket progress 3"
+date = 2015-07-06
+tags = ["pkmn"]
+filename = "pkmn3.html"
+
+[[posts]]
+title = "pocket progress 2"
+date = 2015-06-27
+tags = ["pkmn"]
+filename = "pkmn2.html"
+
+[[posts]]
+title = "pocket progress 1"
+date = 2015-06-22
+tags = ["pkmn"]
+filename = "pkmn1.html"
+
+[[posts]]
+title = "the start of something"
+date = 2015-06-11
+tags = ["pkmn"]
+filename = "the-start-of-something.html"

@@ -12,3 +12,4 @@ pub use regex;
 
 // shared modules
 pub mod media;
+pub mod html;

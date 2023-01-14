@@ -1,0 +1,292 @@
+
+<p>
+Ever since I started learning Rust about 4 years ago, I've been in love with its enums.
+You see, Rust's enums aren't strictly enumerations.
+They're closer to <i>tagged unions</i> or <i>sum types</i>, which are used to represent variants.
+Let's take a look at what an enum <em>is</em>, and a few cool use-cases for them.
+</p>
+
+<details>
+<summary>About enums & A comparison to tagged unions in C</summary>
+<p>You should already be familiar with
+<a href="https://en.wikipedia.org/wiki/Union_type">unions</a> and
+<a href="https://en.wikipedia.org/wiki/Enumerated_type">traditional enums</a>.
+</p>
+
+<p>
+Rust's enums are something of a mix between the two.<br/>
+You can read up on the basics in
+<i><a href="https://doc.rust-lang.org/stable/book/ch06-01-defining-an-enum.html?highlight=enum#enum-values">the book</a></i> and/or
+<a href="https://doc.rust-lang.org/rust-by-example/custom_types/enum.html">Rust by Example</a>.<br/>
+That said, let's look at a simple enum in Rust and how it might be implemented in C.
+<script type="text/plain" class="language-rust"
+>// example enum in Rust
+enum FooBar {
+    A(i16),
+    B(i32),
+    C,
+}
+</script>
+
+<script type="text/plain" class="language-c"
+>// rough implementation of FooBar as a tagged union
+
+enum Foo { A, B, C };
+
+union Bar {
+    short a;
+    int b;
+};
+
+struct FooBar {
+    Foo tag; // the tag allows us to know which variant our data is.
+    Bar data;
+};
+</script>
+</p>
+
+<p>
+Note that Rust's enums share the same span of memory between its constituent types,
+so only a small amount of memory is wasted.
+You can play around with their internal representations in
+<a href="https://play.integer32.com/?version=stable&mode=debug&edition=2018&gist=20ae3a196d6a69ad0f2e98b3c01cde1e">this playground</a>,
+or read more in <a href="https://doc.rust-lang.org/nomicon/repr-rust.html">the nomicon</a>.
+</p>
+</details>
+
+
+<h3>error handling with variants</h3>
+
+<p>Two particularly useful <q>enums</q> are <code>Result</code> and <code>Option</code>.</p>
+
+<p>
+<code>Result</code> gives you a way to represent whether an operation is successful or not,
+as well as a way to access the data or error of the... result. 👀
+</p>
+
+<p>
+<code>Option</code> gives you a way to represent whether something exists or not.
+This is generally used as a replacement for nullable types
+(which Rust does not have<a href="https://doc.rust-lang.org/core/ptr/index.html">*</a>).
+</p>
+
+<p>
+But what really makes Rust shine is that it forces you to <em>explicitly</em> handle enum variants before you can access the underlying data.
+This is done using <a href="https://doc.rust-lang.org/book/ch06-02-match.html">the <code>match</code> keyword</a>.
+Rust also has <a href="https://doc.rust-lang.org/edition-guide/rust-2018/error-handling-and-panics/the-question-mark-operator-for-easier-error-handling.html">special syntax</a>
+for handling Results and Options when you raise issues from the unhappy path.
+</p>
+
+<p>
+To start, let's compare how we handle a simple http endpoint with Go's <code>gorilla/mux</code> and Rust's <code>Rocket</code>.
+</p>
+
+<p>Rust:
+<script type="text/plain" class="language-rust"
+>#[get("/blog/post/<title>")]
+fn blog_post(title: &RawStr, state: State<BlogState>) -> Result<Template, CustomError> {
+    // `?` is syntactic sugar for propagating errors.
+    // url_decode() can fail, and returns a Result when it does.
+    // if url_decode() does fail, Rust will return Err(CustomError) for us,
+    // (assuming that we've provided a type conversion with From)
+
+    let key = title.url_decode()?; // <- error propagation
+    let post = state.title_map.get(key.as_str())?; // <- more error propagation
+
+    let c = Context {
+        title: "Devin's Blog".to_string(),
+        posts: vec![post.clone()],
+    };
+
+    Ok(Template::render("blog", &c))
+}
+</script>
+</p>
+
+
+<p>Go:
+<script type="text/plain" class="language-go rainbow-braces"
+>// routed from "/blog/post/{title}"
+func (bs BlogState) ServeBlogPost(writer http.ResponseWriter, request *http.Request) {
+    key := mux.Vars(request)["title"]
+    post, ok := bs.TitleMap[key]
+    if !ok {
+        http.Error(writer, "blog post not found", http.StatusBadRequest)
+		return
+    }
+
+	ctx := Context{
+        title: "Devin's Blog",
+        posts: make([]BlogPost, post),
+	}
+
+	err := bs.Template.Execute(writer, ctx)
+	if err != nil {
+        http.Error(writer, err.Error(), http.StatusInternalServerError)
+	}
+}
+</script>
+</p>
+
+<p>
+By having data embedded into variants, we can represent whether an operation is successful or not.
+Potential errors can be propagated, transformed, and handled without mucking up your happy path.
+</p>
+
+<p>
+Very cool. 😎
+</p>
+
+<p>
+Let's go deeper.
+</p>
+
+
+<h3>heap allocation and dynamic dispatch</h3>
+
+<p>
+Imagine you're writing an audio system for a game.
+You have a directed acyclic graph and you need a way to represent the nodes in this graph.
+A node can be an input (sine wave, mp3), effect (pan, mix), or output (speakers, a file, visualizer).
+</p>
+
+<p>
+What all nodes have in common is one function: <code>process(inputs, outputs)</code>.
+Let's call this common behaviour the <code>AudioNode</code> interface (or <i>trait</i>).
+</p>
+
+<p>
+So our audio graph looks something like <code>Graph&lt;AudioNode&gt;</code>.<br/>
+In practice then, each node in the graph is <i>dynamically sized</i> and must be heap allocated.
+To <em>perform</em> that heap allocation in Rust, our nodes must be wrapped in a smart pointer:
+<code>Box&lt;dyn AudioNode&gt;</code>.
+</p>
+
+<p>
+Then the <code>process(..)</code> function needs to be <a href="https://en.wikipedia.org/wiki/Dynamic_dispatch">dynamically dispatched</a>.
+</p>
+
+<p>
+All this results in significant overhead with multiple vtable accesses, and more importantly:
+<em>indirection which prevents compiler optimization.</em>
+</p>
+
+<p>
+Keep in mind <code>process(..)</code> is called <i>multiple thousands of times per second</i>.
+</p>
+
+<hr/>
+
+<p>
+But we can improve that with enums:
+<script type="text/plain" class="language-rust rainbow-braces"
+>// We can put all of our node variants inside of an enum.
+// This allows our data to stay on the stack,
+// improving cache locality and eschewing a heap allocation.
+// Note however, that we *must* be careful with variant sizes,
+// as any NodeVariant will take as much space on the stack as the largest variant.
+pub enum NodeVariant {
+    CpalOut(CpalMonoSink),
+    SineIn(Sine),
+    SquareIn(Square),
+    SumFX(Sum),
+    SlewLimFX(SlewLimiter),
+}
+
+
+// We end up manually implementing dynamic dispatch,
+// but in a way which enables compiler optimization and reduces indirection.
+impl AudioNode for NodeVariant {
+    fn process(&mut self, inputs: &[Input], output: &mut [Buffer]) {
+        match self {
+            NodeVariant::CpalOut(s) => s.process(inputs, output),
+            NodeVariant::SineIn(s) => s.process(inputs, output),
+            NodeVariant::SquareIn(s) => s.process(inputs, output),
+            NodeVariant::SumFX(s) => s.process(inputs, output),
+            NodeVariant::SlewLimFX(s) => s.process(inputs, output),
+        }
+    }
+}
+</script>
+</p>
+
+<p>
+In my project I'm getting <em>up to 10%</em> better performance.
+Not at all laughable in audio programming.
+You can remove a lot of boilerplate here with the <code>impl-enum</code> or <code>enum_dispatch</code> crates
+(<a href="https://docs.rs/enum_dispatch/0.3.6/enum_dispatch/#the-benchmarks">see enum_dispatch benchmarks</a>).
+</p>
+
+<p>
+Very, very cool. 😎
+</p>
+
+
+<h3>message passing</h3>
+
+<p>
+Imagine you're writing a music player.
+Your UI has controls for play/pause, seek, skip, etc.
+These inputs can come from different places - like
+<a href="https://specifications.freedesktop.org/mpris-spec/latest/#Interfaces">dbus</a>,
+hotkeys, or simple UI interactions.
+</p>
+
+<p>
+We've just run into an ideal use-case for <i>MPSC (multi-producer/single-consumer) channels</i>!
+An <i>MPSC channel</i> is simply an <abbr title="meaning memory is shared across threads">atomic</abbr> queue
+that can only be accessed through its <i>producers</i> and <i>consumers</i>.
+</p>
+
+<p>
+Whenever one of the aforementioned controls are triggered,
+we can send a message through an MPSC channel to <i>control</i> playback.
+With that out of the way, we need to determine what data to send.
+</p>
+
+<p>
+Let's look at some potential <i>Java-esque</i> solutions.
+Normal enums won't work because <em>some</em> of our controls like <code>Seek(timestamp)</code> have associated data.
+Maybe a class with an enum field, plus fields for each type of associated data would work?
+Or a string?
+</p>
+
+<p>
+It's an oddly gnarly problem to solve.
+</p>
+
+<p>
+Fortunately for us, Rust's enums make this easy.
+This is part of what makes multithreading so nice in Rust.
+</p>
+
+
+<h3>closing thoughts</h3>
+
+<p>
+The last pattern using enums that I'd like to shine some light on is the <i>finite state machine</i>.
+Plenty of others have written about <a href="https://hoverbear.org/blog/rust-state-machine-pattern/">state machines in Rust</a> before,
+so I won't <a href="https://blog.yoshuawuyts.com/state-machines/">reiterate</a> on that.
+</p>
+
+<p>
+Hopefully you've learned something new about rust's enums - whether you've never seen Rust before, or you're a Rust veteran.
+If you have any questions, feedback, or flattery,
+you can find my contact info on <a href="https://dwbrite.com/resume">my résumé</a>.
+</p>
+
+<hr/>
+
+<p>
+Speaking of résumés, I'm looking for work right now!
+</p>
+
+<p>
+I'm a generalist software developer with a specialization in backend / web architecture.
+I've spent the last nine years honing the craft in my free time, and I'd really like to get my foot in the door professionally.
+Send me an email if you know of any internships, contract positions, or full-time employment that I might be a good fit for!
+</p>
+
+<p>
+- Devin
+</p>

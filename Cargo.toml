@@ -1,2 +1,2 @@
 [workspace]
-members = ["dwbrite-com", "media-dwbrite-com", "common"]
+members = ["dwbrite-com", "media-dwbrite-com", "api-dwbrite-com", "common"]

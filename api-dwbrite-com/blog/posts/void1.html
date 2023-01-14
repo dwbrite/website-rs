@@ -1,0 +1,130 @@
+
+<p>
+Long ago I went to a 48 hour game jam at Becker University.
+It was the global game jam and the theme was <q>what do we do now?</q>
+At the time I had already been working on a 2D game project on top of a javafx canvas,
+so I copied the text rendering code and said <q>let's make a text adventure!</q>
+</p>
+
+<p>
+It was a fun little project, but little did we know the <i>dangers</i> of such a thing.
+You see, we were in ye olde java 7 times<sup><a href="#void-retrospective-1">[1]</a></sup>,
+fresh out of our second year of computer science in high school.
+We had even struggled to represent branching trees of text that could loop back upon themselves. Perhaps better known as <i>directed graphs</i>.
+</p>
+
+<p>
+Our <q><em>solution</em></q> was to write a
+<a href="https://github.com/dwbrite/void_2015/blob/6da801eb44577ec7dc2601d8d5f6dc0d827a05d4/src/GameState/Story.java">
+    big ol' switch statement.
+</a> <sup>Teehee 😇 what's a stack overflow?</sup>
+</p>
+
+<p>
+Text was represented as strings with special tokens to change how fast text was printed.
+For example, <code>"\\^"</code> meant the following text should print quickly, and <code>"\\#"</code> meant that text should print slow.
+This has made many people very angry and has been widely regarded as a bad move.
+</p>
+
+<video class="media-content" width="510" height="288" controls>
+    <source src="/blog/media/void.m4v" type="video/x-m4v">
+    <source src="/blog/media/void.webm" type="video/webm">
+    Your browser might not support the video tag.
+</video>
+
+<p>
+A few years later, I tried to run the game out on Linux, and, <i>surprise</i>! 🎉<br/>
+Audio doesn't play, the logic thread crashes and burns, and you're left with an unresponsive window.
+Write once, run anywhere, eh?<sup><a href="#void-retrospective-2">[2]</a></sup>
+</p>
+
+<style>
+@keyframes wiggle {
+    0% { transform: translateY(0px); }
+    1.5% { transform: translateY(-4px); }
+    3% { transform: translateY(0px); }
+}
+
+.wiggle span {
+    display: inline-block;
+}
+
+.wiggle span:nth-child(1) { animation: wiggle 4s infinite 0.0s; }
+.wiggle span:nth-child(2) { animation: wiggle 4s infinite 0.07s; }
+.wiggle span:nth-child(3) { animation: wiggle 4s infinite 0.14s; }
+.wiggle span:nth-child(4) { animation: wiggle 4s infinite 0.21s; }
+.wiggle span:nth-child(5) { animation: wiggle 4s infinite 0.28s; }
+.wiggle span:nth-child(6) { animation: wiggle 4s infinite 0.35s; }
+.wiggle span:nth-child(7) { animation: wiggle 4s infinite 0.42s; }
+.wiggle span:nth-child(8) { animation: wiggle 4s infinite 0.49s; }
+.wiggle span:nth-child(9) { animation: wiggle 4s infinite 0.56s; }
+.wiggle span:nth-child(10) { animation: wiggle 4s infinite 0.63s; }
+.wiggle span:nth-child(11) { animation: wiggle 4s infinite 0.70s; }
+.wiggle span:nth-child(12) { animation: wiggle 4s infinite 0.77s; }
+.wiggle span:nth-child(13) { animation: wiggle 4s infinite 0.84s; }
+
+@keyframes typewrite {
+    0% { opacity: 0%; }
+    9.99% { opacity: 0%; }
+    10% { opacity: 100%; }
+    60% { opacity: 100%; }
+    65% { opacity: 0%; }
+    100% { opacity: 0%; }
+}
+
+.typewrite > span { opacity 0%; }
+
+.typewrite span:nth-child(1) { animation: typewrite 8s infinite 0.0s; }
+.typewrite span:nth-child(2) { animation: typewrite 8s infinite 0.25s; }
+.typewrite span:nth-child(3) { animation: typewrite 8s infinite 0.5s; }
+.typewrite span:nth-child(4) { animation: typewrite 8s infinite 0.75s; }
+.typewrite span:nth-child(5) { animation: typewrite 8s infinite 1.0s; }
+.typewrite span:nth-child(6) { animation: typewrite 8s infinite 1.25s; }
+.typewrite span:nth-child(7) { animation: typewrite 8s infinite 1.5s; }
+</style>
+
+<p>
+So 6 years after <i>that</i>, I finally resolved to finish that game <i>the right way.</i>
+The core idea of void is to have
+text that is <i>engaging</i>. Sometimes you want
+<span class="wiggle">
+    <span>t</span><span>e</span><span>x</span><span>t</span>
+    <span>t</span><span>o</span>
+    <span>w</span><span>i</span><span>g</span><span>g</span><span>l</span><span>e</span>,
+</span>
+or type-write
+<span class="typewrite">
+<span>s</span><span>l</span><span>o</span><span>w</span><span>l</span><span>y</span><span>,</span>
+</span>
+or any other of the infinite possibilities to add <i>character</i> to text.
+Which makes <em>any</em> markup language a natural choice for text representation.
+</p>
+
+<p>
+And with that I've started using xml to represent my game text.
+This required parsing my xml and turning it into data structures stored in <a href="https://github.com/bincode-org/bincode">bincode</a> files for later use.
+The last part to navigate then, is branching storylines.
+I initially decided that this would also be done in xml,
+so long as the logic isn't much more complicated than checking booleans -
+but part of me is thinking that maybe these logic checks should be done in Rust.
+</p>
+
+<p>
+Anyway, that's all for today! Hopefully I won't get too distracted with other projects in the near future
+</p>
+
+<hr/>
+
+<ol type="1">
+    <li id="void-retrospective-1">
+        Technically java 8 had just come out the year before, but we were inexperienced -
+        we didn't even know what a lambda <i>was</i>, let alone how to use it.
+        Frankly, I even thought writing code in a legacy style was considered good practice because it was
+        <q>backwards compatible</q> 🤦
+    </li>
+    <li id="void-retrospective-2">
+        As long as you're not on linux.
+        And while we're at it, even if you successfully create a cross-platform abstraction layer,
+        you'd need to pack all the abstractions into one distributable. <i>Or</i> create multiple distributables.
+    </li>
+</ol>
