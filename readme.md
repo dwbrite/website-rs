@@ -1,89 +1,38 @@
 # dwbrite.com, but this time in rust
 
-# dependencies
+website-rs consists of a media server, the dwbrite.com frontend server, and the IaC to build and deploy them.
+The IaC here also includes services like nginx-ingress, cert-manager, Matrix (chat), Keycloak.
 
-- cargo + rust nightly (via rustup, ideally)
-- openssl-devel (or equivalent)
+## requirements
 
-## Running locally
+```
+- rustup + rust (nightly)
+- openssl-devel
+```
 
-`cd dwbrite-com && cargo run`
+## running locally
 
-`cd media-dwbrite-com && cargo run`
+`cd dwbrite-com && cargo run` (0.0.0.0:41234)   
+`cd media-dwbrite-com && cargo run` (0.0.0.0:41233)
 
-## containerizing
+## containerization
 
-`podman-compose build` to build the images
-
+`podman-compose build` to build the images  
 `podman-compose push` to push the images. By default this will use the `latest` tag.
 
-## architecture
 
-dwbrite.com is a multi-part server with several moving parts.
-
-Terraform sets a kubernetes cluster and the domain, 
-then some "bootstrap" pods: `nginx-ingress` and `docker-registry`
+## infrastructure
 
 In theory deploying is a simple `terraform apply` away after `export TF_VARS_linode_token=...` (and `export LINODE_TOKEN=...`)
 
 DNS propagation can take a long time though so setting up ACME certs can be a "luck" based process...
 
-
 ### requirements:
-- `build-essential`
-- `pkg-config`
-- `openssl +/ libssl-dev (on linux)`
-- `rustup / rust nightly`
 
-- `terraform`
-- ``
-
-
-recommended: 
-
-- `nginx`
-- `certbot`
-- `python3-certbox-nginx`
-- `apache-utils`
-
-### nginx + https
 ```
-server {
-    server_name dwbrite.com;
-    listen 80;
-    location / {
-        proxy_pass http://127.0.0.1:41234;
-    }
-}
-
-server {
-    server_name media.dwbrite.com;
-    listen 80;
-
-    location / {
-        proxy_pass http://127.0.0.1:41233;
-    }
-    
-    location /upload {
-        auth_basic "o hej me";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-        
-        proxy_pass http://127.0.0.1:41233;
-    }
-}
+- build-essential
+- pkg-config
+- terraform
+- helm
+- podman, podman-compose
 ```
-
-start with simple nginx routes, then run `certbot --nginx`
-
-## running dwbrite.com
-
-`cargo run --bin media-dwbrite-com` (port 41233)  
-`cargo run --bin dwbrite-com` (port 41234)
-
-### with nohup
-
-`killall dwbrite-com`  
-`killall media-dwbrite-com`  
-`cd media-dwbrite-com & nohup cargo run --bin media-dwbrite-com &`  
-wait... then  
-`cd dwbrite-com & nohup cargo run --bin dwbrite-com &`  
