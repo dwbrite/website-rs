@@ -1,6 +1,6 @@
 # dwbrite.com, but this time in rust
 
-website-rs consists of a media server, the dwbrite.com frontend server, and the IaC to build and deploy them.
+website-rs consists of a media server, the [dwbrite.com](https://dwbrite.com) frontend server, and the IaC to build and deploy them.
 The IaC here also includes services like nginx-ingress, cert-manager, Matrix (chat), Keycloak.
 
 ## requirements
