@@ -1,0 +1,187 @@
+<p xmlns="http://www.w3.org/1999/html">
+    Last week I was downvoted on reddit. My initial response, stealing the words of Barbara Kruger, is:
+    <a href="https://www.thecut.com/2017/11/i-think-about-when-barbara-kruger-dragged-supreme-a-lot.html">what a ridiculous clusterfuck of totally uncool jokers.</a>
+</p>
+
+<p>
+    So let's talk about licensing.
+</p>
+
+<h4>preface</h4>
+
+<ol>
+    <li>Yes, I'm probably wrong somewhere. Submit an issue on github.</li>
+    <li>I'm looking for work. I've got sense, a propensity for architecture, and an affinity for types. Hire me 🔫👀</li>
+</ol>
+
+<hr/>
+
+<p>
+    To start, intellectual property is (self-descriptively) the ownership of ideas, information, inventions and creative works.
+    We've come up with some <a href="https://en.wikipedia.org/wiki/Politics">politics</a> to handle this ownership,
+    namely through copyrights, patents, trademarks, and trade secrets.
+    Different types of works may only be protected under specific ownership schemes.
+</p>
+
+// todo: put in an aside about "a copyright" / language.
+// "A copyright" is the intellectual property - not the creative work itself.
+
+<p>
+    As soon as you've <em><q>fixed</q></em> a creative work, you own the exclusive rights to the reproduction,
+    derivation, distribution, and display or performance of it.
+    It is your intellectual property through copyright.
+    After a limited time[1], the work falls into the public domain, where everyone has these (now non-exclusive) rights.
+    Copyright specifically does not apply to ideas, processes, discoveries,
+    titles, intangible works, simple lists -- only to the manifestation/expression of <q>creative work</q>.
+    Things like [art, literature, code, or schematics], which are <em>more or less</em> original.
+</p>
+
+<p>
+    What's really fun about copyright is that, while something like the design of a PCB or schematic is protected by copyright,
+    the <q>functional</q> components of the designs are not.
+    That is to say, it is <em>possible</em> to recreate the same circuits
+    in a different shape without infringing any copyrights.
+    Likewise for APIs, according to <i><a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.">Google LLC v. Oracle America, Inc.</a></i>!
+    This is all thanks to <q>Fair Use</q> provisions, which (very loosely) define the circumstanced .
+    The U.S. Copyright Office has <a href="https://www.copyright.gov/fair-use/">an index of Fair Use decisions</a>, which is pretty cool ngl.
+</p>
+
+<p>
+    Say you've created some art and published it, then someone starts selling prints of your art without your permission.
+    Easy case, just sue, right? Well, registering your copyright is actually Very Fucking Important,
+    because if you don't, <em>you can't sue someone copyright infringement</em>.
+    Fortunately you can register at any time, even years after <q>fixing</q> your work.
+</p>
+
+<p>
+    Now say you've registered your work at some point and filed a lawsuit for copyright infringement.
+    Only if you've registered your work within three months of publication are you eligible for statutory damages, and attorney fees.
+    If you register within five years, then the onus is on the defendant to prove those prints don't infringe your copyright.
+    If you wait more than five years to register your work, then the onus is on you to prove your copyright in court.
+</p>
+
+<p>
+    Oh yeah, and if your work changes, you need to register every version.
+    <br/>
+    Ideally within three months.
+    <br/>
+    Did you know that the copyright system was definitely not designed with software in mind?
+    Did you also know that there have been major overhauls of it as recently 1989?
+</p>
+
+<h4 id="ch2-5-licensing"><a href="#ch-2-5-licensing">chapter two-point-five: licensing</a></h4>
+
+<p>
+    We're still talking about copyright.
+</p>
+
+<p>
+    Besides suing people, copyright provisions allow you to authorize people to exercise your exclusive rights.
+    This is typically done through licensing.
+    The fun thing about licenses is that <a href="https://www.engadget.com/2010-04-16-uk-game-retailer-claims-7-500-souls-with-a-legal-agreement-prank.html">they can literally say anything!</a>
+    Whether or not they're enforceable is up to the courts.
+</p>
+
+<p>
+    One particularly interesting copyright (<q>copyleft</q>) license is the GNU General Public License v3,
+    which states that you can distribute and modify software using this license, but when you do so,
+    it must be under the GPLv3+, and you must make the source code available.
+</p>
+
+<p>
+    What I find most interesting about the GPL is that it enforces a specific license on new work (which is derivative).
+</p>
+
+<p>
+    Some copyleft licenses, such as CC0 (Creative Commons Zero) and <a href="https://unlicense.org/">Unlicense</a>
+    attempt to eschew the copyright system altogether, and put work directly into public domain.
+    Others like the WTFPL attempt to say "do What The Fuck you want".
+    In some places like Germany your copyrights are inalienable and as such these licenses are largely unenforceable
+    - not that anyone who published works with these licenses <em>would</em> sue, but,
+    it's a distinct possibility (lawyers hate this one weird trick).
+</p>
+
+<p>
+    (chapter two-point-five...-point-five?: EULAs) <br/>
+
+    So someone's made some software - they have the distribution rights.
+    That means if they want to give you a copy, they can apply whatever rules they want,
+    so long as those rules aren't illegal. You'll often see these rules in the form of an EULA.
+</p>
+
+<p>
+    One EULA I'd like to highlight is the (old) Unity Personal EULA, which had the following clause in it:
+</p>
+
+<blockquote>
+    You will not delete or in any manner alter any Unity or third-party copyright,
+    trademark or other proprietary rights notices or markings appearing on or in the Software
+    (including the runtime portion thereof).
+</blockquote>
+
+<p>
+    The TL;DR of this is: don't remove the Unity splash screen if you're on the Personal (free) tier.
+    If you do, your permission to use Unity is revoked.
+    Following that, if you publish that game, you are now infringing their copyright,
+    and could owe them up to $150k in just statutory damages.
+    To be slightly clearer, this technically is piracy, which is copyright infringement.
+</p>
+
+<p>
+    Another case I'd like to look at is Super Mario Maker, where users generate (and own) content,
+    but essentially give all rights to that content to Nintendo.
+</p>
+
+<blockquote>
+    By accepting this Agreement, you give Nintendo permission to use and change your User Generated Content in any way
+    and for any purpose for free.
+    More specifically, you grant Nintendo and its affiliates and subsidiaries a worldwide, royalty-free, irrevocable,
+    perpetual, non-exclusive, and sublicenseable license to use, reproduce, modify, adapt, publish, translate,
+    distribute, perform, and display all or any portion of your User Generated Content,
+    and to incorporate your User-Generated Content in other works,
+    in any form, media or technology now known or later developed, including for promotional or marketing purposes,
+    without any payment to you.
+</blockquote>
+
+
+<p>
+    And none of this is particularly unique.
+    What I'm getting at is, there's already a precedent set for the tools you use
+    defining how you can publish your works (or being able to publish your works however they want).
+</p>
+
+// first sale doctrine, pictures of art
+// application of digital "copies"
+
+<h4 id="ch2-9-robots"><a href="#ch2-9-robots">chapter two-point-nine: robot art</a></h4>
+
+<p>
+    There's a lot of talk about neural networks creating art.
+    The general consensus seems to be that whoever uses a tool (such as stable diffusion)
+    is the copyright owner for whatever that tool outputs.
+</p>
+
+
+<hr/>
+
+<h4>postface</h4>
+
+<p>
+    There's more I wanted to talk about that didn't really fit the flow of the blog post.
+</p>
+
+<blockquote>
+    <a href="https://www.copyright.gov/circs/circ30.pdf">If a work is made for hire,
+    the employer or the party that specially ordered or commissioned that work is the initial owner of the copyright in
+    the work unless the employer or the commissioning party has signed a written agreement to the contrary
+    with the work's creator.
+    </a>
+</blockquote>
+
+<p>
+    Adobe PhotoShop paintbrushes ???
+</p>
+
+<p>
+
+</p>
