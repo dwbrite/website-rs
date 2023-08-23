@@ -10,30 +10,25 @@
 
 <div class="page"> <div class="page-content">
     <header>
-        <h1 id="name">Devin Brite</h1>
-        <div id="contact">
-            <div>New York, NY, USA </div>
+        <div>
+            <h1 id="name">Devin Brite</h1>
+            <div>A.S., Computer Information Systems</div>
+        </div>
+        <div>
+            <div>New York, NY, USA</div>
             <div>dwbrite@gmail.com</div>
             <div>+1 (774) 293 8465</div>
         </div>
         <div id="identity">
             <div><a href="https://dwbrite.com">dwbrite.com</a></div>
-            <div><a href="https://keybase.io/hd">keybase.io/hd</a></div>
             <div><a href="https://github.com/dwbrite">github.com/dwbrite</a></div>
         </div>
     </header>
 
     <div id="intro">
         <p>
-            I'm a software developer specializing in backend development and devops.
-            I'm always seeking new opportunities to expand my knowledge and skills,
-            especially in areas that are outside of my comfort zone.
-        </p>
-        <p>
-            Some other domains I've explored recently are embedded firmware, rendering, and electrical engineering.
-            I'm particularly interested in pursuing projects that
-            involve using physical objects with interactive elements,
-            especially as they relate to the ambiance and <em>feel</em> of a space.
+            I'm a software developer specializing in backend development, infrastructure, and devops.
+            I'm also interested in and have explored embedded firmware, rendering, and electrical engineering.
         </p>
     </div>
 
@@ -44,24 +39,23 @@
             <div class="sub-header">
                 <div class="position">
                     <h3>DevOps Engineer</h3>
-                    <h4>Remediant, Inc. - San Francisco, California (Remote / NY)</h4>
+                    <h4>Remediant, Inc. - San Francisco, California (Remote)</h4>
                 </div>
-                <div class="timespan"><time datetime="2022-06-06">June 2022</time> - <time datetime="2022-12-28">Dec 2022</time></div>
+                <div class="timespan"><time datetime="2022-06-06">June 2022</time> - <time datetime="2022-12-28">Dec. 2022</time> (Acquired by Netwrix)</div>
             </div>
 
             <div class="job-description">
                 <p>
-                    At Remediant I managed our SaaS infrastructure in the form of Kubernetes clusters and AWS services.
-                    I used Terraform to administer VLANs, deploy and configure our application and logging stacks,
-                    and implement monitoring and alerting systems to maintain SOC2 compliance.
+                    I oversaw our SaaS infrastructure, managing Kubernetes clusters and a range of AWS services.
                 </p>
-
                 <p>
-                    Following a major outage, the company realized that it was almost impossible to
-                    redeploy our infrastructure from the existing codebase.
-                    To address this, I led the project to refactor our codebase,
-                    allowing it to be deployed from scratch for the first time.
-                    I focused primarily on breaking the codebase down into isolated modules with a clear dependency chain.
+                    Using Python and Terraform, I administered VLANs,
+                    deployed and configured application and logging stacks (ELK),
+                    and implemented monitoring and alerting systems to maintain SOC2 compliance.
+                </p>
+                <p>
+                    Following a major outage I led an initiative to refactor our project infrastructure,
+                    breaking down the Terraform into isolated modules with clear dependency chains.
                 </p>
             </div>
         </div>
@@ -70,267 +64,86 @@
             <div class="sub-header">
                 <div class="position">
                     <h3>Full Stack Development Intern</h3>
-                    <h4>ProGlove - Munich, Germany</h4>
+                    <h4>ProGlove - Munich, Germany (On-site)</h4>
                 </div>
-                <div class="timespan"><time datetime="2019-01-28">Jan 2019</time> - <time datetime="2019-07-26">July 2019</time></div>
+                <div class="timespan"><time datetime="2019-01-28">Jan. 2019</time> - <time datetime="2019-07-26">July 2019</time></div>
             </div>
 
             <div class="job-description">
                 <p>
-                    At ProGlove I was a core developer of <a href="https://www.youtube.com/watch?v=wRUhZHi1rVI">ProGlove Insight</a> -
-                    a cloud-based platform for IoT device management built on AWS.
-                    Insight enables analysis of scans from ProGlove devices,
-                    leading to further efficiency improvements in customers' manufacturing and logistics processes.
+                    I primarily developed the backend and infrastructure for
+                    <a href="https://www.youtube.com/watch?v=wRUhZHi1rVI">ProGlove Insight</a> -
+                    a platform which enables analysis of scans from ProGlove devices,
+                    used to optimize customers' manufacturing and logistics processes.
                 </p>
                 <p>
-                    As one of only two programmers who worked on Insight from the start,
-                    I played a key role in the <a href="https://developers.proglove.com/insight/api/swagger/index.html">design and implementation</a> of the product,
-                    as well as in the interviewing and subsequent hiring of four additional team members.
+                    I designed, documented, and implemented Insight's
+                    <a href="https://developers.proglove.com/insight/api/swagger/index.html">API</a>
+                    using Python and AWS Lambda for event processing, collection, and retrieval;
+                    IoT Core for MQTT message ingest;
+                    and S3 and DynamoDB for long-term storage and caching.
+                </p>
+                <p>
+                    Additionally, I used CloudFormation to define and deploy Insight's infrastructure,
+                    and Golang to prototype a separate (unreleased) project.
                 </p>
             </div>
         </div>
-    </div>
-    <div id="projects" class="subsection">
-        <h2>Neat Projects and Explorations</h2>
-<!--        <div class="showcase">-->
-<!--            <div class="sub-header">-->
-<!--                <div class="project">-->
-<!--                    <h3>Teensy 3.x</h3>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="project-description">-->
-<!--                <p>-->
-<!--                    After years of using <a href="https://www.pjrc.com/store/teensy40.html">Teensy development boards</a>,-->
-<!--                    I wanted to dig into their inner workings.-->
-<!--                    In 2019 I started writing firmware from scratch for the Teensy 3's K20DX256 microcontroller,-->
-<!--                    and later teamed up with a programmer from France who had started working on some firmware of their own.-->
-<!--                </p>-->
 
-<!--                <p>-->
-<!--                    Our efforts involved reading much of the K20DX256's 1400 page reference manual,-->
-<!--                    writing linker files, implementing registers and abstract device functionality,-->
-<!--                    and creating examples and documentation.-->
-<!--                    In the future we'd like to revisit the project with SVD-based code generation.-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="showcase">-->
-<!--            <div class="sub-header">-->
-<!--                <div class="project">-->
-<!--                    <h3>dorc - &ldquo;<u>D</u>evin's <u>Orc</u>hestrator&rdquo;</h3>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="project-description">-->
-<!--                <p>-->
-<!--                    <code>dorc</code> is a-->
-<!--                    <a href="https://github.com/dwbrite/dorc">utility I made for simple green-blue deployments</a>-->
-<!--                    without the hassle of kubernetes or docker swarm.-->
-<!--                    I use it for deploying my website with nearly zero downtime on my multi-purpose Linode VPS.-->
-<!--                </p>-->
-
-<!--                <p>-->
-<!--                    This project is split into two parts: the CLI, and the daemon.-->
-<!--                    The daemon is a long-running service that watches a release directory,-->
-<!--                    listens for commands via named pipes, and controls routing to a green or blue service.-->
-<!--                    The CLI merely sets up SystemD Unit files when you register an application,-->
-<!--                    and writes commands to the relevant named pipe.-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="showcase">
+        <div class="job">
             <div class="sub-header">
-                <div class="project">
-                    <h3>Graphics Programming with <a href="https://github.com/gfx-rs/wgpu#wgpu">WGPU</a></h3>
+                <div class="position">
+                    <h3>Co-Founder</h3>
+                    <h4>The Basement Makerspace @ <a href="https://www.woodbine.nyc/about">Woodbine</a> - Ridgewood, NY</h4>
+                </div>
+                <div class="timespan"><time datetime="2022-09-19">Sept. 2022</time> - <time>Present</time></div>
+            </div>
+
+            <div class="job-description">
+                <p>
+                    As a co-founder of "<a href="https://basement.woodbine.nyc">The Basement</a>" at Woodbine,
+                    I helped transform the unused basement into a vibrant hackerspace and I spearheaded the creation of the electronics lab.
+                    I actively contribute to 3D printer operations and maintenance,
+                    weekly events such as member meetings and open houses, and spontaneous space-improvement sessions.
+                </p>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="sub-header">
+                <div class="position">
+                    <h3>Projects</h3>
                 </div>
             </div>
-            <div class="project-description">
-                <p>
-                    While I was experimenting with my custom game engine for a 2D game called <a href="https://github.com/dwbrite/void-rs">void</a>,
-                    I wanted to figure out
-                    a.) how to build my render graph, and
-                    b.) how to effectively render thousands of <i>unique</i> sprites.
-                </p>
 
+            <div class="job-description">
                 <p>
-                    In an attempt to resolve those questions, I made a
-                    <a href="https://github.com/dwbrite/wgpu-particle-demo/">particle rendering demo</a>
-                    which draws and updates hundreds of thousands of individual particles every frame.
-                    Learning to make a renderer like this involved understanding low-level graphics APIs,
-                    writing compute, vertex, and fragment shaders in WGSL (and previously GLSL),
-                    and asking for <i>plenty</i> of help from niche online communities.
+                    I enjoy programming outside of work, and I'm always learning something new.
+                    In no particular order, some of my favorite personal projects are:
+                <ul>
+                    <li><a href="https://github.com/dwbrite/website-rs/blob/master/readme.md#dwbritecom-but-this-time-in-rust">
+                        Personal Website</a>
+                        // full stack, infrastructure, and more (<i>JavaScript, HTML, Sass, Rust, Terraform</i>)</li>
+                    <li><a href="https://github.com/dwbrite/dnd-druid-cards/blob/main/README.md">
+                        D&D Druid Cards</a>
+                        // printable cards for druid spells (<i>JavaScript, HTML, CSS</i>)</li>
+                    <li><a href="https://github.com/dwbrite/wgpu-particle-demo/blob/master/README.md#wgpu-particle-demo">
+                        Particle Rendering Demo</a>
+                        // rendering hundreds of thousands of unique sprites (<i>WebGPU, GLSL, Rust</i>)</li>
+                    <li><a href="https://github.com/dwbrite/pokemon/blob/master/README.MD#pokemon">
+                        Pokemon</a>
+                        // a semi-functional pokemon clone (<i>Kotlin</i>)</li>
+                    <li><a href="https://github.com/dwbrite/keebo-firmware/blob/master/README.md#keebo">
+                        Teensy 3.2 Firmware</a>
+                        // cooperatively written firmware for the Teensy 3.2 (<i>Rust</i>)</li>
+                    <li><a href="https://crates.io/crates/ws2812-nop-imxrt1062">
+                        NeoPixel Driver</a>
+                        // nop-based NeoPixel driver for the Teensy 4.x (<i>Rust, Assembly</i>)</li>
+                </ul>
                 </p>
             </div>
         </div>
     </div>
 </div></div>
-
-<div class="page"><div class="page-content">
-
-    <div class="showcase">
-        <div class="sub-header">
-            <div class="project">
-                <h3>Infrastructure and Services on dwbrite.com</h3>
-            </div>
-        </div>
-        <div class="project-description">
-            <p>
-                My website acts as a showcase of my skills and a platform for further
-                exploration in backend development and infrastructure.
-            </p>
-            <p>
-                In the past, I've hosted it on a simple VPS using my own orchestration tool,
-                <a href="https://github.com/dwbrite/dorc">dorc</a>,
-                which integrates with SystemD to create and multiplex green-blue deployments.
-                Today I use Kubernetes on Linode to host
-                <a href="https://github.com/dwbrite/website-rs/tree/master/dwbrite-com">dwbrite.com</a>
-                and <a href="https://github.com/dwbrite/website-rs/tree/master/infrastructure">other services</a>
-                that allow me to divorce myself from proprietary software and cloud-specific solutions.
-            </p>
-        </div>
-    </div>
-
-    <div id="skill" class="subsection">
-        <h2>Skills and Technology</h2>
-
-        <div class="showcase">
-            <div class="sub-header">
-                <div class="technology">
-                    <h3>Languages</h3>
-                </div>
-            </div>
-            <div class="project-description">
-                <p>
-                    All of my recent personal projects have been written primarily in <b>Rust</b>,
-                    because I feel it allows me to write code quickly using abstractions that tend not to bite.
-                    I started learning Rust in 2017 and haven't looked back since.
-                    I've even contributed to the Rust by Example book and written blog posts about my favorite features.
-                    But fear not - I'm not a zealot, nor a one-trick pony!
-                </p>
-
-                <p>
-                    I have a few years of <b>Java</b> under my belt (from the Java 8-9 era),
-                    I've created a Pokemon clone(*) in <b>Kotlin</b>,
-                    I've written APIs professionally in <b>Go</b> (which I'd like to work more with),
-                    and I have a handful of smaller projects in various languages
-                    including Python, C++, CoffeeScript, and JavaScript.
-                </p>
-            </div>
-        </div>
-
-        <div class="showcase">
-            <div class="sub-header">
-                <div class="technology">
-                    <h3>Databases, Caches, and Storage</h3>
-                </div>
-            </div>
-            <div class="project-description">
-                <p>
-                    I learned <b>MySQL</b> in high school to create an anarchistic
-                    &ldquo;for students, by students&rdquo; newspaper website.
-                </p>
-
-                <p>
-                    The nth iteration of my <i>personal</i> website used <b>PostgreSQL</b> to store blog posts.
-                    My current website stores blog posts with the source code in git,
-                    but uses Linode's <b>S3</b>-compatible object storage for storing media like gifs, videos, images, and binaries.
-                </p>
-
-                <p>
-                    I've also used <b>DynamoDB</b> as a cache for timely access of recent time-series data.
-                </p>
-            </div>
-        </div>
-
-        <div class="showcase">
-            <div class="sub-header">
-                <div class="technology">
-                    <h3>And More!</h3>
-                </div>
-            </div>
-            <div class="project-description">
-                <p>
-                    I've been using <b>git</b> consistently since 2017.
-                    Since <a href="https://twitter.com/HenryHoffman/status/694184106440200192">turning git into guitar hero</a>
-                    by attempting to rebase within the Jetbrains GUI,
-                    I've become <i>well</i>-acquainted with the CLI. I have a strong preference towards linear commit histories.
-                </p>
-
-                <p>
-                    My operating system of choice since is generally Fedora or a Debian derivative.
-                    I dual-boot <b>Windows</b> on my desktop
-                    and make an effort to ensure my projects compile on both platforms.
-                </p>
-
-                <p>
-                    I worked with <b>AWS</b> at ProGlove and Remediant, and
-                    I'm familiar with a large portion of its services - notable ones being EKS, VPC, EC2/ALB, Lambda, and Cloudformation.
-                    More often, I tend to use <b>Linode</b> for my personal projects.
-                </p>
-
-                <p>
-                    I'm pretty quick to learn, so don't be afraid to ask for technologies that aren't listed here.
-                    I'm particularly interested in learning GitOps, as well as Scala, Ansible, and Istio.
-                </p>
-            </div>
-        </div>
-    </div>
-
-
-</div></div>
-
-<!--<div class="page">-->
-<!--
-<div class="job">
-    <div class="sub-header">
-        <div class="position">
-            <h3>Hobby Software Development</h3>
-        </div>
-        <div class="timespan"><time datetime="2012">2012</time> - <time datetime="2021">Present</time></div>
-    </div>
-
-    <div class="job-description">
-
-        <p>
-            <b><time datetime="2012">2012</time> - <time datetime="2015">2015</time></b>
-            <br/>
-            I started writing software in my first year of high school,
-            and learned quickly by participating in CTF tournaments, going to game jams, and working on personal projects every summer.
-            My early work involved writing small games and applications in Java using in awt and javafx.
-            I also wrote some mathematical libraries for geometry, collision detection,
-            and a LargeDecimal implementation for the <a href="https://unlicense.developpez.com/">UN</a> project.
-            I <del>pirated</del> read a <em>lot</em> of programming books at this time, namely Real-Time Rendering and Effective Java (2nd Edition).
-        </p>
-
-        <p>
-            <b><time datetime="2016">2016</time> - <time datetime="2018">2018</time></b>
-            <br/>
-            Out of high school I attended community college and started using git more seriously.
-            I explored simple rendering with Java OpenGL bindings, and moved towards Kotlin
-            instead of relying on a dozen <a href="https://projectlombok.org/">tools to make idiomatic Java more bearable.</a>
-            On top of Kotlin, Rust had been on my radar since it hit 1.0 in 2015, and I finally started learning it in 2017.
-            I've been a big fan ever since,
-            so much that I've even <a href="https://github.com/rust-lang/rust-by-example/pull/920">contributed</a> to the
-            <a href="https://doc.rust-lang.org/stable/rust-by-example/primitives.html">Rust by Example</a> book.
-            I picked up some C++ in my coursework too.
-        </p>
-
-        <p>
-            <b><time datetime="2019">2019</time> - <time datetime="2021">Present</time></b>
-            <br/>
-            At the end of 2018 I wrote a small web server in Go to run my website on,
-            which equipped me for an impromptu interview for a backend development intern at a company that just so happened to use Go.
-            I had been looking for co-ops to complete my degree, so it was really perfect timing on all parts.
-            This was probably my slowest but most prolific software development period,
-            where I delved into embedded firmware development in Rust and C++, and rendering with the cross-platform rendering API <a href="https://github.com/gfx-rs/wgpu">wgpu</a>.
-            But more importantly,
-            I learned how <em>not</em> to turn <a href="https://twitter.com/HenryHoffman/status/694184106440200192/photo/1">git into guitar hero</a>.
-        </p>
-
-    </div>
-</div>
--->
-
-<!--</div>-->
 </body>
 </html>

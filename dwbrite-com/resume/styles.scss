@@ -36,6 +36,7 @@ blockquote {
 
 h1#name {
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 header {
@@ -54,7 +55,6 @@ body {
 #contact {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .sub-header {
@@ -76,12 +76,12 @@ h2, h3, h4 {
   padding-bottom: 0.05em;
   margin-bottom: 0.5em;
   border-bottom: #666666 1px solid;
-  margin-top: 1.2em;
+  margin-top: 0.6em;
 }
 
 ul {
   padding: 0;
-  margin: 0.25em 0.25em 1em;
+  margin: -1em 0.25em 1em;
 
   li {
     list-style-type: none;
