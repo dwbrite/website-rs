@@ -12,7 +12,8 @@ jobs:
     - name: Install podman and podman-compose
       run: sudo apt-get -y install podman python3-pip && pip3 install podman-compose
     - name: Podman login
-      run: podman login ${{ secrets.CONTAINER_REGISTRY }} -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+      # if container registry changes, be sure to change them in docker-compose.yml
+      run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
     - name: Build container images
       run: podman-compose build
     - name: Push images to registry

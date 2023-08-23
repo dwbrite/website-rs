@@ -5,7 +5,7 @@ services:
       dockerfile: ./media-dwbrite-com/Dockerfile
     ports:
       - "41233:41233"
-    image: registry.dwbrite.com/dwbrite/media-dwbrite-com
+    image: docker.io/dwbrite/media-dwbrite-com
 
   dwbrite-com:
     build:
@@ -13,4 +13,4 @@ services:
       dockerfile: ./dwbrite-com/Dockerfile
     ports:
       - "41234:41234"
-    image: registry.dwbrite.com/dwbrite/dwbrite-com
+    image: docker.io/dwbrite/dwbrite-com
