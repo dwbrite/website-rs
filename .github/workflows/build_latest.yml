@@ -12,15 +12,15 @@ jobs:
       - name: Install podman
         run: sudo apt-get -y install podman
       - name: Podman login
-        run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
           platforms: all
       - name: Build and Push dwbrite-com / arm64
         run: |
-          podman build --platform linux/arm64 -t docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest-arm64 -f dwbrite-com/Dockerfile .
-          podman push docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest-arm64
+          podman build --platform linux/arm64 -t docker.io/dwbrite/dwbrite-com:latest-arm64 -f dwbrite-com/Dockerfile .
+          podman push docker.io/dwbrite/dwbrite-com:latest-arm64
 
   build-dwbrite-com-amd64:
     runs-on: ubuntu-22.04
@@ -29,11 +29,11 @@ jobs:
       - name: Install podman
         run: sudo apt-get -y install podman
       - name: Podman login
-        run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and Push dwbrite-com / amd64
         run: |
-          podman build --platform linux/amd64 -t docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest-amd64 -f dwbrite-com/Dockerfile .
-          podman push docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest-amd64
+          podman build --platform linux/amd64 -t docker.io/dwbrite/dwbrite-com:latest-amd64 -f dwbrite-com/Dockerfile .
+          podman push docker.io/dwbrite/dwbrite-com:latest-amd64
 
   build-media-dwbrite-com-arm64:
     runs-on: ubuntu-22.04
@@ -42,15 +42,15 @@ jobs:
       - name: Install podman
         run: sudo apt-get -y install podman
       - name: Podman login
-        run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
           platforms: all
       - name: Build and Push media-dwbrite-com / arm64
         run: |
-          podman build --platform linux/arm64 -t docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest-arm64 -f media-dwbrite-com/Dockerfile .
-          podman push docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest-arm64
+          podman build --platform linux/arm64 -t docker.io/dwbrite/media-dwbrite-com:latest-arm64 -f media-dwbrite-com/Dockerfile .
+          podman push docker.io/dwbrite/media-dwbrite-com:latest-arm64
 
   build-media-dwbrite-com-amd64:
     runs-on: ubuntu-22.04
@@ -59,11 +59,11 @@ jobs:
       - name: Install podman
         run: sudo apt-get -y install podman
       - name: Podman login
-        run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and Push media-dwbrite-com / amd64
         run: |
-          podman build --platform linux/amd64 -t docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest-amd64 -f media-dwbrite-com/Dockerfile .
-          podman push docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest-amd64
+          podman build --platform linux/amd64 -t docker.io/dwbrite/media-dwbrite-com:latest-amd64 -f media-dwbrite-com/Dockerfile .
+          podman push docker.io/dwbrite/media-dwbrite-com:latest-amd64
 
   manifest-and-push-dwbrite-com:
     runs-on: ubuntu-22.04
@@ -73,13 +73,13 @@ jobs:
       - name: Install podman
         run: sudo apt-get -y install podman
       - name: Podman login
-        run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Create and push manifests
         run: |
-          podman manifest create docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest
-          podman manifest add docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest-arm64
-          podman manifest add docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest-amd64
-          podman manifest push docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest docker.io/${{ secrets.REGISTRY_USERNAME }}/dwbrite-com:latest
+          podman manifest create docker.io/dwbrite/dwbrite-com:latest
+          podman manifest add docker.io/dwbrite/dwbrite-com:latest docker.io/dwbrite/dwbrite-com:latest-arm64
+          podman manifest add docker.io/dwbrite/dwbrite-com:latest docker.io/dwbrite/dwbrite-com:latest-amd64
+          podman manifest push docker.io/dwbrite/dwbrite-com:latest docker.io/dwbrite/dwbrite-com:latest
 
   manifest-and-push-media-dwbrite-com:
     runs-on: ubuntu-22.04
@@ -89,10 +89,10 @@ jobs:
       - name: Install podman
         run: sudo apt-get -y install podman
       - name: Podman login
-        run: podman login docker.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Create and push manifests
         run: |
-          podman manifest create docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest
-          podman manifest add docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest-arm64
-          podman manifest add docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest-amd64
-          podman manifest push docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest docker.io/${{ secrets.REGISTRY_USERNAME }}/media-dwbrite-com:latest
+          podman manifest create docker.io/dwbrite/media-dwbrite-com:latest
+          podman manifest add docker.io/dwbrite/media-dwbrite-com:latest docker.io/dwbrite/media-dwbrite-com:latest-arm64
+          podman manifest add docker.io/dwbrite/media-dwbrite-com:latest docker.io/dwbrite/media-dwbrite-com:latest-amd64
+          podman manifest push docker.io/dwbrite/media-dwbrite-com:latest docker.io/dwbrite/media-dwbrite-com:latest
