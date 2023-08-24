@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dwbrite-com.fullname" . }}-main
+  labels:
+    {{- include "dwbrite-com.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "dwbrite-com.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}-main
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "dwbrite-com.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}-main
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-main
+          image: "{{ .Values.web_server.repository }}:{{ .Values.web_server.tag }}"
+          imagePullPolicy: {{ .Values.web_server.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dwbrite-com.fullname" . }}-media
+  labels:
+    {{- include "dwbrite-com.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "dwbrite-com.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}-media
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "dwbrite-com.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}-media
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-media
+          image: "{{ .Values.media_server.repository }}:{{ .Values.media_server.tag }}"
+          imagePullPolicy: {{ .Values.media_server.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP

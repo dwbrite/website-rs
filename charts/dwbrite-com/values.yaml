@@ -1,0 +1,23 @@
+web_server:
+  repository: docker.io/dwbrite/dwbrite-com
+  tag: latest
+  pullPolicy: IfNotPresent
+  service:
+    name: "dwbrite-com-main"
+    type: LoadBalancer
+    port: 80
+    targetPort: 41234
+
+media_server:
+  repository: docker.io/dwbrite/media-dwbrite-com
+  tag: latest
+  pullPolicy: IfNotPresent
+  service:
+    name: "dwbrite-com-media"
+    type: LoadBalancer
+    port: 80
+    targetPort: 41233
+
+serviceAccount:
+  create: true
+  annotations: {}
