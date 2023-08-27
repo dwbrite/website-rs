@@ -6,21 +6,26 @@ on:
 
 jobs:
   build-dwbrite-com-arm64:
-    runs-on: ubuntu-22.04
+    runs-on: arc-runner-set
     steps:
       - uses: actions/checkout@v3
-      - name: Install podman
-        run: sudo apt-get -y install podman
-      - name: Podman login
-        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-        with:
-          platforms: all
+      - name: Install docker (fucking WHY)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce
+      - name: Start Docker
+        run: |
+          sudo dockerd &
+      - name: docker login
+        run: docker login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and Push dwbrite-com / arm64
         run: |
-          podman build --platform linux/arm64 -t docker.io/dwbrite/dwbrite-com:latest-arm64 -f dwbrite-com/Dockerfile .
-          podman push docker.io/dwbrite/dwbrite-com:latest-arm64
+          docker build --network=host --platform linux/arm64 -t docker.io/dwbrite/dwbrite-com:latest-arm64 -f dwbrite-com/Dockerfile .
+          docker push docker.io/dwbrite/dwbrite-com:latest-arm64
 
   build-dwbrite-com-amd64:
     runs-on: ubuntu-22.04
@@ -36,21 +41,26 @@ jobs:
           podman push docker.io/dwbrite/dwbrite-com:latest-amd64
 
   build-media-dwbrite-com-arm64:
-    runs-on: ubuntu-22.04
+    runs-on: arc-runner-set
     steps:
       - uses: actions/checkout@v3
-      - name: Install podman
-        run: sudo apt-get -y install podman
-      - name: Podman login
-        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-        with:
-          platforms: all
+      - name: Install docker (fucking WHY)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce
+      - name: Start Docker
+        run: |
+          sudo dockerd &
+      - name: docker login
+        run: docker login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and Push media-dwbrite-com / arm64
         run: |
-          podman build --platform linux/arm64 -t docker.io/dwbrite/media-dwbrite-com:latest-arm64 -f media-dwbrite-com/Dockerfile .
-          podman push docker.io/dwbrite/media-dwbrite-com:latest-arm64
+          docker build --network=host --platform linux/arm64 -t docker.io/dwbrite/media-dwbrite-com:latest-arm64 -f media-dwbrite-com/Dockerfile .
+          docker push docker.io/dwbrite/media-dwbrite-com:latest-arm64
 
   build-media-dwbrite-com-amd64:
     runs-on: ubuntu-22.04
