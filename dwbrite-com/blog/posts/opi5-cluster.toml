@@ -1,0 +1,411 @@
+title = "building a cheaper kubernetes cluster at home"
+date = 2023-09-14
+tags = ["etc"]
+content = """
+<p>
+    Before we get into it, I'll keep this short and sweet.
+</p>
+
+<p>
+    I am looking for work.
+</p>
+
+<p>
+    I'm a software developer specializing in backend development, infrastructure, and devops.
+    I'm also interested in and have explored embedded firmware, rendering, and electrical engineering.
+    Three things I really care about are reproducibility, documentation, and community.
+    Take a look at my <a href="https://dwbrite.com/resume/resume.pdf">resume</a> if you're hiring - or even if you're not!
+    Heck, send it to your friends.
+</p>
+
+<p> contact me: dwbrite at  gmail dot com</p>
+
+<hr/>
+
+<p>
+    At the end of 2022 I was hosting my website on Linode Kubernetes Engine.
+    My monthly spend reached $48/mo for a <em><dfn title="very">slightly</dfn></em> excessive setup - but, in fairness,
+    I was doing a lot of experimentation on Linode.
+</p>
+<p>
+    I had just lost my job at Remediant<sup><a href="#fn0-2023-09-14" id="ref0-2023-09-14">[0]</a></sup>
+    and this monthly subscription was enough to make me a <em>little</em> uncomfortable while unemployed, so I set a new goal:
+</p>
+
+<p>
+    Build my own kubernetes cluster that's stronger and <q>cheaper</q>,
+    so that I could still run my website (and various other servers),
+    should finding a job take too long.
+</p>
+
+<h3>step 1: hardware</h3>
+
+<p>
+    The Orange Pi 5 came out less than two months before I decided to build my own cluster.
+    It's an <a href="https://browser.geekbench.com/v5/cpu/compare/19357188?baseline=19357599">8 core little beast</a>
+    with 8GB RAM for $90 MSRP, at a time when the Raspberry Pi 4B was going for $200, if you could even find it.
+</p>
+
+<p>
+    On the surface, OS support seemed pretty good.
+    It was an obvious choice, if a bit overkill - being 3-4x stronger than the RPi.
+    I bought 3 with an estimated ROI period of just under a year -
+    <em>not including</em> the benefits of far more capable hardware than I could find from VPS providers.
+</p>
+
+<h3>step 2: networking</h3>
+
+<p>
+    At my apartment in NYC I was behind CGNAT<sup><a href="#fn1-2023-09-14" id="ref1-2023-09-14">[1]</a></sup> with NYC Mesh, and IPv6 support was (is) nonexistent.
+    That left me with two options:
+</p>
+
+<ol>
+    <li>Giving a third party unencrypted access to all traffic flowing into and out of my cluster (see:&nbsp;Cloudflare&nbsp;Tunnels), or</li>
+    <li>Hosting at my mom's house.</li>
+</ol>
+
+<p>
+    I opted for the latter (thanks mom), which meant progress slowed significantly until I moved back in with her.
+</p>
+<p>
+    When I got there, I upgraded our firewall/router to a mini PC running VyOS.
+    This allowed me to define my <a href="https://github.com/dwbrite/firenet/blob/master/provisioning/config/config.boot.j2">firewall's configuration as code</a>,
+    upload it with Ansible, and not have to manually dig around in some UI for each change.
+    It's similar to Ubiquiti's EdgeOS and Juniper's Junos OS in that way.
+</p>
+<p>
+    I find it incredibly comforting that configuration is easy to reproduce and/or roll back.
+</p>
+
+<h3>step 3: building the cluster</h3>
+
+<p>
+    Before I could think about Kubernetes, I needed an OS to run it on.
+    And before that, I needed to be able to boot from the NVMe drive, which the Orange Pi 5 does not support out of the box.
+    Fortunately the process to boot from NVMe is tolerable enough -
+    just load up an official Orange Pi distro and update the SPI_FLASH bootloader via <a href="https://jamesachambers.com/orange-pi-5-ssd-boot-guide/">orangepi-config</a>.
+</p>
+<p>
+    Once I did that, I installed RebornOS on a USB and wrote a makefile to do some initial config and copy the install to each machine's NVMe drive.
+    I chose RebornOS because it <em>appeared</em> to be better supported than other distributions.
+    And honestly, the official Orange Pi distros seemed kind of sketchy<sup><a href="#fn2-2023-09-14" id="ref2-2023-09-14">[2]</a></sup>.
+</p>
+<p>
+    I opted for k0s as my kubernetes distribution, because it's ridiculously easy to install and
+    it allows me to declaritively define my cluster's topology.
+</p>
+<p>
+    I was also already familiar with Mirantis because of Lens, which certainly helped.
+</p>
+<p>
+    Small hiccup: while k0s does support ARM64, the k0s <em>controller</em> can't run on ARM because of some issue with etcd.
+</p>
+<p>
+    Poor man's solution: run the k0s controller on my x86 firewall, and remember to never ever ever (ever) open port 6443.
+</p>
+<p>
+    It took less than an hour to get a proper kubernetes cluster running.
+</p>
+
+<h3>step 4: system applications</h3>
+
+<p>
+    Having worked with kubernetes only in the context of cloud providers,
+    I expected many things to <q>just work</q> out of the box.
+</p>
+<p>
+    To test the cluster I attempted to deploy a basic web server with nginx-ingress-controller and cert-manager.
+</p>
+<p>
+    I found out pretty quickly that if I wanted to create a LoadBalancer Service, I'd need a load balancer.
+    On a whim, I installed MetalLB and it worked with minimal configuration.
+    Just as well, I now had a discrete pool of IP addresses I could port forward to.
+</p>
+<p>
+    Then I decided, fuck it, let's learn Istio, and I replaced nginx-ingress-controller.
+    The switch was surprisingly easy, and I'd say it feels slightly cleaner overall.
+</p>
+<p>
+    I also installed ArgoCD so I could manage the applications running on my cluster
+    <em>without</em> having to rely strictly on helm.
+    This has the added benefit that I don't have to worry <em>as much</em> about my deployments,
+    especially when resources deploy out of order.
+</p>
+
+<h3>step 5: continuous integration and pain</h3>
+
+<p>
+    After I demo'd Istio and friends, I wanted to get my <em>real</em> website up.
+    To do that, I needed to build ARM container images for it.
+</p>
+<p>
+    On Github Actions, this took <a href="https://github.com/dwbrite/website-rs/actions/runs/5948160261">over an hour</a>.
+    But I'm impatient, and I had some very capable little ARM machines within walking distance.
+</p>
+<p>
+    <em>So</em>, I deployed the github actions runner controller, to control deployment of github actions self-hosted runners. :^)
+</p>
+<p>
+    This was the first time anything on my cluster <del>needed</del> wanted to create persistent volumes,
+    and apparently I did not have a storage provisioner.
+</p>
+<p>
+    *sigh*
+</p>
+<p>
+    So, I installed Ceph+Rook.
+</p>
+<p>
+    My memory of that ordeal is entirely gone, but suffice to say <em>something</em> didn't work,
+    and configuration was a bit painful. Then reddit said <q>Longhorn should be simpler</q>, so I pivoted to that.
+</p>
+<p>
+    I installed it with ArgoCD and helm, and...
+</p>
+
+<figure>
+<blockquote>
+    *Bzzt* 🤖<br/>
+    You don't have iSCSI support! I can't work with this!
+</blockquote>
+</figure>
+
+<p>
+    Turns out RebornOS for the Orange Pi 5 doesn't have iSCSI kernel modules.
+</p>
+<p>
+    But that's fine I guess. It had been several months since I installed RebornOS,
+    and Joshua Riek's <a href="https://github.com/Joshua-Riek/ubuntu-rockchip">ubuntu-rockchip</a> distro
+    was really picking up steam.
+    I installed ubuntu-rockchip on one machine and gave Longhorn another go.
+    I set every nodeSelector I could find in Helm to target that machine, but alas-
+</p>
+
+<figure>
+<blockquote>
+    *Bzzt* 🤖<br/>
+    No iSCSI support on <q><im>non-storage machines</im></q>, idiot. <br/>
+    <br/>
+    P.S., we don't have a way to set nodeSelector for this specific DaemonSet lol.
+    Try taints and tolerations, I promise that'll work *wink wink*. <sup><a href="#fn3-2023-09-14" id="ref3-2023-09-14">[3]</a></sup>
+</blockquote>
+</figure>
+
+<p>
+    So I set some taints and tolerations, even though I would have <em>really</em> preferred to stick with nodeSelectors.
+</p>
+
+<figure>
+<blockquote>
+    *Bzzt* 🤖<br/>
+    Are you fucking stupid?! I can't deploy this pod to <q><im>non-storage machines</im></q>, it's tainted!
+</blockquote>
+</figure>
+
+<p>
+    ... 😐
+</p>
+
+<hr/>
+
+<p>
+    So I started from scratch with OpenEBS.
+    Mayastor seemed to be the best storage engine for OpenEBS, <em>and</em> it looked easy to configure,
+    <em>and</em> it's written in Rust. So it <em>had</em> to be a good choice.
+</p>
+<p>
+    One small problem: it doesn't run on ARM.
+</p>
+<p>
+    ...<a href="https://github.com/openebs/mayastor-extensions/pull/7">Unless?</a>
+</p>
+<p>
+    Xinliang Liu - my hero - added ARM support to mayastor-extensions <em>and</em> published his images.
+</p>
+<p>
+    With a bit of modification, it <a href="https://github.com/dwbrite/mayastor-extensions">fucking</a>.
+    <a href="https://github.com/dwbrite/openebs-charts">worked</a>!
+</p>
+<p>
+    Well... Almost.
+</p>
+<p>
+    There was just one more issue.
+    Mayastor relies on nvme_fabric, which is not enabled by default in the linux-rockchip kernel.
+</p>
+<p>
+    So I <a href="https://github.com/dwbrite/linux-rockchip">enabled it</a>, compiled ubuntu-rockchip myself, and finally got persistent volumes working.
+    If you're looking to reproduce this, you can compile ubuntu-rockchip yourself, or use the <a href="https://github.com/dwbrite/linux-rockchip/releases/tag/ubuntu-opi5%2Fnvme-fabric">image I built</a>.
+</p>
+<p>
+    Funny story though, you can actually disable the volume claims on <abbr title="Actions Runner Controller">ARC</abbr>, so none of this was really necessary at the time.
+    <em>But</em>, once I start running my plex ser--
+</p>
+
+<figure>
+<blockquote>
+    🤖 On ARM? Haaaahahahahahahaaha
+</blockquote>
+</figure>
+
+</p>
+<p>
+    Alright then, once I start running <em>Jellyfin</em> on the cluster, <em>and Outline</em>, I'll be happy I did all that.
+</p>
+
+<h3>step 6: blue/green deployments with istio and argocd </h3>
+
+<p>
+    Back to happy boring land,
+    I created two ArgoCD Applications which point to blue and green
+    <a href="https://github.com/dwbrite/firenet/tree/master/k8s/apps/website-rs/overlays">
+    Kustomize overlays</a> for my website's Deployment.
+</p>
+<p>
+    Each overlay points to a specific version/tag<sup><a href="#fn4-2023-09-14" id="ref4-2023-09-14">[4]</a></sup> of my website's container image, and labels the resources.
+    All I need to do to switch which one is live is modify the VirtualService and push my changes.
+</p>
+<p>
+    It's downright pleasant.
+</p>
+
+<h3> now and onwards, and other random thoughts </h3>
+
+<p>
+    As painful as <em>some of this</em> was, I'm very happy with the outcome, and it made an excellent learning experience.
+</p>
+<p>
+    I know a lot of people dislike kubernetes for being <q>over-complicated</q>, but once it's configured
+    it makes deploying new applications ridiculously easy.
+    And, I love when my projects are declaritive, automated, and reproducible. This has given me all of that.
+</p>
+
+
+<hr/>
+
+<p>
+    If you like the way I think, please hire me!
+</p>
+<p>
+    As noted, I've been out of work for 9 months.
+    Finding work in today's market has been extraordinarily tough.
+    Like, <em>0.5% response rate compared to 9% last year</em> tough.
+</p>
+<p>
+    I have a number of referrals available upon request, and one testimonial I'm particularly fond of.
+    Closing out after 7 months working for Remediant, a senior developer said to me:
+    "[I] think you've progressed well beyond junior devops at this point which is a testament to your ability and drive."
+</p>
+<p>
+    Thanks Scott :)
+</p>
+<p>
+    If you're looking for a backend engineer with DevOps chops, or junior-(ish?) DevOps engineer,
+    please take a look at my <a href="https://dwbrite.com/resume/resume.pdf">resume</a> and we can schedule a call.
+</p>
+
+
+<hr/>
+
+<p>
+    Onwards, for my cluster I have five... six... uh, -- many projects in mind:
+</p>
+
+<ul>
+    <li>My non-tech friend wants me to host her website; just a simple wordpress site</li>
+    <li>Jellyfin, and Some service to upload - or download ;) - media onto Jellyfin's data volume</li>
+    <li>Outline Wiki, to store my thoughts, ideas, and collections</li>
+    <li>Keycloak/Authelia/Authentik for authentication into cluster-hosted services<sup><a href="#fn5-2023-09-14" id="ref5-2023-09-14">[5]</a></sup></li>
+    <li>3-2-1 Backups.</li>
+    <li>Maybe putting an old laptop in the cluster to get x86 support where absolutely needed. Plex, I'm looking at you.</li>
+    <li>Hosting a free/public nameserver<sup><a href="#fn6-2023-09-14" id="ref6-2023-09-14">[6]</a></sup></li>
+    <li>I'd really like to do <em>something</em> with the GPU compute available on the Orange Pi 5.</li>
+</ul>
+
+<p>
+    At some point (maybe once some of these projects are finished)
+    I'd like to fork this project and turn it into an afforable and easily reproducible
+    "infrastructure blueprint", a la <a href="https://hackerspace.zone/Main_Page#">hackerspace.zone</a>.
+</p>
+
+
+<hr/>
+
+<p>
+    In other news, it seems support for the
+    <a href="https://lore.kernel.org/lkml/cover.1692632346.git.efectn@6tel.net/T/">Orange Pi 5 in mainline linux</a>
+    is on its way. Currently, all Orange Pi 5 distros are based on Rockchip's custom 5.10 kernel,
+    which as I recall isn't even <em>really</em> 5.10 in the first place.
+</p>
+
+
+<hr/>
+
+<p>
+    The total cost for my cluster was just under $500.
+    That's about $165 including a power supply and 256GB NVMe drive for each machine, plus tax.
+    It's a pretty steep up-front cost, and honestly one machine would have probably sufficed -
+    but then I wouldn't be able to play with DaemonSets or cordon my nodes to update their OS without losing a beat!
+</p>
+
+<p>
+    Not mentioned earlier, is that I accidentally fried one in a freak wiring incident
+    while attempting to access the serial interface, because I couldn't find my jumper wires. Oops.
+</p>
+
+<p>
+    The amortized recurring cost of the cluster, given infinite time, is something like $4/mo. But that's only because...
+</p>
+
+<p>
+    I'm not exposing my home's IP address to the world!
+    I have an nginx proxy on a cheap VPS for about $3.50/mo, and update my home's IP address in that with a
+    <a href="https://github.com/dwbrite/firenet/blob/master/k8s/system/proxy-networking/files/update_proxy.py">simple script</a>.
+</p>
+
+<p>
+    This also resolves the need for NAT hairpinning,
+    which is
+    <a href="https://forum.vyos.io/t/hairpin-nat/178">notoriously</a>
+    <a href="https://www.reddit.com/r/vyos/comments/lohvm8/hairpinnat_reflection_with_dynamic_ip/">difficult</a>
+    in <a href="https://forum.vyos.io/t/cannot-get-nat-hairpinning-to-work/7529/5">VyOS</a>.
+</p>
+
+<hr/>
+
+<p>
+    Fun fact: Chick-fil-A is notorious for running bare-metal kubernetes clusters
+    <a href="https://medium.com/chick-fil-atech/enterprise-restaurant-compute-f5e2fd63d20f">at each of their restaurants</a>
+    with consumer hardware! I just think this is a really neat idea and a fun piece of kubernetes lore :)
+</p>
+
+<hr/>
+
+<ul class="footnotes">
+
+
+<li><p><a href="#ref0-2023-09-14" id="fn0-2023-09-14">[0]</a> In December 2022, <a href="https://www.netwrix.com/netwrix_acquires_remediant_to_provide_customers_with_enhanced_privileged_access_security.html">Netwrix acquired Remediant</a>, and dropped the entire SaaS product and team. This included myself.</p></li>
+
+<li><p><a href="#ref1-2023-09-14" id="fn1-2023-09-14">[1]</a> It's actually possible to get a public IPv4 address assigned with NYC Mesh, but it involves talking to people, and I had the intuition I'd be moving in a few months anyway.</p></li>
+
+<li><p><a href="#ref2-2023-09-14" id="fn2-2023-09-14">[2]</a> Well, there's a script that runs on startup which curls baidu to see if the internet is working. Not incriminating, but not inspiring either.</p></li>
+
+<li><p><a href="#ref3-2023-09-14" id="fn3-2023-09-14">[3]</a> IIRC it was the longhorn-engine daemonset I couldn't set the nodeSelector on, and which I
+<a href="https://github.com/longhorn/charts/blob/3b57266ab050578a858b53b53c355eb3110e12c2/charts/longhorn/Chart.yaml#L18">could not</a>
+find a
+<a href="https://github.com/search?q=repo%3Alonghorn%2Flonghorn-engine%20Chart.yaml&type=code">source for</a>.
+The <a href="https://longhorn.io/docs/1.5.1/advanced-resources/deploy/node-selector/">docs</a> did not help.
+In retrospect, I probably could have found a solution by digging a little deeper -
+perhaps by looking at the manifests generated in ArgoCD.
+Alas, I am human with limits on frustration and hope, and OpenEBS was starting to look very compelling.
+</p></li>
+
+<li><p><a href="#ref4-2023-09-14" id="fn4-2023-09-14">[4]</a> Okay, you caught me, I haven't actually started tagging my releases. I have everything pointing to :latest 😭.
+But I do have the overlays set up to do it, should I want to. I just have other priorities right now, okay?!</p></li>
+
+<li><p><a href="#ref5-2023-09-14" id="fn5-2023-09-14">[5]</a> Outline, Matrix, <a href="https://github.com/9p4/jellyfin-plugin-sso">maybe Jellyfin</a>. I'm not sure what else I'll host.</p></li>
+
+<li><p><a href="#ref6-2023-09-14" id="fn6-2023-09-14">[6]</a> Since discovering that the domain ns.agency was available, and then purchasing it, I have become slightly obsessed with this idea.</li>
+</ul>
+"""
