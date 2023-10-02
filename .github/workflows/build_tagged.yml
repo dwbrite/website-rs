@@ -102,9 +102,9 @@ jobs:
       - name: Create and push manifests
         run: |
           podman manifest create docker.io/dwbrite/dwbrite-com:${TAG_NAME}
-          podman manifest add docker.io/dwbrite/dwbrite-com:${TAG_NAME} docker.io/dwbrite/dwbrite-com:${TAG_NAME}-arm64
-          podman manifest add docker.io/dwbrite/dwbrite-com:${TAG_NAME} docker.io/dwbrite/dwbrite-com:${TAG_NAME}-amd64
-          podman manifest push docker.io/dwbrite/dwbrite-com:${TAG_NAME} docker.io/dwbrite/dwbrite-com:${TAG_NAME}
+          podman manifest add docker.io/dwbrite/dwbrite-com:${{ steps.tag.outputs.TAG_NAME }} docker.io/dwbrite/dwbrite-com:${TAG_NAME}-arm64
+          podman manifest add docker.io/dwbrite/dwbrite-com:${{ steps.tag.outputs.TAG_NAME }} docker.io/dwbrite/dwbrite-com:${TAG_NAME}-amd64
+          podman manifest push docker.io/dwbrite/dwbrite-com:${{ steps.tag.outputs.TAG_NAME }} docker.io/dwbrite/dwbrite-com:${TAG_NAME}
 
   manifest-and-push-media-dwbrite-com:
     runs-on: ubuntu-22.04
@@ -121,6 +121,6 @@ jobs:
       - name: Create and push manifests
         run: |
           podman manifest create docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}
-          podman manifest add docker.io/dwbrite/media-dwbrite-com:${TAG_NAME} docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}-arm64
-          podman manifest add docker.io/dwbrite/media-dwbrite-com:${TAG_NAME} docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}-amd64
-          podman manifest push docker.io/dwbrite/media-dwbrite-com:${TAG_NAME} docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}
+          podman manifest add docker.io/dwbrite/media-dwbrite-com:${{ steps.tag.outputs.TAG_NAME }} docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}-arm64
+          podman manifest add docker.io/dwbrite/media-dwbrite-com:${{ steps.tag.outputs.TAG_NAME }} docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}-amd64
+          podman manifest push docker.io/dwbrite/media-dwbrite-com:${{ steps.tag.outputs.TAG_NAME }} docker.io/dwbrite/media-dwbrite-com:${TAG_NAME}
