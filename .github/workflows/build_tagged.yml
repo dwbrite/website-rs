@@ -1,0 +1,126 @@
+name: Container CI / Tagged
+
+on:
+  create:
+    tags: [ '*' ]
+
+jobs:
+  build-dwbrite-com-arm64:
+    runs-on: arc-runner-set
+    steps:
+      - name: Extract Tag Name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Install docker (fucking WHY)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce
+      - name: Start Docker
+        run: |
+          sudo dockerd &
+      - name: docker login
+        run: docker login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and Push dwbrite-com / arm64
+        run: |
+          docker build --network=host --platform linux/arm64 -t docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}-arm64 -f dwbrite-com/Dockerfile .
+          docker push docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}-arm64
+
+  build-dwbrite-com-amd64:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Extract Tag Name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Install podman
+        run: sudo apt-get -y install podman
+      - name: Podman login
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and Push dwbrite-com / amd64
+        run: |
+          podman build --platform linux/amd64 -t docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}-amd64 -f dwbrite-com/Dockerfile .
+          podman push docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}-amd64
+
+  build-media-dwbrite-com-arm64:
+    runs-on: arc-runner-set
+    steps:
+      - name: Extract Tag Name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Install docker (fucking WHY)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce
+      - name: Start Docker
+        run: |
+          sudo dockerd &
+      - name: docker login
+        run: docker login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and Push media-dwbrite-com / arm64
+        run: |
+          docker build --network=host --platform linux/arm64 -t docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }}-arm64 -f media-dwbrite-com/Dockerfile .
+          docker push docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }}-arm64
+
+  build-media-dwbrite-com-amd64:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Extract Tag Name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Install podman
+        run: sudo apt-get -y install podman
+      - name: Podman login
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and Push media-dwbrite-com / amd64
+        run: |
+          podman build --platform linux/amd64 -t docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }}-amd64 -f media-dwbrite-com/Dockerfile .
+          podman push docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }}-amd64
+
+  manifest-and-push-dwbrite-com:
+    runs-on: ubuntu-22.04
+    needs: [build-dwbrite-com-arm64, build-dwbrite-com-amd64]
+    steps:
+      - name: Extract Tag Name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Install podman
+        run: sudo apt-get -y install podman
+      - name: Podman login
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Create and push manifests
+        run: |
+          podman manifest create docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }} 
+          podman manifest add docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }} docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}-arm64
+          podman manifest add docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }} docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}-amd64
+          podman manifest push docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }} docker.io/dwbrite/dwbrite-com:${{ env.TAG_NAME }}
+
+  manifest-and-push-media-dwbrite-com:
+    runs-on: ubuntu-22.04
+    needs: [build-media-dwbrite-com-arm64, build-media-dwbrite-com-amd64]
+    steps:
+      - name: Extract Tag Name
+        id: tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Install podman
+        run: sudo apt-get -y install podman
+      - name: Podman login
+        run: podman login docker.io -u dwbrite -p ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Create and push manifests
+        run: |
+          podman manifest create docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }} 
+          podman manifest add docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }} docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }}-arm64
+          podman manifest add docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }} docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }}-amd64
+          podman manifest push docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }} docker.io/dwbrite/media-dwbrite-com:${{ env.TAG_NAME }} 
