@@ -75,7 +75,7 @@ content = """
     It's similar to Ubiquiti's EdgeOS and Juniper's Junos OS in that way.
 </p>
 <p>
-    I find it incredibly comforting that configuration is easy to reproduce and/or roll back.
+    I find it incredibly comforting that my network configuration is easy to reproduce or roll back.
 </p>
 
 <h3>step 3: building the cluster</h3>
@@ -100,6 +100,7 @@ content = """
 </p>
 <p>
     Small hiccup: while k0s does support ARM64, the k0s <em>controller</em> can't run on ARM because of some issue with etcd.
+    I didn't look much into it, but...:
 </p>
 <p>
     Poor man's solution: run the k0s controller on my x86 firewall, and remember to never ever ever (ever) open port 6443.
@@ -401,11 +402,10 @@ perhaps by looking at the manifests generated in ArgoCD.
 Alas, I am human with limits on frustration and hope, and OpenEBS was starting to look very compelling.
 </p></li>
 
-<li><p><a href="#ref4-2023-09-14" id="fn4-2023-09-14">[4]</a> Okay, you caught me, I haven't actually started tagging my releases. I have everything pointing to :latest 😭.
-But I do have the overlays set up to do it, should I want to. I just have other priorities right now, okay?!</p></li>
+<li><p><a href="#ref4-2023-09-14" id="fn4-2023-09-14">[4]</a>see: <a href="https://github.com/dwbrite/firenet/blob/master/k8s/apps/website-rs/overlays/blue/kustomization.yaml">overlays</a> and <a href="https://github.com/dwbrite/firenet/blob/master/k8s/apps/website-rs/routing/virtualservice.yaml">routing</a>. This works well enough for blue/green. I'd like to add a few features here, like maybe having blue and green.dwbrite.com so I can see changes before putting them live. Maybe those could only be accessible from LAN (via VPN?). I'd also like to get some canarying/automated deployment going. I have Flagger in mind for this.</p></li>
 
 <li><p><a href="#ref5-2023-09-14" id="fn5-2023-09-14">[5]</a> Outline, Matrix, <a href="https://github.com/9p4/jellyfin-plugin-sso">maybe Jellyfin</a>. I'm not sure what else I'll host.</p></li>
 
-<li><p><a href="#ref6-2023-09-14" id="fn6-2023-09-14">[6]</a> Since discovering that the domain ns.agency was available, and then purchasing it, I have become slightly obsessed with this idea.</li>
+<li><p><a href="#ref6-2023-09-14" id="fn6-2023-09-14">[6]</a> Since discovering that the domain <code>ns.agency</code> was available, and then purchasing it, I have become slightly obsessed with this idea of hosting a public nameserver. Public utilities like this are so enchanting to me. If you haven't heart of sdf.org, I recommend checking it out.</li>
 </ul>
 """
