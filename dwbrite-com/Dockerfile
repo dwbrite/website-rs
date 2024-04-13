@@ -15,6 +15,6 @@ COPY --from=builder ./dwbrite-com/target/release/dwbrite-com  /dwbrite-com/dwbri
 
 WORKDIR /dwbrite-com
 
-RUN apt-get -y update && apt-get install -y libssl-dev # libssl3
+RUN apt-get -y update && apt-get install -y libssl-dev ca-certificates
 CMD ["./dwbrite-com"]
 EXPOSE 41234
