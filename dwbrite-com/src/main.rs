@@ -75,19 +75,8 @@ fn main() {
 
     compile_sass().unwrap();
 
-    // wait for internet connectivity
-    loop {
-        match TcpStream::connect_timeout(&"8.8.8.8:53".parse().unwrap(), Duration::from_secs(1)) {
-            Ok(_) => {
-                println!("Internet connection is available.");
-                break;
-            }
-            Err(e) => {
-                println!("Waiting for internet connection... Error: {}", e);
-                thread::sleep(Duration::from_secs(1));
-            }
-        }
-    }
+    // wait for internet connectivity :')
+    thread::sleep(Duration::from_secs(15));
 
     let opt = Opt::from_args();
 

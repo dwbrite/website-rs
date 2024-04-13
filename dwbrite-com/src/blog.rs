@@ -147,7 +147,7 @@ impl RawBlogPost {
     fn codify_media(&mut self) {
         let re = Regex::new(r#"<m src="(.*?)".*?>"#).unwrap();
         let result = re.replace_all(&self.content, |caps: &Captures| -> String {
-            let mediadata_url = format!("http://media.dwbrite.com/registry/{}", &caps[1]);
+            let mediadata_url = format!("https://media.dwbrite.com/registry/{}", &caps[1]);
 
             let mut option_data = None;
             match reqwest::blocking::get(&mediadata_url) {
@@ -159,7 +159,8 @@ impl RawBlogPost {
                     let data: MediaData = serde_json::from_slice(bytes.to_vec().as_slice()).unwrap();
                     option_data = Some(data);
                 }
-                Err(_) => {
+                Err(e) => {
+                    println!("REEEEEEEEEEEEEEE: {:?}", e);
                     return String::from("[Could not load media at startup. The media server may be down.]")
                 }
             }
