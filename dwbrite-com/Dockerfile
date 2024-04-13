@@ -1,10 +1,10 @@
-FROM rustlang/rust:nightly AS builder
+FROM rustlang/rust:nightly-bookworm AS builder
 COPY ./common ./common
 COPY ./dwbrite-com ./dwbrite-com
 RUN cargo build --release --manifest-path=./dwbrite-com/Cargo.toml #insert $MEDIA_BASE_URL
 
 
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 COPY --from=builder ./dwbrite-com/.well-known                 /dwbrite-com/.well-known
 COPY --from=builder ./dwbrite-com/blog                        /dwbrite-com/blog
