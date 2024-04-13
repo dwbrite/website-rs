@@ -6,8 +6,10 @@ use rocket::config::Value;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use serde::{Deserialize, Serialize};
-use std::fs;
+use std::{fs, thread};
+use std::net::TcpStream;
 use std::path::Path;
+use std::time::Duration;
 use structopt::StructOpt;
 
 mod blog;
@@ -72,6 +74,20 @@ fn main() {
     use blog::routes::MountBlog;
 
     compile_sass().unwrap();
+
+    // wait for internet connectivity
+    loop {
+        match TcpStream::connect_timeout(&"8.8.8.8:53".parse().unwrap(), Duration::from_secs(1)) {
+            Ok(_) => {
+                println!("Internet connection is available.");
+                break;
+            }
+            Err(e) => {
+                println!("Waiting for internet connection... Error: {}", e);
+                thread::sleep(Duration::from_secs(1));
+            }
+        }
+    }
 
     let opt = Opt::from_args();
 
