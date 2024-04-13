@@ -147,7 +147,7 @@ impl RawBlogPost {
     fn codify_media(&mut self) {
         let re = Regex::new(r#"<m src="(.*?)".*?>"#).unwrap();
         let result = re.replace_all(&self.content, |caps: &Captures| -> String {
-            let mediadata_url = format!("http://media.dwbrite.com/registry/{}", &caps[1]);
+            let mediadata_url = format!("https://media.dwbrite.com/registry/{}", &caps[1]);
 
             let mut option_data = None;
             match reqwest::blocking::get(&mediadata_url) {
