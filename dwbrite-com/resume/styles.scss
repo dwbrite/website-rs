@@ -61,6 +61,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 0.5em;
 }
 
 h2, h3, h4 {
@@ -81,7 +82,7 @@ h2, h3, h4 {
 
 ul {
   padding: 0;
-  margin: -1em 0.25em 1em;
+  margin: 0.0em 1em 0.0em 1em;
 
   li {
     list-style-type: none;
@@ -107,6 +108,10 @@ div.footer {
   font-style: italic;
 }
 
+hr {
+  border-bottom: 1px;
+  border-color: black;
+}
 
 div.pdf-ribbon {
   width: 0px;

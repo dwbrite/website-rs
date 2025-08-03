@@ -1,4 +1,4 @@
-# dwbrite.com, but this time in rust
+dwbrite# dwbrite.com, but this time in rust
 
 website-rs consists of a media server and a frontend server, used for hosting [dwbrite.com](https://dwbrite.com).
 
